@@ -1,0 +1,12 @@
+public class Main {
+    public static void main (String[] args) {
+        int[] arr = {9, 2, 7, 6, 5, 4, 3, 7, 8, 9, 0, 1};
+        int n = arr.length;
+
+        Sorting sorting = new MergeSort();
+        sorting.sort(arr);
+        for(int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
