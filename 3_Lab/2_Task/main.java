@@ -4,15 +4,30 @@ import java.util.List;
 import java.math.BigInteger;
 
 public class main {
-    public static void sort(List<BigInteger> nums) {
-        for(BigInteger obj : nums) {
-            String str = obj.toString();
-            if (str.length() >= 3) {
-                char digitChar = str.charAt(2);
-                int digit = Character.getNumericValue(digitChar);
+    public static void sort(List<BigInteger> arr) {
+        // String str = obj.toString();
+        // char digitChar = str.charAt(2);
+        // int digit = Character.getNumericValue(digitChar);
+        // System.out.println(digit);
+        // System.out.println(obj.intValue() / 10 % 10);
+        // System.out.println(obj);
+        int k = 1;
+        for(int i = 0; i < 3; i++, k *= 10) {
+            int count[] = new int[10];
+            for(BigInteger num : arr) {
+                
+                System.out.print(num + " ");
+                int digit = num.intValue() / k % 10;
                 System.out.println(digit);
+
+
+                count[digit]++;
             }
-        }       
+            for(int j : count) {
+                System.out.print(", " + j);
+            }
+            System.out.println(" ");
+        }
     }
     
     public static void main(String[] args) {
@@ -33,7 +48,3 @@ public class main {
     }
 
 }
-// BigInteger num1 = new BigInteger("19446744073709551657");
-// BigInteger num2 = new BigInteger("18446744073709551616");
-// BigInteger num3 = new BigInteger("18446744073709551629");
-// BigInteger num4 = new BigInteger("18446744073709551633");
