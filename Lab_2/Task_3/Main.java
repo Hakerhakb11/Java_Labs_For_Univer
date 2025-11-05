@@ -12,15 +12,12 @@ class Main {
         students.add(new Student("Antonio", 23));
         int N = students.size();
         System.out.println(N);
+
+        StructSort sorting = new StructSort();
+
+        sorting.sortByAge(students);
+        sorting.sortByName(students);
         
-        students.sort((s1, s2) -> {
-            return Integer.compare(s1.getage(), s2.getage());
-        } );
-        
-        students.sort((s1, s2) -> {
-            return s1.getname().compareTo(s2.getname());
-        });
-     
         for (Student obj : students) {
             System.out.println(obj.getname() + " " + obj.getage());
         }
