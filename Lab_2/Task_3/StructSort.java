@@ -1,6 +1,5 @@
 package Lab_2.Task_3;
 
-// import For_Sortings.Sorting; Как можно так сделать но только чтобы работало
 import java.util.List;
 
 public class StructSort implements Sorting<Student> {

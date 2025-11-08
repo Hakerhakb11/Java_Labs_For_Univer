@@ -1,23 +1,26 @@
 package For_Sortings;
 
-public class MergeSort implements Sorting2<Integer> {
+import java.util.List;
+import java.util.ArrayList;
+
+public class MergeSort implements Sorting<Integer> {
     @Override
-    public void sort(int[] arr) {
+    public void sort(List<Integer> arr) {
         merge(arr);
     }
 
-    public void merge(int arr[]) {
-        if (arr.length > 1) {
-            int mid = arr.length / 2;
-            int[] left_half = new int[mid];
-            int[] right_half = new int[arr.length - mid];
+    public void merge(List<Integer> arr) {
+        if (arr.size() > 1) {
+            int mid = arr.size() / 2;
+            List<Integer> left_half = new ArrayList<Integer>(mid);
+            List<Integer> right_half = new ArrayList<Integer>(arr.size() - mid);
 
             for (int i = 0; i < mid; i++) {
-                left_half[i] = arr[i];
+                left_half.add(i, arr.get(i));
             }
 
-            for (int i = mid; i < arr.length; i++) {
-                right_half[i - mid] = arr[i];
+            for (int i = mid; i < arr.size(); i++) {
+                right_half.add(i - mid, arr.get(i));
             }
 
             merge(left_half);
@@ -27,25 +30,25 @@ public class MergeSort implements Sorting2<Integer> {
             int j = 0;
             int k = 0;
 
-            while (left_half.length > i && right_half.length > j) {
-                if (left_half[i] > right_half[j]) {
-                    arr[k] = right_half[j];
+            while (left_half.size() > i && right_half.size() > j) {
+                if (left_half.get(i) > right_half.get(j)) {
+                    arr.set(k, right_half.get(j));
                     j++;
                 } else {
-                    arr[k] = left_half[i];
+                    arr.set(k, left_half.get(i));
                     i++;
                 }
                 k++;
             }
 
-            while (i < left_half.length) {
-                arr[k] = left_half[i];
+            while (i < left_half.size()) {
+                arr.set(k, left_half.get(i));
                 i++;
                 k++;
             }
 
-            while (j < right_half.length) {
-                arr[k] = right_half[j];
+            while (j < right_half.size()) {
+                arr.set(k, right_half.get(j));
                 j++;
                 k++;
             }

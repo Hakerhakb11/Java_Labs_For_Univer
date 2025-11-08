@@ -5,18 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RadixSort implements Sorting<BigInteger> {
+    private final int BASE = 10;
+    
     @Override
     public void sort(List<BigInteger> arr) {
         int k = 1;
-        for(int i = 0; i < 20; i++, k *= 10) {
-            int count[] = new int[10];
+        for(int i = 0; i < 20; i++, k *= BASE) {
+            int count[] = new int[BASE];
         
             for(BigInteger num : arr) {
-                BigInteger temp = num.divide(BigInteger.valueOf(k)).mod(BigInteger.valueOf(10));
+                BigInteger temp = num.divide(BigInteger.valueOf(k)).mod(BigInteger.valueOf(BASE));
                 int digit = temp.intValue(); 
                 count[digit]++;
             }    
-            for(int j = 1; j < 10; j++) {
+            for(int j = 1; j < BASE; j++) {
                 count[j] += count[j - 1];
             }
             
@@ -27,7 +29,7 @@ public class RadixSort implements Sorting<BigInteger> {
             
             for(int j = arr.size() - 1 ; j >= 0; j--) {
                 BigInteger num = arr.get(j);
-                BigInteger temp = num.divide(BigInteger.valueOf(k)).mod(BigInteger.valueOf(10));
+                BigInteger temp = num.divide(BigInteger.valueOf(k)).mod(BigInteger.valueOf(BASE));
                 int digit = temp.intValue(); 
                 newArr.set(count[digit] - 1, num);
                 count[digit]--;

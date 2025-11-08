@@ -1,4 +1,4 @@
-package Task_1;
+package Lab_3.Task_1;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Task_2;
+package Lab_3.Task_2;
 
 import java.math.BigInteger;
 import java.util.Arrays;

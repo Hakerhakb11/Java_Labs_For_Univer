@@ -10,8 +10,7 @@ class Main {
         students.add(new Student("Anton  ", 22));
         students.add(new Student("Vasya  ", 19));
         students.add(new Student("Antonio", 23));
-        int N = students.size();
-        System.out.println(N);
+        System.out.println(students.size());
 
         StructSort sorting = new StructSort();
 
