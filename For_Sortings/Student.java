@@ -1,4 +1,4 @@
-package Lab_2.Task_3;
+package For_Sortings;
 
 public class Student implements Comparable<Student> {
     private String name;

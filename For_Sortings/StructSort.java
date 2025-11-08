@@ -1,4 +1,4 @@
-package Lab_2.Task_3;
+package For_Sortings;
 
 import java.util.List;
 
