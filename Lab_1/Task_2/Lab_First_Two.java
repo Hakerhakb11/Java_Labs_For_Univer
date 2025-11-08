@@ -7,7 +7,7 @@ public class Lab_First_Two {
 
             RemoveInplace removeInplace = new RemoveInplace();
             
-            int count = removeInplace.remove_elem_inplace(arr, val);
+            int count = removeInplace.removeElemInplace(arr, val);
             
             System.out.print("\nOutput: " + count + ", arr = [");
             for(int k = 0; k < count; k++) {
