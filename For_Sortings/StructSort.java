@@ -11,13 +11,13 @@ public class StructSort implements Sorting<Student> {
     
     public void sortByAge(List<Student> students) {
         students.sort((s1, s2) -> {
-            return Integer.compare(s1.getage(), s2.getage());
+            return Integer.compare(s1.getAge(), s2.getAge());
         } );
         
     }
     public void sortByName(List<Student> students) {
         students.sort((s1, s2) -> {
-            return s1.getname().compareTo(s2.getname());
+            return s1.getName().compareTo(s2.getName());
         });
     }
 }

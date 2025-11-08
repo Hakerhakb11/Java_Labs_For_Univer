@@ -8,7 +8,6 @@ import For_Sortings.Student;
 class Main {
     public static void main(String[] args) {
         List<Student> students = new ArrayList<>();
-
         students.add(new Student("Vasya  ", 21));
         students.add(new Student("Anton  ", 22));
         students.add(new Student("Vasya  ", 19));
@@ -19,7 +18,7 @@ class Main {
         sorting.sort(students);
 
         for (Student obj : students) {
-            System.out.println(obj.getname() + " " + obj.getage());
+            System.out.println(obj.getName() + " " + obj.getAge());
         }
     }
 }
