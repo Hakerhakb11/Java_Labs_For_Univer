@@ -1,6 +1,5 @@
-package Lab_2.Task_3;
+package For_Sortings;
 
-// import For_Sortings.Sorting; Как можно так сделать но только чтобы работало
 import java.util.List;
 
 public class StructSort implements Sorting<Student> {
@@ -12,13 +11,13 @@ public class StructSort implements Sorting<Student> {
     
     public void sortByAge(List<Student> students) {
         students.sort((s1, s2) -> {
-            return Integer.compare(s1.getage(), s2.getage());
+            return Integer.compare(s1.getAge(), s2.getAge());
         } );
         
     }
     public void sortByName(List<Student> students) {
         students.sort((s1, s2) -> {
-            return s1.getname().compareTo(s2.getname());
+            return s1.getName().compareTo(s2.getName());
         });
     }
 }

@@ -1,7 +1,7 @@
 package Lab_1.Task_2;
 
 public class RemoveInplace {
-        public int remove_elem_inplace(int arr[], int val) {
+        public int removeElemInplace(int arr[], int val) {
             int j = 0;
             int count = 0;
             System.out.print("Input: arr = [");

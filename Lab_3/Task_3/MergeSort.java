@@ -1,19 +1,20 @@
-package For_Sortings;
+package Lab_3.Task_3;
 
 import java.util.List;
 import java.util.ArrayList;
+import For_Sortings.Sorting;
 
-public class MergeSort implements Sorting<Integer> {
+public class MergeSort<T extends Comparable <? super T>> implements Sorting<T> {
     @Override
-    public void sort(List<Integer> arr) {
+    public void sort(List<T> arr) {
         merge(arr);
     }
 
-    public void merge(List<Integer> arr) {
+    public void merge(List<T> arr) {
         if (arr.size() > 1) {
             int mid = arr.size() / 2;
-            List<Integer> leftHalf = new ArrayList<Integer>(mid);
-            List<Integer> rightHalf = new ArrayList<Integer>(arr.size() - mid);
+            List<T> leftHalf = new ArrayList<T>(mid);
+            List<T> rightHalf = new ArrayList<T>(arr.size() - mid);
 
             for (int i = 0; i < mid; i++) {
                 leftHalf.add(i, arr.get(i));
@@ -31,7 +32,7 @@ public class MergeSort implements Sorting<Integer> {
             int k = 0;
 
             while (leftHalf.size() > i && rightHalf.size() > j) {
-                if (leftHalf.get(i) > rightHalf.get(j)) {
+                if(leftHalf.get(i).compareTo(rightHalf.get(j)) > 0) {
                     arr.set(k, rightHalf.get(j));
                     j++;
                 } else {
