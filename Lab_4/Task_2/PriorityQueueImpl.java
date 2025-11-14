@@ -7,14 +7,12 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
     private Integer i = 0;
     private List<Node> heap = new ArrayList<>();
     public class Node {
-        private final Integer data;
+        private Integer data;
         private final Integer index;
 
         Node(Integer data, Integer index) {
             this.data = data;
             this.index = index;
-
-
         }
         private int parent() {return (index - 1) / 2;}
         private int left() {return index * 2 + 1;}
@@ -25,13 +23,26 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
     public void enqueue(Integer value) {
 	    heap.add(new Node(value, i++));
         System.out.println("\nTHIS IS I: " + i);
-            System.out.println("CHECK");
-            int thisData = heap.get(i - 1).data;
-            int parentData = heap.get(heap.get(i - 1).parent()).data;
-            if (parentData < thisData) {
-                System.out.println("NO EQUAL");
-                
+        int k = i - 1;
+        int thisData = heap.get(k).data;
+        int parentData = heap.get(heap.get(k).parent()).data;
+        if (parentData < thisData) {
+            while(k != 0 || parentData < thisData) {
+                System.out.println("\n\nTHISDATA: " + thisData + "\nPARENTDATA: " + parentData);
+                int temp = heap.get(heap.get(k).parent()).data;
+                heap.get(heap.get(k).parent()).data = heap.get(k - 1).data;
+                heap.get(k).data = temp;
+    
+                k = (k - 1) / 2;
+                System.out.println("\n\nTHIS IS K !!!!!!!!!!!(" + k + ") \n\n");
+                thisData = heap.get(k).data;
+                parentData = heap.get(heap.get(k).parent()).data;
             }
+        }
+        // if (parentData < thisData) {
+        //     System.out.println("NO EQUAL");
+        // }
+            
     }
 
     @Override
