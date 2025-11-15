@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class PriorityQueueImpl implements PriorityQueue<Integer> {
-    private Integer i = -1;
+    private Integer i = 0;
     private List<Node> heap = new ArrayList<>();
     public class Node {
         private Integer data;
@@ -14,33 +14,35 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
             this.data = data;
             this.index = index;
         }
-        private int parent() {return (index - 1) / 2;}
-        private int left() {return index * 2 + 1;}
-        private int right() {return index * 2 + 2;}
+        private int parent(int index) {return (index - 1) / 2;}
+        private int left(int index) {return index * 2 + 1;}
+        private int right(int index) {return index * 2 + 2;}
     }
     
     @Override
     public void enqueue(Integer value) {
 	    heap.add(new Node(value, ++i));
         System.out.println("\nTHIS IS I: " + i);
-        int k = i;
+        int k = i - 1;
         int thisData = heap.get(k).data;
-        int parentData = heap.get(heap.get(k).parent()).data;
+        int parentData = heap.get(heap.get(k).parent(k)).data;
+        System.out.println("11111 \n\nTHISDATA: " + thisData + "\nPARENTDATA: " + parentData);
 
 
         if (parentData < thisData) {
             while(k != 0 && parentData < thisData) {
                 System.out.println("\n\nTHISDATA: " + thisData + "\nPARENTDATA: " + parentData);
-                int temp = heap.get(heap.get(k).parent()).data;
-                heap.get(heap.get(k).parent()).data = heap.get(k).data;
-                heap.get(k).data = temp;
+                Node temp = heap.get(k);
+                heap.set(k, heap.get(heap.get(k).parent(k)));
+                heap.set(heap.get(k).parent(k), temp);
+
                 k = (k - 1) / 2;
                 System.out.println("\n\nTHIS IS K !!!!!!!!!!!(" + k + ") \n\n");
                 thisData = heap.get(k).data;
-                parentData = heap.get(heap.get(k).parent()).data;
-                for (int j = 0; j <= i; j++) {
+                parentData = heap.get(heap.get(k).parent(k)).data;
+                for (int j = 0; j < i; j++) {
                     System.out.print(heap.get(j).data + " " + heap.get(j).index);
-                    System.out.println(" Parents: " + heap.get(heap.get(j).parent()).data);
+                    System.out.println(" Parents: " + heap.get(heap.get(j).parent(k)).data + " Index: " + heap.get(j).index);
                 }
             }
         }
@@ -49,32 +51,78 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         //    11     8
         //   / \    / \
         //  4  15  11  1
-
-        // if (parentData < thisData) {
-        //     System.out.println("NO EQUAL");
-        // }
-        System.out.print("\nOUT OUT OUT OUT OUT\n");
-            
     }
 
     @Override
     public Integer dequeueMax() {
-	// TODO
+        System.out.println("\n\nMAX element: " + heap.get(0).data + " " + heap.get(0).index);
+        // Node removed = heap.get(0);
+
+        
+        
+        // System.out.println(i + " " + heap.size() + "Heap size thire ");
+        int i = 0;
+        int leftIndex = heap.get(i).left(i);
+        int rightIndex = heap.get(i).right(i);
+        heap.set(i, heap.get(6));
+        heap.remove(heap.size() - 1);
+        
+        
+        
+        while(heap.get(i).data < heap.get(leftIndex).data || heap.get(i).data < heap.get(rightIndex).data) {
+            
+        }
+        System.out.println("\nLeftIndex: " + leftIndex + "\nRightIndex: " + rightIndex);
+        if (heap.get(leftIndex).data > heap.get(rightIndex).data) {
+            // heap.set(i, heap.get(leftIndex));
+            Node temp = heap.get(i);
+            heap.set(i, heap.get(leftIndex));
+            heap.set(leftIndex, temp);
+        } else {
+            // heap.set(i, heap.get(rightIndex));
+            Node temp = heap.get(i);
+            heap.set(i, heap.get(rightIndex));
+            heap.set(rightIndex, temp);
+        }
+
+
+
+
+        System.out.println("Now: " + heap.get(0).data);
+        System.out.println("Now: " + heap.get(1).data);
+        System.out.println("Now: " + heap.get(2).data);
+        System.out.println("Now: " + heap.get(3).data);
+        System.out.println("Now: " + heap.get(4).data);
+        System.out.println("Now: " + heap.get(5).data);
+        // System.out.println("Now: " + heap.get(6).data);
+        // System.out.println("Now: " + heap.get(7).data);
+
+        //debug output
+        // for (int j = 0; j < i - 2; j++) {
+        //     System.out.print(heap.get(j).data + " " + heap.get(j).index);
+        //     System.out.println(" Parents: " + heap.get(heap.get(j).parent(j)).data);
+        // }
+        // heap.set(0, heap.get(heap.size()));
+        // heap.remove(heap.size());
         return null;
     }
 
     @Override
     public void increment(long operation, Integer addition) {
-	// TODO
+        for (int i = 0; i < heap.size(); i++) {
+            if (heap.get(i).index == operation) {
+                heap.get(i).data += addition;
+            }
+        }
     }
 
     // func to debug print Heap
     @Override
     public String toString() {
-        for (int j = 0; j < i; j++) {
-            System.out.print(heap.get(j).data + " " + heap.get(j).index);
-            System.out.println(" Parents: " + heap.get(heap.get(j).parent()).data);
-        }
+        // for (int j = 0; j < i; j++) {
+        //     System.out.print(heap.get(j).data + " " + heap.get(j).index);
+        //     System.out.println(" Parents: " + heap.get(heap.get(j).parent(j)).data);
+        // }
 
         //print heap interactive
         System.out.print("      " + heap.get(0).data + "\r\n" + //
@@ -82,9 +130,7 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         "   " + heap.get(1).data + "     " + heap.get(2).data + "\r\n" + //
         "  / \\    / \\\r\n" + //
         " " + heap.get(3).data + "  " + heap.get(4).data + "  " + heap.get(5).data + "   " + heap.get(6).data);
-        
         return "This function print massiv of heap;";
-        
         // System.out.print("      13\r\n" + //
         //                 "    /    \\\r\n" + //
         //                 "   11     8\r\n" + //

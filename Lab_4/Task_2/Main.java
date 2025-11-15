@@ -4,18 +4,38 @@ public class Main {
     public static void main (String[] args) {
         System.out.println("Lab 4.2\n");
 
-        PriorityQueue<Integer> pbeg = new PriorityQueueImpl();
+        PriorityQueue<Integer> heap = new PriorityQueueImpl();
         
-        pbeg.enqueue(13);
-        pbeg.enqueue(11);
-        pbeg.enqueue(8);
-        pbeg.enqueue(4);
-        pbeg.enqueue(15);
-        pbeg.enqueue(11);
-        pbeg.enqueue(1);
+        // heap.enqueue(4);
+        // heap.enqueue(11);
+        // heap.enqueue(1);
+        // heap.enqueue(8);
+        // heap.enqueue(5);
+        // heap.enqueue(15);
+        // heap.enqueue(2);
 
-        pbeg.toString();
+        // heap.enqueue(152);
+        // heap.enqueue(64);
+        // heap.enqueue(6);
+        // heap.enqueue(13);
+        // heap.enqueue(12);
+        // heap.enqueue(6);
 
+
+        heap.enqueue(13);
+        heap.enqueue(11);
+        heap.enqueue(8);
+        heap.enqueue(4);
+        heap.enqueue(15);
+        heap.enqueue(11);
+        heap.enqueue(1);
+
+        heap.toString();
+
+        heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.toString();
 
         System.out.println("\nEND OF Lab 4.2");
     }
