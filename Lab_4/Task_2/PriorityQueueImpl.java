@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class PriorityQueueImpl implements PriorityQueue<Integer> {
-    private Integer i = 0;
+    private Integer i = -1;
     private List<Node> heap = new ArrayList<>();
     public class Node {
         private Integer data;
@@ -21,27 +21,39 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
     
     @Override
     public void enqueue(Integer value) {
-	    heap.add(new Node(value, i++));
+	    heap.add(new Node(value, ++i));
         System.out.println("\nTHIS IS I: " + i);
-        int k = i - 1;
+        int k = i;
         int thisData = heap.get(k).data;
         int parentData = heap.get(heap.get(k).parent()).data;
+
+
         if (parentData < thisData) {
-            while(k != 0 || parentData < thisData) {
+            while(k != 0 && parentData < thisData) {
                 System.out.println("\n\nTHISDATA: " + thisData + "\nPARENTDATA: " + parentData);
                 int temp = heap.get(heap.get(k).parent()).data;
-                heap.get(heap.get(k).parent()).data = heap.get(k - 1).data;
+                heap.get(heap.get(k).parent()).data = heap.get(k).data;
                 heap.get(k).data = temp;
-    
                 k = (k - 1) / 2;
                 System.out.println("\n\nTHIS IS K !!!!!!!!!!!(" + k + ") \n\n");
                 thisData = heap.get(k).data;
                 parentData = heap.get(heap.get(k).parent()).data;
+                for (int j = 0; j <= i; j++) {
+                    System.out.print(heap.get(j).data + " " + heap.get(j).index);
+                    System.out.println(" Parents: " + heap.get(heap.get(j).parent()).data);
+                }
             }
         }
+        //       13
+        //     /    \
+        //    11     8
+        //   / \    / \
+        //  4  15  11  1
+
         // if (parentData < thisData) {
         //     System.out.println("NO EQUAL");
         // }
+        System.out.print("\nOUT OUT OUT OUT OUT\n");
             
     }
 
@@ -69,14 +81,9 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         "    /    \\\r\n" + //
         "   " + heap.get(1).data + "     " + heap.get(2).data + "\r\n" + //
         "  / \\    / \\\r\n" + //
-        " " + heap.get(3).data + "  " + heap.get(4).data + "  " + heap.get(5).data + "  " + heap.get(6).data);
+        " " + heap.get(3).data + "  " + heap.get(4).data + "  " + heap.get(5).data + "   " + heap.get(6).data);
         
         return "This function print massiv of heap;";
-        //       13
-        //     /    \
-        //    11     8
-        //   / \    / \
-        //  4  15  11  1
         
         // System.out.print("      13\r\n" + //
         //                 "    /    \\\r\n" + //
