@@ -29,25 +29,28 @@ public class Main {
         heap.enqueue(15);
         heap.enqueue(9);
         heap.enqueue(10);
-        heap.toString();
 
         heap.increment(2, 1000);
 
-        heap.dequeueMax();
-        heap.dequeueMax();
-        heap.dequeueMax();
-        heap.dequeueMax();
-        heap.dequeueMax();
-        heap.dequeueMax();
-        heap.dequeueMax();
-        heap.dequeueMax();
-        heap.dequeueMax();
         heap.toString();
-        heap.enqueue(9);
-        heap.enqueue(10);
-        heap.dequeueMax();
-        heap.dequeueMax();
-        heap.dequeueMax();
+
+
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.dequeueMax();
+        // heap.toString();
+        // heap.enqueue(9);
+        // heap.enqueue(10);
+        // heap.dequeueMax();
+        // heap.increment(2, 1000);
+        // heap.dequeueMax();
+        // heap.dequeueMax();
 
         System.out.println("\nEND OF Lab 4.2");
     }
