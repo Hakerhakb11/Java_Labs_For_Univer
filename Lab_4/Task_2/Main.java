@@ -6,35 +6,36 @@ public class Main {
 
         PriorityQueue<Integer> heap = new PriorityQueueImpl();
         
-        // heap.enqueue(4);
-        // heap.enqueue(11);
-        // heap.enqueue(1);
-        // heap.enqueue(8);
-        // heap.enqueue(5);
         // heap.enqueue(15);
-        // heap.enqueue(2);
-
-        // heap.enqueue(152);
-        // heap.enqueue(64);
-        // heap.enqueue(6);
         // heap.enqueue(13);
-        // heap.enqueue(12);
-        // heap.enqueue(6);
+        // heap.enqueue(11);
+        // heap.enqueue(4);
+        // heap.enqueue(9);
+        // heap.enqueue(8);
+        // heap.enqueue(10);
 
-
+        heap.enqueue(152);
+        heap.enqueue(64);
+        heap.enqueue(6);
         heap.enqueue(13);
-        heap.enqueue(11);
-        heap.enqueue(8);
-        heap.enqueue(4);
-        heap.enqueue(15);
-        heap.enqueue(11);
-        heap.enqueue(1);
+        heap.enqueue(12);
+        heap.enqueue(6);
+        heap.enqueue(10);
 
+
+        
+        // heap.enqueue(13);
+        // heap.enqueue(11);
+        // heap.enqueue(8);
+        // heap.enqueue(4);
+        // heap.enqueue(15);
+        // heap.enqueue(9);
+        // heap.enqueue(10);
         heap.toString();
 
         heap.dequeueMax();
-        // heap.dequeueMax();
-        // heap.dequeueMax();
+        heap.dequeueMax();
+        heap.dequeueMax();
         // heap.toString();
 
         System.out.println("\nEND OF Lab 4.2");

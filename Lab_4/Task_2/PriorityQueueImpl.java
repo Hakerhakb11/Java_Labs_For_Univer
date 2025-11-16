@@ -22,67 +22,70 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
     @Override
     public void enqueue(Integer value) {
 	    heap.add(new Node(value, ++i));
-        System.out.println("\nTHIS IS I: " + i);
+        // System.out.println("\nTHIS IS I: " + i);
         int k = i - 1;
         int thisData = heap.get(k).data;
         int parentData = heap.get(heap.get(k).parent(k)).data;
-        System.out.println("11111 \n\nTHISDATA: " + thisData + "\nPARENTDATA: " + parentData);
+        // System.out.println("11111 \n\nTHISDATA: " + thisData + "\nPARENTDATA: " + parentData);
 
 
         if (parentData < thisData) {
             while(k != 0 && parentData < thisData) {
-                System.out.println("\n\nTHISDATA: " + thisData + "\nPARENTDATA: " + parentData);
+                // System.out.println("\n\nTHISDATA: " + thisData + "\nPARENTDATA: " + parentData);
                 Node temp = heap.get(k);
                 heap.set(k, heap.get(heap.get(k).parent(k)));
                 heap.set(heap.get(k).parent(k), temp);
 
                 k = (k - 1) / 2;
-                System.out.println("\n\nTHIS IS K !!!!!!!!!!!(" + k + ") \n\n");
+                // System.out.println("\n\nTHIS IS K !!!!!!!!!!!(" + k + ") \n\n");
                 thisData = heap.get(k).data;
                 parentData = heap.get(heap.get(k).parent(k)).data;
                 for (int j = 0; j < i; j++) {
-                    System.out.print(heap.get(j).data + " " + heap.get(j).index);
-                    System.out.println(" Parents: " + heap.get(heap.get(j).parent(k)).data + " Index: " + heap.get(j).index);
+                    // System.out.print(heap.get(j).data + " " + heap.get(j).index);
+                    // System.out.println(" Parents: " + heap.get(heap.get(j).parent(k)).data + " Index: " + heap.get(j).index);
                 }
             }
         }
-        //       13
+        //       15
         //     /    \
-        //    11     8
+        //    13     11
         //   / \    / \
-        //  4  15  11  1
+        //  4   9  8  10
     }
 
     @Override
     public Integer dequeueMax() {
         System.out.println("\n\nMAX element: " + heap.get(0).data + " " + heap.get(0).index);
         // Node removed = heap.get(0);
-
-        
-        
-        // System.out.println(i + " " + heap.size() + "Heap size thire ");
+        System.out.println(i + " " + heap.size() + " Heap size thire ");
         int i = 0;
         int leftIndex = heap.get(i).left(i);
         int rightIndex = heap.get(i).right(i);
-        heap.set(i, heap.get(6));
+        heap.set(i, heap.get(heap.size() - 1));
         heap.remove(heap.size() - 1);
+
         
-        
-        
-        while(heap.get(i).data < heap.get(leftIndex).data || heap.get(i).data < heap.get(rightIndex).data) {
-            
-        }
-        System.out.println("\nLeftIndex: " + leftIndex + "\nRightIndex: " + rightIndex);
-        if (heap.get(leftIndex).data > heap.get(rightIndex).data) {
-            // heap.set(i, heap.get(leftIndex));
-            Node temp = heap.get(i);
-            heap.set(i, heap.get(leftIndex));
-            heap.set(leftIndex, temp);
-        } else {
-            // heap.set(i, heap.get(rightIndex));
-            Node temp = heap.get(i);
-            heap.set(i, heap.get(rightIndex));
-            heap.set(rightIndex, temp);
+        while (leftIndex < heap.size()) {
+            System.out.println("\nTHIRD PRINT!!!!! LeftIndex: " + leftIndex + "\nRightIndex: " + rightIndex);
+            if (heap.get(i).data < heap.get(leftIndex).data || heap.get(i).data < heap.get(rightIndex).data) {
+                System.out.println("\nLeftIndex: " + leftIndex + "\nRightIndex: " + rightIndex);
+                if (heap.get(leftIndex).data > heap.get(rightIndex).data) {
+                    Node temp = heap.get(i);
+                    heap.set(i, heap.get(leftIndex));
+                    heap.set(leftIndex, temp);
+                    i = leftIndex;
+                } else {
+                    Node temp = heap.get(i);
+                    heap.set(i, heap.get(rightIndex));
+                    heap.set(rightIndex, temp);
+                    i = rightIndex;
+                }
+                leftIndex = heap.get(i).left(i);
+                rightIndex = heap.get(i).right(i);
+                System.out.println("\nSECOND PRINTOUT! LeftIndex: " + leftIndex + "\nRightIndex: " + rightIndex);
+            } else {
+                leftIndex = heap.size();
+            }
         }
 
 
@@ -92,8 +95,8 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         System.out.println("Now: " + heap.get(1).data);
         System.out.println("Now: " + heap.get(2).data);
         System.out.println("Now: " + heap.get(3).data);
-        System.out.println("Now: " + heap.get(4).data);
-        System.out.println("Now: " + heap.get(5).data);
+        // System.out.println("Now: " + heap.get(4).data);
+        // System.out.println("Now: " + heap.get(5).data);
         // System.out.println("Now: " + heap.get(6).data);
         // System.out.println("Now: " + heap.get(7).data);
 
@@ -116,7 +119,7 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         }
     }
 
-    // func to debug print Heap
+    // func to debug print Heap || heap.size() = must be 7
     @Override
     public String toString() {
         // for (int j = 0; j < i; j++) {
@@ -124,7 +127,7 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         //     System.out.println(" Parents: " + heap.get(heap.get(j).parent(j)).data);
         // }
 
-        //print heap interactive
+        //print heap interactive || heap.size() = must be 7
         System.out.print("      " + heap.get(0).data + "\r\n" + //
         "    /    \\\r\n" + //
         "   " + heap.get(1).data + "     " + heap.get(2).data + "\r\n" + //
