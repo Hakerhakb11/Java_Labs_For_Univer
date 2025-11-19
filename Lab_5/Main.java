@@ -10,12 +10,24 @@ public class Main {
         map.put("Andrey", "Programmer");
         map.put("Heroes might and magic 3", "The Best strategy game");
         map.put("Cat", "Animal");
-
+        
         map.toString();
 
+        // ПОЧЕМУ УДАЛЯЕТСЯ ТОЛЬКО Igor КОГДА ЕДИНСТВЕННОЕ ОТЛИЧИЕ ОТ ДРУГИХ ЭТО ЗНАЧЕНИЕ KEY
         
 
 
+        // map.delete("Heroes might and magic 3");
+        // map.delete("Igor");
+        // map.delete("Andrey");
+        // map.delete("Cat");
+        map.toString();
+
+
+        // map.put("Igor", "Value");
+        // map.put("Andrey", "Programmer");
+        // map.put("Heroes might and magic 3", "The Best strategy game");
+        // map.put("Cat", "Animal");
         System.out.println("\nEnd Lab 5");
     }
 }
