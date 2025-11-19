@@ -17,8 +17,45 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         private int left(int index) {return index * 2 + 1;}
         private int right(int index) {return index * 2 + 2;}
     }
-
-    public void swichUp(int count) {
+    
+    @Override
+    public void enqueue(Integer value) {
+        heap.add(new Node(value, ++count));
+        switchUp(count - 1);
+    }
+    
+    @Override
+    public Integer dequeueMax() {
+        if (heap.isEmpty()) {
+            System.out.println('*');
+            return null;
+        }
+        System.out.println("MAX element: " + heap.get(0).index + " " + heap.get(0).data);
+        Node removed = heap.get(0);
+        int i = 0;
+        heap.set(i, heap.get(heap.size() - 1));
+        count--;
+        heap.remove(heap.size() - 1);
+        if (heap.isEmpty()) {
+            return removed.data;
+        }
+        switchDown(i);
+        return removed.data;
+    }
+    
+    @Override
+    public void increment(long operation, Integer addition) {
+        int j = 0;
+        for (int i = 0; i < heap.size(); i++) {
+            if (heap.get(i).index == operation) {
+                heap.get(i).data += addition;
+                j = i;
+            }
+        }
+        switchUp(j);
+    }
+    
+    public void switchUp(int count) {
         int k = count;
         int thisData = heap.get(k).data;
         int parentData = heap.get(heap.get(k).parent(k)).data;
@@ -33,7 +70,7 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
             }
         }
     }
-    public void swichDown(int i) {
+    public void switchDown(int i) {
         int leftIndex = heap.get(i).left(i);
         int rightIndex = heap.get(i).right(i);
         while (leftIndex < heap.size()) {
@@ -70,43 +107,6 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         }
     }
     
-    @Override
-    public void enqueue(Integer value) {
-	    heap.add(new Node(value, ++count));
-        swichUp(count - 1);
-    }
-
-    @Override
-    public Integer dequeueMax() {
-        if (heap.isEmpty()) {
-            System.out.println('*');
-            return null;
-        }
-        System.out.println("MAX element: " + heap.get(0).index + " " + heap.get(0).data);
-        Node removed = heap.get(0);
-        int i = 0;
-        heap.set(i, heap.get(heap.size() - 1));
-        count--;
-        heap.remove(heap.size() - 1);
-        if (heap.isEmpty()) {
-            return removed.data;
-        }
-        swichDown(i);
-        return removed.data;
-    }
-
-    @Override
-    public void increment(long operation, Integer addition) {
-        int j = 0;
-        for (int i = 0; i < heap.size(); i++) {
-            if (heap.get(i).index == operation) {
-                heap.get(i).data += addition;
-                j = i;
-            }
-        }
-        swichUp(j);
-    }
-
     // func to debug print Heap
     @Override
     public String toString() {
