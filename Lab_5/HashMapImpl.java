@@ -72,8 +72,14 @@ public class HashMapImpl<V> implements HashMap<String, V> {
     @Override
     public V delete(String key) {
         int keyHash = (int)hashByString(key);
-        map.set(keyHash, new LinkedList<>());
-
+        for (int i = 0; i < map.get(keyHash).size(); i++) {
+            if (map.get(keyHash).get(i).getKey() == key) {
+                V removed = map.get(keyHash).get(i).getValue();
+                map.set(keyHash, new LinkedList<>());
+                return removed;
+            }
+        }
+        
         // To debug
         for(int i = 0; i < arr.size(); i++) {
             if (arr.get(i) == keyHash) {
@@ -81,6 +87,7 @@ public class HashMapImpl<V> implements HashMap<String, V> {
             }
         } 
         // To debug
+        System.out.println("null");
         return null;
     }
 
