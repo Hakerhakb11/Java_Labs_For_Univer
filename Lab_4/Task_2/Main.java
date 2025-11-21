@@ -15,10 +15,12 @@ public class Main {
 
         heap.increment(2, 1000);
         heap.toString();
-        heap.increment(6, 1000);
+        // heap.increment(6, 1000);
+        heap.increment(5, -4);
         heap.toString();
 
         // heap.dequeueMax();
+        // heap.toString();
         // heap.dequeueMax();
         // heap.dequeueMax();
         // heap.dequeueMax();
