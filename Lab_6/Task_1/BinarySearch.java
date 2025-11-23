@@ -15,10 +15,10 @@ public class BinarySearch {
             } else if (requestNum < arr.get(left)) {
                 out.add(arr.get(left));
             } else {
-                while (left <= right) {
+                while (left < right) {
                     int mid = left + (right - left) / 2;
                     if (requestNum < arr.get(mid)) {
-                        right = mid - 1;
+                        right = mid;
                     } else {
                         left = mid + 1;
                     } 
