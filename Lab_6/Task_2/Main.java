@@ -1,14 +1,21 @@
 package Lab_6.Task_2;
 
-// import java.util.List;
-// import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Start lab 6.2");
+        int n = 8;
+        int h = 3;
+        int w = 5;
 
-        // List<Integer> arr = Arrays.asList(1,2,3,4,5,6,7,8);
+        int genS = n * h * w;
+        int roundS = (int)Math.round(Math.sqrt(genS));
 
-        System.out.println("End lab 6.2");
+        int inWidth = roundS / w;
+        int inHeight = roundS / h;
+        while (inWidth * inHeight < n) {
+            roundS++;
+            inWidth = roundS / w;
+            inHeight = roundS / h;
+        }
+        System.out.println("M must be: " + roundS);
     }
 }
