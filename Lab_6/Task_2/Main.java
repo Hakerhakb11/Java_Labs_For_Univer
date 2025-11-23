@@ -2,37 +2,39 @@ package Lab_6.Task_2;
 
 public class Main {
     public static void main(String[] args) {
-        int n = 14;
-        int h = 12;
-        int w = 11;
-
-        int genS = n * h * w;
+        int n = 1;
+        int h = 1;
+        int w = 1;
 
         int left = 1;
-        int right = (int)Math.max(h, w) * n;
+        int right = Math.max(h, w) * n;
         
-        while (left <= right) {
+        while (left < right) {
             int mid = left + (right - left) / 2;
             int inWidth = mid / w;
             int inHeight = mid / h;
-
-            if (inWidth * inHeight > n) {
-                right = mid - 1;
+            
+            if (inWidth * inHeight >= n) {
+                right = mid;
             } else {
                 left = mid + 1;
             } 
         }
-        int rightValue = left;
-        int leftValue = left - 1;
-        System.err.println("outPut : " + leftValue + " | " + rightValue);
+        System.out.println("BinOutput: " + left);
         
-        if (leftValue % 2 == 0) {
-            System.err.println(leftValue);
-        } else {
-            System.err.println(rightValue);
-        }
-    
+        // // if result incorrect, uncomment this code
+        // int rightValue = left;
+        // int leftValue = left - 1;
+        // System.err.println("outPut : " + leftValue + " | " + rightValue);
+        // if (leftValue % 2 == 0) {
+        //     System.err.println(leftValue);
+        // } else {
+        //         System.err.println(rightValue);
+        //     }
+                
+                
         // Second variand without BinarySearch.
+        int genS = n * h * w;
         int roundS = (int)Math.round(Math.sqrt(genS));
         int inWidth = roundS / w;
         int inHeight = roundS / h;
