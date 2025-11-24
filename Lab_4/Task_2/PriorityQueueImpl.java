@@ -52,7 +52,11 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
                 j = i;
             }
         }
-        switchUp(j);
+        if (addition > 0) {
+            switchUp(j);
+        } else {
+            switchDown(j);
+        }
     }
     
     public void switchUp(int count) {
@@ -75,11 +79,11 @@ public class PriorityQueueImpl implements PriorityQueue<Integer> {
         int rightIndex = heap.get(i).right(i);
         while (leftIndex < heap.size()) {
             if (rightIndex < heap.size()) {
-                if (heap.get(i).data < heap.get(leftIndex).data || heap.get(i).data < heap.get(rightIndex).data) {
+                Node current = heap.get(i);
+                if (current.data < heap.get(leftIndex).data || current.data < heap.get(rightIndex).data) {
                     if (heap.get(leftIndex).data > heap.get(rightIndex).data) {
-                        Node temp = heap.get(i);
                         heap.set(i, heap.get(leftIndex));
-                        heap.set(leftIndex, temp);
+                        heap.set(leftIndex, current);
                         i = leftIndex;
                     } else {
                         Node temp = heap.get(i);

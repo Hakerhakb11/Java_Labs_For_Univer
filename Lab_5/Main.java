@@ -6,24 +6,23 @@ public class Main {
         
         map.put("Igor", "Value");
         map.put("Andrey", "Programmer");
-        map.put("Heroes might and magic 3", "The Best strategy game");
+        map.put("Heroes 3", "Best strategy game");
         map.put("Cat", "Animal");
-        // map.toString();
+        map.toString();
 
-        map.delete("Heroes might and magic 3");
         map.delete("Igor");
         map.delete("Andrey");
         map.delete("Cat");
-        // map.toString();
+        map.toString();
 
         map.put("Igor", "Value");
         map.put("Andrey", "Programmer");
-        map.put("Heroes might and magic 3", "The Best strategy game");
+        map.put("Heroes 3", "Best strategy game");
         map.put("Cat", "Animal");
-        // map.toString();
+        map.toString();
 
-        map.getValue("Igor");
-        map.getValue("igor");
-        map.getValue("Cat");
+        System.out.println(map.getValue("Igor"));
+        System.out.println(map.getValue("igor"));
+        System.out.println(map.getValue("Cat"));
     }
 }

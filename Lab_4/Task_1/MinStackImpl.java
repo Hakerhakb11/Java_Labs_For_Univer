@@ -29,8 +29,9 @@ public class MinStackImpl implements MinStack<Integer> {
         if (head == null) {
             return null;
         } else {
+            Integer deleted = head.data;
             head = head.back;
-            return null;
+            return deleted;
         }
     }
 

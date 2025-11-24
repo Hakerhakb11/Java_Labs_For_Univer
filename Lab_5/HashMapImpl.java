@@ -1,17 +1,16 @@
 package Lab_5;
 
+import java.util.List;
 import java.util.LinkedList;
 import java.util.ArrayList;
 
 public class HashMapImpl<V> implements HashMap<String, V> {
     private static final int TABLE_SIZE = 300007;
     private static final int A = 31;
-    ArrayList<LinkedList<Data<V>>> map;
+    private List<List<Data<V>>> map;
+    private List<Integer> arr = new ArrayList<>(); //To debug
 
-    ArrayList<Integer> arr = new ArrayList<>(); //To debug
-
-
-    HashMapImpl() {
+    public HashMapImpl() {
         map = new ArrayList<>(TABLE_SIZE);
         for (int i = 0; i < TABLE_SIZE; i++) {
             map.add(new LinkedList<>());
@@ -37,20 +36,20 @@ public class HashMapImpl<V> implements HashMap<String, V> {
     @Override
     public void put(String key, V value) {
         int keyHash = (int)hashByString(key);
-        LinkedList<Data<V>> list = new LinkedList<>();
-        list.add(new Data<>(key, value));
-        map.set(keyHash, list);
+
+        List<Data<V>> equalHashList = map.get(keyHash);
+        for (Data<V> data : equalHashList) {
+            if (data.getKey().equals(key)) {
+                data.setValue(value);
+                return;
+            }
+        }
+        equalHashList.add(new Data<>(key, value));
 
         // To debug
-        int check = 0;
-        for(int obj : arr) {
-            if (obj == keyHash) {
-                check = 1;
-            }
-        } if (check == 0) {
+        if (!arr.contains(keyHash)) {
             arr.add(keyHash);
         }
-        // To debug
     }
 
 
@@ -60,11 +59,9 @@ public class HashMapImpl<V> implements HashMap<String, V> {
         for (int i = 0; i < map.get(keyHash).size(); i++) {
             if (map.get(keyHash).get(i).getKey() == key) {
                 V object = map.get(keyHash).get(i).getValue();
-                System.out.println(object);
                 return object;
             }
         }
-        System.out.println("null");
         return null;
     }
 
@@ -72,22 +69,24 @@ public class HashMapImpl<V> implements HashMap<String, V> {
     @Override
     public V delete(String key) {
         int keyHash = (int)hashByString(key);
-        for (int i = 0; i < map.get(keyHash).size(); i++) {
-            if (map.get(keyHash).get(i).getKey() == key) {
-                V removed = map.get(keyHash).get(i).getValue();
-                map.set(keyHash, new LinkedList<>());
+
+        List<Data<V>> equalHashList = map.get(keyHash);
+        for (int i = 0; i < equalHashList.size(); i++) {
+            if (equalHashList.get(i).getKey() == key) {
+                V removed = equalHashList.get(i).getValue();
+                equalHashList.remove(i);
+
+                // To debug
+                if (equalHashList.isEmpty()) {
+                    for (int j = 0; j < arr.size(); j++) {
+                        if (arr.get(j) == keyHash) {
+                            arr.remove(j);
+                        }
+                    } 
+                }
                 return removed;
             }
         }
-        
-        // To debug
-        for(int i = 0; i < arr.size(); i++) {
-            if (arr.get(i) == keyHash) {
-                arr.remove(i);
-            }
-        } 
-        // To debug
-        System.out.println("null");
         return null;
     }
 
@@ -97,12 +96,14 @@ public class HashMapImpl<V> implements HashMap<String, V> {
     public String toString() {
         System.out.println("------------------------------------");
         for(int i = 0; i < arr.size(); i++) {
-            for (int j = 0; j < map.get(arr.get(i)).size(); j++) {
-                System.out.print(map.get(arr.get(i)).get(j).getKey() + " - ");
-                System.out.print(map.get(arr.get(i)).get(j).getValue() + ": ");
+            List<Data<V>> byKey = map.get(arr.get(i));
+            for (Data<V> data : byKey) {
+                System.out.print("<" + data.getKey() + ", ");
+                System.out.print(data.getValue() + "> : hash=");
                 System.out.println(arr.get(i));
             }
-        }System.out.println("");
+        }
+        System.out.println("");
         return "";
     }
 } 
