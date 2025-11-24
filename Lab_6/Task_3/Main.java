@@ -1,19 +1,22 @@
 package Lab_6.Task_3;
 
-import java.util.List;
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Start lab 6.3");
+        double a = 4.0;
+        System.out.println(a);
 
-        List<Integer> arr = Arrays.asList(1,2,3,4,5,6,7,8);
+        double left = 1.0;
+        double right = Math.sqrt(a) + 1.0;
 
-        for (int i : arr) {
-            System.out.print(i + " ");
-        } System.out.println("\n");
-
-        
-        System.out.println("End lab 6.3");
+        for(int i = 0; i < 100; i++) {
+            double mid = (left + right) / 2.0;
+            double sol = Math.pow(mid, 2) - mid + Math.sqrt(mid);
+            if (sol > a) {
+                right = mid;
+            } else {
+                left = mid;
+            } 
+        }
+        System.out.println(left);
     }
 }
