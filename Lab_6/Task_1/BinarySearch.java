@@ -16,7 +16,7 @@ public class BinarySearch {
                 out.add(arr.get(left));
             } else {
                 while (left < right) {
-                    int mid = left + (right - left) / 2;
+                    int mid = (right + left) / 2;
                     if (requestNum < arr.get(mid)) {
                         right = mid;
                     } else {
