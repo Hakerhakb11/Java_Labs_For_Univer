@@ -1,7 +1,7 @@
 package Lab_7.Task_2;
 
+// import java.util.Arrays;
 import java.util.List;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,11 +14,13 @@ public class Main {
         // List<Integer> arr = Arrays.asList(10, 9, 2, 5, 3, 7, 101, 18);
 
         List<String> stringOut = Files.readAllLines(Paths.get("Lab_7/Task_2/lis-input.txt"));
-
-        List<Integer> arr = new ArrayList<>();
-        String stringOfInteger = stringOut.get(1); 
         
-        arr.add(Integer.parseInt(stringOfInteger));
+        String[] splitedOut = stringOut.get(1).split(" ");
+        
+        List<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < splitedOut.length; i++) {
+            arr.add(Integer.parseInt(splitedOut[i]));
+        }
         for (int i : arr) {
             System.err.print(i + " ");
         }System.err.println("\n");
