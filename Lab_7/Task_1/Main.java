@@ -13,7 +13,8 @@ public class Main {
     static List<List<Integer>> matrix = new ArrayList<List<Integer>>();
 
         public static void main(String[] args) throws Exception {
-            List<String> stringOut = Files.readAllLines(Paths.get("Lab_7/Task_1/roguelike-input.csv"));
+            String routeToDir = "Lab_7/Task_1/";
+            List<String> stringOut = Files.readAllLines(Paths.get(routeToDir + "roguelike-input.csv"));
             line = stringOut.size();
             cols = stringOut.get(0).split(";").length;
             
@@ -39,7 +40,7 @@ public class Main {
 
         String outPut = "BestPath: " + bestPath + "\nMoney: " + maxMoney;
 
-        Files.write(Paths.get("Lab_7/Task_1/roguelike-output.txt"), outPut.getBytes());
+        Files.write(Paths.get(routeToDir + "roguelike-output.txt"), outPut.getBytes());
         System.out.println(outPut);
     }
 
