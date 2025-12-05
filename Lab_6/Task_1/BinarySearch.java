@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class BinarySearch {
-    public List<Integer> searchNearValue(List<Integer> arr, List<Integer> request) {
+    public List<Integer> searchNearValue(List<Integer> arr, List<Integer> requests) {
         List<Integer> out = new ArrayList<>();
 
-        for (int requestNum : request) {
+        for (int requestNum : requests) {
             int right = arr.size() - 1;
             int left = 0;
             if (requestNum > arr.get(right)) {
