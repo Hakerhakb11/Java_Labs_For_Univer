@@ -11,14 +11,17 @@ public class Main {
         BinarySearch searchPlace = new BinarySearch();
         List<Integer> out = searchPlace.searchNearValue(arr, req);
         
+        // orig massiv
         for (int i : arr) {
             System.out.print(i + " ");
         } System.out.println("\n");
 
+        // req massiv
         for (int i : req) {
             System.out.print(i + " ");
         } System.out.println();
 
+        // output massiv of numbers, which good to put number from orig
         for (int i : out) {
             System.out.print(i + " ");
         }
