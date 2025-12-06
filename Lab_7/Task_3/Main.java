@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println("Start lab_7.3");
-        
         String routeToDir = "Lab_7/Task_3/";
 
         BufferedReader reader = new BufferedReader(new FileReader(routeToDir + "lis-input.txt"));
@@ -19,21 +17,14 @@ public class Main {
         while((line = reader.readLine()) != null) {
             stringOut.add(line);
         }
-
         System.err.println(stringOut);
+        LCS lcs = new LCS();
+        int outPut = lcs.lcs2(stringOut.get(0), stringOut.get(1));
 
-
-        
-        
-
-        String outPut = "CD 'test'";
-
-        System.err.println("\nres: " + outPut);
+        System.err.println("\nResult: " + outPut);
         BufferedWriter writer = new BufferedWriter(new FileWriter(routeToDir + "list-output.txt"));
-        writer.write(outPut);
+        writer.write("" + outPut);
         reader.close();
         writer.close();
-
-        System.out.println("\nEnd lab_7.3");
     }
 }
