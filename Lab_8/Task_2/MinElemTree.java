@@ -14,23 +14,28 @@ public class MinElemTree {
             tree[size + i] = arr[i];
         }
         for (int i = arr.length; i < size; i++) {
-            tree[size + i] = 111;
+            tree[size + i] = Integer.MAX_VALUE;
         }
         for (int i = size - 1; i >= 0; i--) {
             tree[i] = Math.min(tree[i * 2], tree[i * 2 + 1]);
         }
     }
-    public int query(int i, int j) {
-        System.out.println("Start query\n");
 
-        i += size;
-        j += size;
-        System.out.println(tree[i] + " and: " + tree[j]);
-        
-
-
-        System.out.println("\nEnd query");
-        return 1;
+    public int query(int left, int right) {
+        left += size;
+        right += size;
+        int result = Integer.MAX_VALUE;
+        while(left <= right) {
+            if ((left % 2) != 0) {
+                result = Math.min(result, tree[left++]);
+            }
+            if ((right % 2) == 0) {
+                result = Math.min(result, tree[right--]);            
+            }
+            left /= 2;
+            right /= 2;
+        }
+        return result;
     }
 
     public void printTree() {
@@ -45,17 +50,6 @@ public class MinElemTree {
             "" + tree[8] + " " + tree[9] + " " + tree[10] + " " + tree[11] + " " + tree[12] + " " + tree[13] + " " + tree[14] + " " + tree[15] + "\n\n");
         } else {
             System.out.println("Интерактивный вывод доступен только если arr.length <= 8");
-            // // not completed version of print
-            // int count = 1;
-            // int j = 0;
-            // while (count <= 32) {
-            //     count = count * 2;
-            //     for (int i = 0; i < count; i++) {
-            //         System.out.print(tree[j++] + " ");
-            //     }
-            //     System.out.println();
-            // }
         }
     }
-    
 }
