@@ -12,7 +12,7 @@ public class Main {
 //   / \      /  \
 //  2   6   10    14
 // / \ / \  / \   / \
-// 1 3 5 7 15 13 11 9
+// 1 3 5 7 9  11 13 15
 
         bstree.insert(8);
         bstree.insert(4);
@@ -29,6 +29,8 @@ public class Main {
         bstree.insert(14);
         bstree.insert(13);
         bstree.insert(15);
+
+        System.out.println(bstree.next(16));
         
         bstree.printTree();
 

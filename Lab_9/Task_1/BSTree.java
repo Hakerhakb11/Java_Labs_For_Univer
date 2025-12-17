@@ -44,21 +44,64 @@ public class BSTree {
         }
     }
 
-    public void has() {
-        //TO DO
+    public boolean has(int value) {
+        Node current = head;
+        while (current != null) {
+            if (current.data < value) {
+                current = current.right;
+            } else if (current.data > value) {
+                current = current.left;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int next(int value) {
+        Node current = head;
+        
+        while (current != null) {
+            if (current.data < value) {
+                current = current.right;
+            } else if (current.data > value) {
+                current = current.left;
+            } else {
+                if (current.right != null) {
+                    current = current.right;
+                    while (current.left != null) {
+                        current = current.left;
+                    }
+                    return current.data;
+                }
+            }
+            System.out.println("There!!!!" + current.data + " and: " + value);
+        }
+        return 0;
+    }
+    
+    public int prev(int value) {
+        Node current = head;
+        
+        while (current.data != value) {
+            if (current.data < value) {
+                current = current.right;
+            } else if (current.data > value) {
+                current = current.left;
+            } else {
+                    current = current.right;
+
+            }
+        }
+
+
+        return 0;
     }
 
     public void delete() {
         //TO DO
     }
 
-    public void next() {
-        //TO DO
-    }
-
-    public void prev() {
-        //TO DO
-    }
     public void printTree() {
         // print tree interactive || Inputable tree.length must be = 16 
         // if (head.length <= 16) {
@@ -68,7 +111,7 @@ public class BSTree {
             "  / \\      /  \\\r\n" + //
             " " + head.left.left.data + "   " + head.left.right.data + "   " + head.right.left.data + "    " + head.right.right.data + "\r\n" + //
                     "/ \\ / \\  / \\   / \\\r\n" + //"");
-            "" + head.left.left.left.data + " " + head.left.left.right.data + " " + head.left.right.left.data + " " + head.left.right.right.data + " " + head.right.right.right.data + " " + head.right.right.left.data + " " + head.right.left.right.data + " " + head.right.left.left.data + "\n\n");
+            "" + head.left.left.left.data + " " + head.left.left.right.data + " " + head.left.right.left.data + " " + head.left.right.right.data + " " + head.right.left.left.data + "  " + head.right.left.right.data + " " + head.right.right.left.data + "  " + head.right.right.right.data + "\n\n");
         // } else {
             System.out.println("Интерактивный вывод доступен только если arr.length <= 8");
         // }
