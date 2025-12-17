@@ -4,34 +4,50 @@ public class BSTree {
     private Node head = null;
     class Node {
         private final int data;
-        private final Node left;
-        private final Node right;
+        private Node left;
+        private Node right;
         
         Node(int data, Node left, Node right) {
             this.data = data;
             this.left = left;
             this.right = right;
         }
+        public void setRight(Node right) { this.right = right; }
+        public void setLeft(Node left) { this.left = left; }
+        public Node getRight() { return right; }
+        public Node getLeft() { return left; }
+        public int getData() { return data; }
     }
 
     public void insert(int value) {
-        Node counterer = head;
-        System.out.println("debug: " + head + " debug ");
-        try {
-            while (counterer != null) {
-                if (counterer.data < value) { 
-                    counterer = counterer.right;
-                } else {
-                    counterer = counterer.left; //ладно патом
-                }
-            }
-            System.out.println("Created data");
-            head = new Node(value, null, null);
-
-        } catch(NullPointerException e) {
-            System.out.println("first null.");
-            counterer = new Node(value, null, null);
+        if (head == null) {
+            head = new Node(value, null, null);    
+            return;
         }
+
+        Node temp = head;
+        while (head != null) {
+            temp = head;
+            if (head.data < value) { 
+                head = head.right;
+                temp.right = head;
+                System.out.println("to right");
+            } else {
+                head = head.left;
+                temp.left = head;
+                System.out.println("to left");
+            }
+        }
+        
+        System.out.println("Created data");
+        head = new Node(value, null, null);
+        System.out.println("head debug: " + head + " debug ");
+        head = temp;
+
+        // } catch(NullPointerException e) {
+        //     System.out.println("first null.");
+        //     head = new Node(value, null, null);
+        // }
     }
 
     public void has() {
@@ -50,6 +66,8 @@ public class BSTree {
         //TO DO
     }
     public void printTree() {
+        System.out.println("!!!!!!head debug: " + head.data + " debug ");
+        System.out.println("!!!!!!head debug: " + head.left + " debug ");
         // print tree interactive || Inputable arr.length must be <= 8 
         // if (head.length <= 16) {
             System.out.print("\n       " + head.data + "\r\n" + //

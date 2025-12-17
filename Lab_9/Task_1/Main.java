@@ -17,6 +17,8 @@ public class Main {
         bstree.insert(6);
         bstree.insert(2);
 
+        // System.out.print(bstree.)
+
         bstree.printTree();
 
 
