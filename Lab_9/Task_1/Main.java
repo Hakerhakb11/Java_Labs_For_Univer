@@ -2,8 +2,6 @@ package Lab_9.Task_1;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Start lab_9.1");
-
         BSTree bstree = new BSTree();
         
         bstree.insert(8);
@@ -22,17 +20,16 @@ public class Main {
         bstree.insert(13);
         bstree.insert(15);
         
-        System.out.println(bstree.has(2));
-        
         System.out.println(bstree.next(2));
-        
         System.out.println(bstree.prev(5));
+        System.out.println(bstree.has(12));
 
-        // bstree.delete(6);
-        
         bstree.printTree();
         
-        System.out.println("\nEnd lab_9.1");
+        bstree.delete(1);
+        // System.out.println(bstree.has(12));
+        
+        bstree.printTree();
     }
 }
 
@@ -85,7 +82,7 @@ public class Main {
 // System.out.println(bstree.has(8));
 // bstree.insert(8);
 // System.out.println(bstree.has(8));
-// // System.out.println(bstree.delete(3));
+// System.out.println(bstree.delete(3));
 // System.out.println(bstree.has(4));
 // System.out.println(bstree.next(7));
 // System.out.println(bstree.prev(5));
