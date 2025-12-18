@@ -1,6 +1,6 @@
 package Lab_1.Task_2;
 
-public class Lab_First_Two {
+public class Main {
         public static void main(String[] args) {
             int[] arr = {2, 6, 3, 4, 5, 6, 5, 2, 3, 6};
             int val = 6;

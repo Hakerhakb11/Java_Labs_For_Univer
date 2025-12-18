@@ -2,7 +2,7 @@ package Lab_1.Task_1;
 
 import java.util.*;
 
-public class Lab_First_One {
+public class Main {
     public static void main(String[] args) {
         String text = "{[()]}";
         System.out.println("Input: str = " + text);
