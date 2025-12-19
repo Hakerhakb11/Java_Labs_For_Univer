@@ -1,7 +1,6 @@
 package Lab_8.Task_1;
 
-//почему немогу с большой буквы писать PrefixSum?
-public class prefixSum {
+public class PrefixSum {
     public int[] prefixSum(int[] arr, int x, int y) {
         int[] prefix = new int[arr.length];
         prefix[0] = arr[0];
@@ -9,7 +8,5 @@ public class prefixSum {
             prefix[i] += prefix[i - 1] + arr[i];
         }
         return prefix;
-
     }
-
 }

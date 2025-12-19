@@ -9,8 +9,8 @@ public class Main {
         int x = 4;
         int y = 4;
         
-        prefixSum prefixSum = new prefixSum(); //почему немогу с большой буквы писать PrefixSum?
-        int[] prefix = prefixSum.prefixSum(arr, x, y);
+        PrefixSum func = new PrefixSum();
+        int[] prefix = func.prefixSum(arr, x, y);
         int sum = prefix[y] - prefix[x - 1];
         
         // solution without prefix_sum algorithm
@@ -19,7 +19,6 @@ public class Main {
         for (int i = x; i <= y; i++) {
             sum2 += arr2.get(i);
         }
-        
         System.err.println("\nResult: " + sum);
         System.out.println("Must be: " + sum2);
     }

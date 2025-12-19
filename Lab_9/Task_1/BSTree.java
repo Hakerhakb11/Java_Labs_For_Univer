@@ -111,12 +111,12 @@ public class BSTree {
         return parent.data;
     }
     
+    //для дебаггинга вместо null иногда написано new Node(0, null, null).
     public void delete(int value) {
         Node current = head;
         Node parent = null;
         
         while (current != null) {
-            // parent = current;
             if (current.data < value) {
                 parent = current;
                 current = current.right;
@@ -125,32 +125,28 @@ public class BSTree {
                 current = current.left;
             } else {
                 if (current.right != null) {
-                    System.out.println("there");
+                    parent = current;
                     Node parent2 = current;
                     current = current.right;
                     if (current.left != null) {
                         while(current.left != null) {
-
                             parent2 = current;
                             current = current.left;
                         }
-                        // parent2.setLeft(null);
-                        // МОЖННО помечать удаленные как 0, для использования printTree, для наглядности.
+                        // parent2.setLeft(null); //должно быть это везде
                         parent2.setLeft(new Node(0, null, null));
+                        // МОЖННО помечать удаленные как 0, для использования printTree, для наглядности.
+                        parent.data = current.data;
+                    } else {
+                        parent2.setRight(new Node(0, null, null));
+                        parent2.data = current.data;
                     }
-                    // parent2.setRight(null);
-                    // МОЖННО помечать удаленные как 0, для использования printTree, для наглядности.
-                    parent2.setRight(new Node(0, null, null));
-                    System.out.println(parent.data + " parent");
-                    parent.data = current.data;
-
                 } else if (current.left != null) {
                     parent.setRight(current.left);
                     return;
                 } else {
                     System.out.println(parent.data);
                     if (parent.right.data == current.data) {
-                        // parent.setRight(null);
                         parent.setRight(new Node(0, null, null));
                     } else {
                         parent.setLeft(new Node(0, null, null));
