@@ -25,10 +25,10 @@ public class BBSTree {
         }
     }
 
-    public void insert(int value) {
+    public Node insert(int value) {
         if (head == null) {
             head = new Node(value, null, null);    
-            return;
+            return head;
         }
         Node current = head;
         Node parent = null;
@@ -39,7 +39,7 @@ public class BBSTree {
             } else if (current.data > value) {
                 current = current.left;
             } else {
-                return;
+                return current;
             }
         }
         if(parent.data < value) {
@@ -48,12 +48,32 @@ public class BBSTree {
             parent.setLeft(new Node(value, null, null));
         }
         updateHeight(head);
+        // balance(head);   все конецццццццццц
         int diffHeight = getDiffHeight(head);
         System.out.println("DIFFE HEINT: " + diffHeight);
-        
+        return balance(head);
+    }
+    
+    public Node balance(Node node) {
+        int diffHeight = getDiffHeight(node);
+
         if (diffHeight > 1) {
-            //
-        } 
+            if (getDiffHeight(node.left) >= 0) {
+                return rotateRight(node);
+            } else {
+                node.left = rotateLeft(node.left);
+                return rotateRight(node);
+            }
+        }
+        if (diffHeight < -1) {
+            if (getDiffHeight(node.right) <= 0) {
+                return rotateLeft(node);
+            } else {
+                node.right = rotateRight(node.right);
+                return rotateLeft(node);
+            }
+        }
+        return node;
     }
 
     public int updateHeight(Node node) {
@@ -65,7 +85,6 @@ public class BBSTree {
         node.height = 1 + Math.max(leftHeight, rightHeight);
         return node.height;
     }
-
     public int getDiffHeight(Node node) {
         if (node.left != null) {
             if (node.right != null) {
@@ -74,10 +93,36 @@ public class BBSTree {
                 return node.left.height;
             }
         } else if (node.right != null) {
-            return node.right.height;
+            return -node.right.height;
         } else {
             return 0;
         }
+    }
+
+    public Node rotateRight(Node node) {
+        Node nodeLeft = node.left;
+        Node nodeLeftRight = nodeLeft.right;
+
+        nodeLeft.right = node;
+        node.left = nodeLeftRight;
+
+        updateHeight(node);
+        updateHeight(nodeLeft);
+
+        return nodeLeft;
+    }
+
+    public Node rotateLeft(Node node) {
+        Node nodeRight = node.right;
+        Node nodeRightLeft = nodeRight.left;
+
+        nodeRight.left = node;
+        node.right = nodeRightLeft;
+
+        updateHeight(node);
+        updateHeight(nodeRight);
+
+        return nodeRight;
     }
 
     public boolean has(int value) {
