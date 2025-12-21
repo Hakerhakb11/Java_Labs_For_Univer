@@ -51,7 +51,9 @@ public class BBSTree {
         int diffHeight = getDiffHeight(head);
         System.out.println("DIFFE HEINT: " + diffHeight);
         
-        // if (diffHeight < -2) 
+        if (diffHeight > 1) {
+            //
+        } 
     }
 
     public int updateHeight(Node node) {
@@ -162,8 +164,6 @@ public class BBSTree {
                     }
                     parent.data = current.data;
                     parent2.setLeft(null);
-                    // // МОЖННО помечать удаленные как 0, для использования printTree, для наглядности.
-                    // parent2.setLeft(new Node(0, null, null));
 
                 } else if (current.left != null) {
                     parent.setRight(current.left);
@@ -174,25 +174,58 @@ public class BBSTree {
         }
     }
 
-    //Check node. If this null, dont printed .this | 
-    public String P(Node node) {
+    
+    //Check node. If this null, func doesn't printed .this
+    private String P(Node node, String path) {
         if (node == null) {
-            return "n/n";
-        } else {
-            return node.data + "," + node.height;
+            return "null";
+        }
+        String[] steps = path.split("\\.");
+        Node current = node;
+        for (String step : steps) {
+                if (current == null) {
+                    return "null";
+                }
+                if (step.equals("left")) {
+                    current = current.left;
+                } else if (step.equals("right")) {
+                    current = current.right;
+                }
+            }
+            if (current == null) {
+                return "null";
+            }
+            return current.data + "," + current.height;
+        }
+        
+        // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
+        public void printTree() {
+            System.out.print("\n                 " + P(head, "") + "\r\n" + //
+            "            /          \\ \r\n" + //
+            "         " + P(head, "left") + "            " + P(head, "right") + "\r\n" + //
+            "        /   \\           /   \\    \r\n" + //
+            "      " + P(head, "left.left") + "  " + P(head, "left.right") + "       " + P(head, "right.left") + "    " + P(head, "right.right") + "\r\n" + //
+            "     / \\    / \\      / \\       / \\\r\n" + //"");
+            "   " + P(head, "left.left.left") + " " + P(head, "left.left.right") + " " + P(head, "left.right.left") + " " + P(head, "left.right.right") + " " + P(head, "right.left.left") + " " + P(head, "right.left.right") + " " + P(head, "right.right.left") + " " + P(head, "right.right.right") + "\n\n");
         }
     }
-
     
+    
+    // // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
+    //     public void printTree() {
+        //         System.out.print("\n                 " + P(head) + "\r\n" + //
+        //         "            /          \\ \r\n" + //
+        //         "         " + P(head.left) + "            " + P(head.right) + "\r\n" + //
+        //         "        /   \\           /   \\    \r\n" + //
+        //         "      " + P(head.left.left) + "  " + P(head.left.right) + "       " + P(head.right.left) + "    " + P(head.right.right) + "\r\n" + //
+        //                      "     / \\    / \\      / \\       / \\\r\n" + //"");
+        //         "   " + P(head.left.left.left) + " " + P(head.left.left.right) + " " + P(head.left.right.left) + " " + P(head.left.right.right) + " " + P(head.right.left.left) + " " + P(head.right.left.right) + " " + P(head.right.right.left) + " " + P(head.right.right.right) + "\n\n");
+        //     }
 
-    // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
-    public void printTree() {
-        System.out.print("\n                 " + P(head) + "\r\n" + //
-        "            /          \\ \r\n" + //
-        "         " + P(head.left) + "            " + P(head.right) + "\r\n" + //
-        "        /   \\           /   \\    \r\n" + //
-        "      " + P(head.left.left) + "  " + P(head.left.right) + "       " + P(head.right.left) + "    " + P(head.right.right) + "\r\n" + //
-                     "     / \\    / \\      / \\       / \\\r\n" + //"");
-        "   " + P(head.left.left.left) + " " + P(head.left.left.right) + " " + P(head.left.right.left) + " " + P(head.left.right.right) + " " + P(head.right.left.left) + " " + P(head.right.left.right) + " " + P(head.right.right.left) + " " + P(head.right.right.right) + "\n\n");
-    }
-}
+        // public String oldP(Node node) {
+        //     if (node == null) {
+        //         return "n/n";
+        //     } else {
+        //         return node.data + "," + node.height;
+        //     }
+        // }

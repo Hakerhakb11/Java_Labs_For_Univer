@@ -29,7 +29,7 @@ public class Main {
         bstree.printTree();
         
         bstree.delete(12);
-        // System.out.println(bstree.has(12));
+        System.out.println(bstree.has(12));
         
         bstree.printTree();
         
