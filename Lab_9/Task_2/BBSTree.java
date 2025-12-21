@@ -1,8 +1,9 @@
 package Lab_9.Task_2;
 
-public class BSTree {
+public class BBSTree {
     private Node head = null;
     class Node {
+        private int height = 1;
         private int data;
         private Node left;
         private Node right;
@@ -11,6 +12,7 @@ public class BSTree {
             this.data = data;
             this.left = left;
             this.right = right;
+            this.height = 1;
         }
         public int getData() {
             return this.data;
@@ -24,6 +26,10 @@ public class BSTree {
     }
 
     public void insert(int value) {
+        if (head == null) {
+            head = new Node(value, null, null);    
+            return;
+        }
         Node current = head;
         Node parent = null;
         while (current != null) {
@@ -36,14 +42,39 @@ public class BSTree {
                 return;
             }
         }
-        if (head == null) {
-            head = new Node(value, null, null);    
-            return;
-        }
         if(parent.data < value) {
             parent.setRight(new Node(value, null, null)); 
         } else {
             parent.setLeft(new Node(value, null, null));
+        }
+        updateHeight(head);
+        int diffHeight = getDiffHeight(head);
+        System.out.println("DIFFE HEINT: " + diffHeight);
+        
+        // if (diffHeight < -2) 
+    }
+
+    public int updateHeight(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftHeight = updateHeight(node.left);
+        int rightHeight = updateHeight(node.right);
+        node.height = 1 + Math.max(leftHeight, rightHeight);
+        return node.height;
+    }
+
+    public int getDiffHeight(Node node) {
+        if (node.left != null) {
+            if (node.right != null) {
+                return node.left.height - node.right.height;
+            } else {
+                return node.left.height;
+            }
+        } else if (node.right != null) {
+            return node.right.height;
+        } else {
+            return 0;
         }
     }
 
@@ -143,14 +174,25 @@ public class BSTree {
         }
     }
 
+    //Check node. If this null, dont printed .this | 
+    public String P(Node node) {
+        if (node == null) {
+            return "n/n";
+        } else {
+            return node.data + "," + node.height;
+        }
+    }
+
+    
+
     // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
     public void printTree() {
-        System.out.print("\n       " + head.data + "\r\n" + //
-        "    /     \\\r\n" + //
-        "   " + head.left.data + "        " + head.right.data + "\r\n" + //
-        "  / \\      /  \\\r\n" + //
-        " " + head.left.left.data + "   " + head.left.right.data + "   " + head.right.left.data + "    " + head.right.right.data + "\r\n" + //
-                "/ \\ / \\  / \\   / \\\r\n" + //"");
-        "" + head.left.left.left.data + " " + head.left.left.right.data + " " + head.left.right.left.data + " " + head.left.right.right.data + " " + head.right.left.left.data + "  " + head.right.left.right.data + " " + head.right.right.left.data + "  " + head.right.right.right.data + "\n\n");
+        System.out.print("\n                 " + P(head) + "\r\n" + //
+        "            /          \\ \r\n" + //
+        "         " + P(head.left) + "            " + P(head.right) + "\r\n" + //
+        "        /   \\           /   \\    \r\n" + //
+        "      " + P(head.left.left) + "  " + P(head.left.right) + "       " + P(head.right.left) + "    " + P(head.right.right) + "\r\n" + //
+                     "     / \\    / \\      / \\       / \\\r\n" + //"");
+        "   " + P(head.left.left.left) + " " + P(head.left.left.right) + " " + P(head.left.right.left) + " " + P(head.left.right.right) + " " + P(head.right.left.left) + " " + P(head.right.left.right) + " " + P(head.right.right.left) + " " + P(head.right.right.right) + "\n\n");
     }
 }

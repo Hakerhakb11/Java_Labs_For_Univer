@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Start lab_9.2");
 
-        BSTree bstree = new BSTree();
+        BBSTree bstree = new BBSTree();
         
         bstree.insert(8);
         bstree.insert(4);
@@ -25,13 +25,13 @@ public class Main {
         System.out.println(bstree.next(2));
         System.out.println(bstree.prev(5));
         System.out.println(bstree.has(12));
-
+        
         bstree.printTree();
         
         bstree.delete(12);
-        System.out.println(bstree.has(12));
+        // System.out.println(bstree.has(12));
         
-        // bstree.printTree();
+        bstree.printTree();
         
         System.out.println("\nEnd lab_9.2");
     }

@@ -30,6 +30,8 @@ public class Main {
         // System.out.println(bstree.has(12));
         
         bstree.printTree();
+
+
     }
 }
 
