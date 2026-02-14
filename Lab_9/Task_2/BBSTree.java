@@ -42,7 +42,7 @@ public class BBSTree {
                 return current;
             }
         }
-        if(parent.data < value) {
+        if (parent.data < value) {
             parent.setRight(new Node(value, null, null)); 
         } else {
             parent.setLeft(new Node(value, null, null));
@@ -85,6 +85,7 @@ public class BBSTree {
         node.height = 1 + Math.max(leftHeight, rightHeight);
         return node.height;
     }
+    
     public int getDiffHeight(Node node) {
         if (node.left != null) {
             if (node.right != null) {
@@ -254,7 +255,6 @@ public class BBSTree {
             "   " + P(head, "left.left.left") + " " + P(head, "left.left.right") + " " + P(head, "left.right.left") + " " + P(head, "left.right.right") + " " + P(head, "right.left.left") + " " + P(head, "right.left.right") + " " + P(head, "right.right.left") + " " + P(head, "right.right.right") + "\n\n");
         }
     }
-    
     
     // // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
     //     public void printTree() {
