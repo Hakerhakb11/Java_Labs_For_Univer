@@ -1,5 +1,7 @@
 package Lab_9.Task_1;
 
+// import java.util.ArrayList;
+
 public class BSTree {
     private Node head = null;
     class Node {
@@ -42,7 +44,7 @@ public class BSTree {
             head = new Node(value, null, null);    
             return;
         }
-        if(parent.data < value) {
+        if (parent.data < value) {
             parent.setRight(new Node(value, null, null)); 
         } else {
             parent.setLeft(new Node(value, null, null));
@@ -113,19 +115,19 @@ public class BSTree {
         return parent.data;
     }
     
-    // public int max(Node head) {
-    //     Node current = head;
-    //     while (true) {
-    //         if (current.right != null) {
-    //             current = current.right;
-    //         } else {
-    //             return current.data;
-    //         }
-    //     }
-    // }
+    public int max() {
+        Node current = head;
+        while (true) {
+            if (current.right != null) {
+                current = current.right;
+            } else {
+                return current.data;
+            }
+        }
+    }
 
-    //для дебаггинга вместо null написано new Node(0, null, null).
-    public void delete(int value) {
+    public void delete(int value) { 
+        //для дебаггинга вместо null написано new Node(0, null, null).
         Node current = head;
         Node parent = null;
         
@@ -170,21 +172,7 @@ public class BSTree {
         }
     }
 
-// public int getDiffHeight(Node node) {
-//         if (node.left != null) {
-//             if (node.right != null) {
-//                 return node.left.height - node.right.height;
-//             } else {
-//                 return node.left.height;
-//             }
-//         } else if (node.right != null) {
-//             return -node.right.height;
-//         } else {
-//             return 0;
-//         }
-//     }
-
-public int updateHeight(Node node) {
+    public int updateHeight(Node node) {
         if (node == null) {
             return 0;
         }
@@ -203,7 +191,18 @@ public int updateHeight(Node node) {
         return rank;
     }
     
-    // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
+    public int[] BFS() {
+        int height = updateHeight(head);
+        int[] arr = new int[(int)Math.pow(2, height)];
+        if (head != null) {
+            arr[0] = head.data;
+        }
+        Node current = head;
+
+
+        return null;
+    }
+    // print tree interactive || Manual setting. Change var: "maxEl" and "pos"
     public void printTree() {
         
         Node current = head;
@@ -217,7 +216,7 @@ public int updateHeight(Node node) {
             }
         }
 
-        maxEl = 423; //Dimension of table
+        // maxEl = 42; //Dimension of table
         int tableRank = sayRank(maxEl);
         System.out.println(tableRank);
 
