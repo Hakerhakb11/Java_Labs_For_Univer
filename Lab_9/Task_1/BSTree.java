@@ -185,21 +185,33 @@ public int updateHeight(Node node) {
 
     // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
     public void printTree() {
-// 1 3 7 15 31
         int height = updateHeight(head);
 
         int skips = (int)Math.pow(2, height) - 1;
         
-        System.out.println("\n" + height + " -Высота!  skips- " + skips );
+        System.out.println("\n" + height + " -Высота!  skips- " + skips + "\n");
+
         
-        if (height-- > 0) {
-            System.out.print(" ".repeat((skips) / 2) + 1);
-            skips = (skips - 1) / 2;
+        if (height > 0) {
+            System.out.println(" ".repeat((skips) / 2) + head.data);
         }
-        System.out.println("\n" + height + " -Высота!  skips- " + skips );
-
-        for (int i = height; i > 0; i--) {
-
+        int pos = 1;
+        int iterations = 1;
+        for (int i = height; i > 1; i--) {
+            skips = (skips) / 2;
+            int dinamicSkips = skips / 2;
+            for (int j = iterations; j > 0; j--) {
+                System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");
+                dinamicSkips = skips;
+            }
+            System.out.println();
+            dinamicSkips = skips / 2;
+            for (int j = iterations; j > 0; j--) {
+                System.out.print(" ".repeat(dinamicSkips) + pos++ + " ".repeat(skips) + pos++);
+                dinamicSkips = skips;
+            }
+            System.out.println();
+            iterations = iterations * 2;
         }
 
         // System.out.print("\n       " + head.data + "\r\n" + //
@@ -220,13 +232,42 @@ public int updateHeight(Node node) {
 // 0 3 5 7 9  11 13  15
 
 
+8
+/       \
+1       2
+/   \   /   \
+2   3   3   4
+/ \ / \ / \ / \
+4 5 5 6 6 7 7 8
 
-//                1
-//        /               \
-//        8               8
-//    /       \       /       \
-//    4       1       4       1
-//  /   \   /   \   /   \   /   \
-//  2   6   1   1   2   6   1   1
-// / \ / \ / \ / \ / \ / \ / \ / \
-// 0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1
+               1
+       /               \
+       8               8
+   /       \       /       \
+   4       1       4       1
+ /   \   /   \   /   \   /   \
+ 2   6   1   1   2   6   1   1
+/ \ / \ / \ / \ / \ / \ / \ / \
+0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1
+
+                               90
+              /                                \
+              80                              80
+      /                \              /                \
+      10              20              10              20
+  /        \      /        \      /        \      /        \
+  30      40      50      60      30      40      50      60
+/    \  /    \  /    \  /    \  /    \  /    \  /    \  /    \
+70  80  90  10  11  12  13  14  70  80  90  10  11  12  13  14
+
+
+
+               1
+       /               \
+       8               8
+   /       \       /       \
+   4       1       4       1
+ /   \   /   \   /   \   /   \
+ 2   6   1   1   2   6   1   1
+/ \ / \ / \ / \ / \ / \ / \ / \
+0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1

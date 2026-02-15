@@ -6,8 +6,8 @@ public class Main {
         
         bstree.insert(8);
         bstree.insert(4);
-        // bstree.insert(2);
-        // bstree.insert(1);
+        bstree.insert(2);
+        bstree.insert(1);
         // bstree.insert(3);
         // bstree.insert(6);
         // bstree.insert(5);
@@ -19,6 +19,7 @@ public class Main {
         // bstree.insert(14);
         // bstree.insert(13);
         // bstree.insert(15);
+        bstree.insert(16);
         
         // System.out.println(bstree.next(2));
         // System.out.println(bstree.prev(5));
