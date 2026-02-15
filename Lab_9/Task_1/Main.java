@@ -33,6 +33,7 @@ public class Main {
         // bstree.printTree();
 
 
+
     }
 }
 
@@ -89,3 +90,20 @@ public class Main {
 // System.out.println(bstree.has(4));
 // System.out.println(bstree.next(7));
 // System.out.println(bstree.prev(5));
+
+//        8
+//     /     \
+//    4        12
+//   / \      /  \
+//  2   6   10    14
+// / \ / \  / \   / \
+// 0 3 5 7 9  11 13  15
+
+        // System.out.print("\n       " + head.data + "\r\n" + //
+        // "    /     \\\r\n" + //
+        // "   " + head.left.data + "        " + head.right.data + "\r\n" + //
+        // "  / \\      /  \\\r\n" + //
+        // " " + head.left.left.data + "   " + head.left.right.data + "   " + head.right.left.data + "    " + head.right.right.data + "\r\n" + //
+        //         "/ \\ / \\  / \\   / \\\r\n" + //"");
+        // "" + head.left.left.left.data + " " + head.left.left.right.data + " " + head.left.right.left.data + " " + head.left.right.right.data + " " + head.right.left.left.data + "  " + head.right.left.right.data + " " + head.right.right.left.data + "  " + head.right.right.right.data + "\n\n");
+    

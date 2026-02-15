@@ -113,7 +113,18 @@ public class BSTree {
         return parent.data;
     }
     
-    //для дебаггинга вместо null иногда написано new Node(0, null, null).
+    // public int max(Node head) {
+    //     Node current = head;
+    //     while (true) {
+    //         if (current.right != null) {
+    //             current = current.right;
+    //         } else {
+    //             return current.data;
+    //         }
+    //     }
+    // }
+
+    //для дебаггинга вместо null написано new Node(0, null, null).
     public void delete(int value) {
         Node current = head;
         Node parent = null;
@@ -183,11 +194,36 @@ public int updateHeight(Node node) {
         return node.height;
     }
 
+    public int sayRank(int digit) {
+        int rank = 0;
+        while (digit != 0) {
+            rank++;
+            digit /= 10;
+        }
+        return rank;
+    }
+    
     // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
     public void printTree() {
+        
+        Node current = head;
+        int maxEl;
+        while (true) {
+            if (current.right != null) {
+                current = current.right;
+            } else {
+                maxEl = current.data;
+                break;
+            }
+        }
+
+        maxEl = 423; //Dimension of table
+        int tableRank = sayRank(maxEl);
+        System.out.println(tableRank);
+
         int height = updateHeight(head);
 
-        int skips = (int)Math.pow(2, height) - 1;
+        int skips = (int)Math.pow(2, height - 1 + tableRank) - tableRank;
         
         System.out.println("\n" + height + " -Высота!  skips- " + skips + "\n");
 
@@ -195,79 +231,53 @@ public int updateHeight(Node node) {
         if (height > 0) {
             System.out.println(" ".repeat((skips) / 2) + head.data);
         }
-        int pos = 1;
+        int pos = 1; // Elements in table
         int iterations = 1;
         for (int i = height; i > 1; i--) {
-            skips = (skips) / 2;
+            skips = (skips) / 2 - 1;
             int dinamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
-                System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");
+                System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips + tableRank) + "\\");
                 dinamicSkips = skips;
             }
             System.out.println();
             dinamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
-                System.out.print(" ".repeat(dinamicSkips) + pos++ + " ".repeat(skips) + pos++);
+                int rank = sayRank(pos) + sayRank(pos + 1) - 2;
+                System.out.print(" ".repeat(dinamicSkips) + pos++ + " ".repeat(skips + tableRank - rank) + pos++);
                 dinamicSkips = skips;
             }
             System.out.println();
             iterations = iterations * 2;
         }
-
-        // System.out.print("\n       " + head.data + "\r\n" + //
-        // "    /     \\\r\n" + //
-        // "   " + head.left.data + "        " + head.right.data + "\r\n" + //
-        // "  / \\      /  \\\r\n" + //
-        // " " + head.left.left.data + "   " + head.left.right.data + "   " + head.right.left.data + "    " + head.right.right.data + "\r\n" + //
-        //         "/ \\ / \\  / \\   / \\\r\n" + //"");
-        // "" + head.left.left.left.data + " " + head.left.left.right.data + " " + head.left.right.left.data + " " + head.left.right.right.data + " " + head.right.left.left.data + "  " + head.right.left.right.data + " " + head.right.right.left.data + "  " + head.right.right.right.data + "\n\n");
     }
 }
-//        8
-//     /     \
-//    4        12
-//   / \      /  \
-//  2   6   10    14
-// / \ / \  / \   / \
-// 0 3 5 7 9  11 13  15
+//                1
+//        /               \
+//        8               8
+//    /       \       /       \
+//    4       1       4       1
+//  /   \   /   \   /   \   /   \
+//  2   6   1   1   2   6   1   1
+// / \ / \ / \ / \ / \ / \ / \ / \
+// 0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1
 
+//                               90
+//               /                                \
+//               80                              80
+//       /                \              /                \
+//       10              20              10              20
+//   /        \      /        \      /        \      /        \
+//   30      40      50      60      30      40      50      60
+// /    \  /    \  /    \  /    \  /    \  /    \  /    \  /    \
+// 70  80  90  10  11  12  13  14  70  80  90  10  11  12  13  14
 
-8
-/       \
-1       2
-/   \   /   \
-2   3   3   4
-/ \ / \ / \ / \
-4 5 5 6 6 7 7 8
-
-               1
-       /               \
-       8               8
-   /       \       /       \
-   4       1       4       1
- /   \   /   \   /   \   /   \
- 2   6   1   1   2   6   1   1
-/ \ / \ / \ / \ / \ / \ / \ / \
-0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1
-
-                               90
-              /                                \
-              80                              80
-      /                \              /                \
-      10              20              10              20
-  /        \      /        \      /        \      /        \
-  30      40      50      60      30      40      50      60
-/    \  /    \  /    \  /    \  /    \  /    \  /    \  /    \
-70  80  90  10  11  12  13  14  70  80  90  10  11  12  13  14
-
-
-
-               1
-       /               \
-       8               8
-   /       \       /       \
-   4       1       4       1
- /   \   /   \   /   \   /   \
- 2   6   1   1   2   6   1   1
-/ \ / \ / \ / \ / \ / \ / \ / \
-0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1
+//                1
+//        /               \
+//        8               8
+//    /       \       /       \
+//    4       1       4       1
+//  /   \   /   \   /   \   /   \
+//  2   6   1   1   2   6   1   1
+// / \ / \ / \ / \ / \ / \ / \ / \
+// 0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1
