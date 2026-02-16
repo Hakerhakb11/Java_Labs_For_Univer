@@ -1,7 +1,6 @@
 package Lab_9.Task_1;
 
 import java.util.Queue;
-import java.util.ArrayList;
 import java.util.LinkedList; 
 
 public class BSTree {
@@ -117,7 +116,7 @@ public class BSTree {
         return parent.data;
     }
     
-    public int max() {
+    public int max(Node head) {
         Node current = head;
         while (true) {
             if (current.right != null) {
@@ -129,7 +128,6 @@ public class BSTree {
     }
 
     public void delete(int value) { 
-        //для дебаггинга вместо null написано new Node(0, null, null).
         Node current = head;
         Node parent = null;
         
@@ -150,23 +148,20 @@ public class BSTree {
                             parent2 = current;
                             current = current.left;
                         }
-                        // parent2.setLeft(null); //должно быть это везде
-                        parent2.setLeft(new Node(0, null, null));
-                        // МОЖННО помечать удаленные как 0, для использования printTree, для наглядности.
+                        parent2.setLeft(null);
                         parent.data = current.data;
                     } else {
-                        parent2.setRight(new Node(0, null, null));
+                        parent2.setRight(null);
                         parent2.data = current.data;
                     }
                 } else if (current.left != null) {
                     parent.setRight(current.left);
                     return;
                 } else {
-                    System.out.println(parent.data);
                     if (parent.right.data == current.data) {
-                        parent.setRight(new Node(0, null, null));
+                        parent.setRight(null);
                     } else {
-                        parent.setLeft(new Node(0, null, null));
+                        parent.setLeft(null);
                     }
                     return;
                 }
@@ -197,81 +192,65 @@ public class BSTree {
     }
     
     public int[] BFS(Node head) {
-        int height = updateHeight(head);
+        Node temp = new Node(0, null, null); // for don't exists Nodes
+        int height = updateHeight(head); // qtyty of floors in the tree
+        int size = (int)Math.pow(2, height); // max qtyty elem in tree
+        int number = size;
         int[] arr = new int[(int)Math.pow(2, height)];
         Queue<Node> queue = new LinkedList<>();
+        
+        int i = 0;
         if (head != null) {
             queue.offer(head);
         }
-        int i = 0;
-        while (!queue.isEmpty()) {
+        for (int k = 1; k < size; k++) {
             Node current = queue.poll();
             arr[i++] = current.data;
             if (current.left != null) {
                 queue.offer(current.left);
             } else {
-                //
+                if (number > size / 2 + 1) {
+                    queue.offer(temp);
+                }
             }
             if (current.right != null) {
                 queue.offer(current.right);
             } else {
-                //
+                if (number > size / 2 + 1) {
+                    queue.offer(temp);
+                }
             }
+            number--;
         }
         return arr;
     }
+    
     // print tree interactive
     public void printTree() {
-
-        System.out.print("\n       " + head.data + "\r\n" + //
-        "    /     \\\r\n" + //
-        "   " + head.left.data + "        " + head.right.data + "\r\n" + //
-        "  / \\      /  \\\r\n" + //
-        " " + head.left.left.data + "   " + head.left.right.data + "   " + head.right.left.data + "    " + head.right.right.data + "\r\n" + //
-                "/ \\ / \\  / \\   / \\\r\n" + //"");
-        "" + "n" + " " + head.left.left.right.data + " " + head.left.right.left.data + " " + head.left.right.right.data + " " + head.right.left.left.data + "  " + head.right.left.right.data + " " + 111 + "  " + 111 + "\n\n");
-    
-        
-        Node current = head;
-        int maxEl;
-        while (true) {
-            if (current.right != null) {
-                current = current.right;
-            } else {
-                maxEl = current.data;
-                break;
-            }
-        }
-
-        int tableRank = sayRank(maxEl);
-        System.out.println("Table Rank: " + tableRank); //
-
+        int maxEl = max(head);
+        int tableRank = sayRank(maxEl); // Table Width ex: for x, for xx, for xxx.
         int height = updateHeight(head);
-
         int skips = (int)Math.pow(2, height - 1 + tableRank) - tableRank;
         
-        System.out.println("\n" + height + " -Высота!  skips- " + skips + "\n"); //
-
-        if (height > 0) {
-            System.out.println(" ".repeat((skips) / 2) + head.data);
+        if (height > 0) { // first elem. Print alone
+            System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data);
         }
         int[] arr = BFS(head); // Elements in table
-        int numInTable = 1;
-        int iterations = 1; // Qtyty of iteration in every floor
-
-        int pos = 1;
+        int numInTable = 1; // variable of number, which way getted from BFS
+        int iterations = 1; // variable of Qtyty iteration in every floor
+        
         for (int i = height; i > 1; i--) {
-            skips = (skips) / 2 - 1;
+            skips = (skips) / 2;
             int dinamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
-                System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips + tableRank) + "\\");
+                System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");
                 dinamicSkips = skips;
             }
             System.out.println();
             dinamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
                 int rank = sayRank(arr[numInTable]) + sayRank(arr[numInTable + 1]) - 2;
-                System.out.print(" ".repeat(dinamicSkips) + arr[numInTable++] + " ".repeat(skips + tableRank - rank) + arr[numInTable++]);
+                System.out.print(" ".repeat(dinamicSkips) + arr[numInTable++] + " ".repeat(skips - rank) + arr[numInTable++]);
                 dinamicSkips = skips;
             }
             System.out.println();
@@ -279,33 +258,3 @@ public class BSTree {
         }
     }
 }
-
-//                1
-//        /               \
-//        8               8
-//    /       \       /       \
-//    4       1       4       1
-//  /   \   /   \   /   \   /   \
-//  2   6   1   1   2   6   1   1
-// / \ / \ / \ / \ / \ / \ / \ / \
-// 0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1
-
-//                               90
-//               /                                \
-//               80                              80
-//       /                \              /                \
-//       10              20              10              20
-//   /        \      /        \      /        \      /        \
-//   30      40      50      60      30      40      50      60
-// /    \  /    \  /    \  /    \  /    \  /    \  /    \  /    \
-// 70  80  90  10  11  12  13  14  70  80  90  10  11  12  13  14
-
-//                1
-//        /               \
-//        8               8
-//    /       \       /       \
-//    4       1       4       1
-//  /   \   /   \   /   \   /   \
-//  2   6   1   1   2   6   1   1
-// / \ / \ / \ / \ / \ / \ / \ / \
-// 0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1

@@ -1,4 +1,7 @@
-package Lab_9.Task_2;
+package Lab_9.Task_2; // uncomplete
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BBSTree {
     private Node head = null;
@@ -47,11 +50,11 @@ public class BBSTree {
         } else {
             parent.setLeft(new Node(value, null, null));
         }
-        updateHeight(head);
+        // updateHeight(head);
         // balance(head);   все конецццццццццц
-        int diffHeight = getDiffHeight(head);
-        System.out.println("DIFFE HEINT: " + diffHeight);
-        return balance(head);
+        // int diffHeight = getDiffHeight(head);
+        // System.out.println("DIFFE HEINT: " + diffHeight);
+        return head;
     }
     
     public Node balance(Node node) {
@@ -219,58 +222,129 @@ public class BBSTree {
             }
         }
     }
-
-    
-    //Check node. If this null, func doesn't printed .this
-    private String P(Node node, String path) {
-        if (node == null) {
-            return "null";
-        }
-        String[] steps = path.split("\\.");
-        Node current = node;
-        for (String step : steps) {
-                if (current == null) {
-                    return "null";
-                }
-                if (step.equals("left")) {
-                    current = current.left;
-                } else if (step.equals("right")) {
-                    current = current.right;
-                }
+   
+    public int max(Node head) {
+        Node current = head;
+        while (true) {
+            if (current.right != null) {
+                current = current.right;
+            } else {
+                return current.data;
             }
-            if (current == null) {
-                return "null";
-            }
-            return current.data + "," + current.height;
-        }
-        
-        // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
-        public void printTree() {
-            System.out.print("\n                 " + P(head, "") + "\r\n" + //
-            "            /          \\ \r\n" + //
-            "         " + P(head, "left") + "            " + P(head, "right") + "\r\n" + //
-            "        /   \\           /   \\    \r\n" + //
-            "      " + P(head, "left.left") + "  " + P(head, "left.right") + "       " + P(head, "right.left") + "    " + P(head, "right.right") + "\r\n" + //
-            "     / \\    / \\      / \\       / \\\r\n" + //"");
-            "   " + P(head, "left.left.left") + " " + P(head, "left.left.right") + " " + P(head, "left.right.left") + " " + P(head, "left.right.right") + " " + P(head, "right.left.left") + " " + P(head, "right.left.right") + " " + P(head, "right.right.left") + " " + P(head, "right.right.right") + "\n\n");
         }
     }
-    
-    // // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
-    //     public void printTree() {
-        //         System.out.print("\n                 " + P(head) + "\r\n" + //
-        //         "            /          \\ \r\n" + //
-        //         "         " + P(head.left) + "            " + P(head.right) + "\r\n" + //
-        //         "        /   \\           /   \\    \r\n" + //
-        //         "      " + P(head.left.left) + "  " + P(head.left.right) + "       " + P(head.right.left) + "    " + P(head.right.right) + "\r\n" + //
-        //                      "     / \\    / \\      / \\       / \\\r\n" + //"");
-        //         "   " + P(head.left.left.left) + " " + P(head.left.left.right) + " " + P(head.left.right.left) + " " + P(head.left.right.right) + " " + P(head.right.left.left) + " " + P(head.right.left.right) + " " + P(head.right.right.left) + " " + P(head.right.right.right) + "\n\n");
-        //     }
 
-        // public String oldP(Node node) {
-        //     if (node == null) {
-        //         return "n/n";
-        //     } else {
-        //         return node.data + "," + node.height;
-        //     }
-        // }
+    public int sayRank(int digit) {
+        int rank = 0;
+        while (digit != 0) {
+            rank++;
+            digit /= 10;
+        }
+        if (rank == 0) {
+            return 1;
+        }
+        return rank;
+    }
+
+    public int[] BFS(Node head) {
+        Node temp = new Node(0, null, null); // for don't exists Nodes
+        int height = updateHeight(head); // qtyty of floors in the tree
+        int size = (int)Math.pow(2, height); // max qtyty elem in tree
+        int number = size;
+        int[] arr = new int[(int)Math.pow(2, height)];
+        Queue<Node> queue = new LinkedList<>();
+        
+        int i = 0;
+        if (head != null) {
+            queue.offer(head);
+        }
+        for (int k = 1; k < size; k++) {
+            Node current = queue.poll();
+            arr[i++] = current.data;
+            if (current.left != null) {
+                queue.offer(current.left);
+            } else {
+                if (number > size / 2 + 1) {
+                    queue.offer(temp);
+                }
+            }
+            if (current.right != null) {
+                queue.offer(current.right);
+            } else {
+                if (number > size / 2 + 1) {
+                    queue.offer(temp);
+                }
+            }
+            number--;
+        }
+        return arr;
+    }
+
+    // print tree interactive
+    public void printTree() {
+        int maxEl = max(head);
+        int tableRank = sayRank(maxEl); // Table Width ex: for x, for xx, for xxx.
+        int height = updateHeight(head);
+        int skips = (int)Math.pow(2, height - 1 + tableRank) - tableRank;
+        
+        if (height > 0) { // first elem. Print alone
+            System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data);
+        }
+        int[] arr = BFS(head); // Elements in table
+        int numInTable = 1; // variable of number, which way getted from BFS
+        int iterations = 1; // variable of Qtyty iteration in every floor
+        
+        for (int i = height; i > 1; i--) {
+            skips = (skips) / 2;
+            int dinamicSkips = skips / 2;
+            for (int j = iterations; j > 0; j--) {
+                System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");
+                dinamicSkips = skips;
+            }
+            System.out.println();
+            dinamicSkips = skips / 2;
+            for (int j = iterations; j > 0; j--) {
+                int rank = sayRank(arr[numInTable]) + sayRank(arr[numInTable + 1]) - 2;
+                System.out.print(" ".repeat(dinamicSkips) + arr[numInTable++] + " ".repeat(skips - rank) + arr[numInTable++]);
+                dinamicSkips = skips;
+            }
+            System.out.println();
+            iterations = iterations * 2;
+        }
+    }
+}
+
+// for remember this
+// //Check node. If this null, func doesn't printed .this
+// private String P(Node node, String path) {
+//     if (node == null) {
+//         return "null";
+//     }
+//     String[] steps = path.split("\\.");
+//     Node current = node;
+//     for (String step : steps) {
+//             if (current == null) {
+//                 return "null";
+//             }
+//             if (step.equals("left")) {
+//                 current = current.left;
+//             } else if (step.equals("right")) {
+//                 current = current.right;
+//             }
+//         }
+//         if (current == null) {
+//             return "null";
+//         }
+//         return current.data + "," + current.height;
+//     }
+    
+//     // print tree interactive || Inputable tree.length must be = 15 || tree must be ABS(balanced) when you input numbers.
+//     public void printTree() {
+//         System.out.print("\n                 " + P(head, "") + "\r\n" + //
+//         "            /          \\ \r\n" + //
+//         "         " + P(head, "left") + "            " + P(head, "right") + "\r\n" + //
+//         "        /   \\           /   \\    \r\n" + //
+//         "      " + P(head, "left.left") + "  " + P(head, "left.right") + "       " + P(head, "right.left") + "    " + P(head, "right.right") + "\r\n" + //
+//         "     / \\    / \\      / \\       / \\\r\n" + //"");
+//         "   " + P(head, "left.left.left") + " " + P(head, "left.left.right") + " " + P(head, "left.right.left") + " " + P(head, "left.right.right") + " " + P(head, "right.left.left") + " " + P(head, "right.left.right") + " " + P(head, "right.right.left") + " " + P(head, "right.right.right") + "\n\n");
+//     }

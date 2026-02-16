@@ -1,4 +1,4 @@
-package Lab_9.Task_2;
+package Lab_9.Task_2; // uncomplete
 
 public class Main {
     public static void main(String[] args) {
@@ -10,17 +10,18 @@ public class Main {
         bstree.insert(4);
         bstree.insert(2);
         bstree.insert(1);
-        // bstree.insert(3);
-        // bstree.insert(6);
-        // bstree.insert(5);
-        // bstree.insert(7);
-        // bstree.insert(12);
-        // bstree.insert(10);
-        // bstree.insert(11);
-        // bstree.insert(9);
-        // bstree.insert(14);
-        // bstree.insert(13);
-        // bstree.insert(15);
+        bstree.insert(3);
+        bstree.insert(6);
+        bstree.insert(5);
+        bstree.insert(7);
+        bstree.insert(12);
+        bstree.insert(10);
+        bstree.insert(11);
+        bstree.insert(9);
+        bstree.insert(14);
+        bstree.insert(13);
+        bstree.insert(15);
+        // bstree.insert(16);
         
         // System.out.println(bstree.next(2));
         // System.out.println(bstree.prev(5));
@@ -36,61 +37,6 @@ public class Main {
         System.out.println("\nEnd lab_9.2");
     }
 }
-
-// Big befutifule tree 1-15
-//        8
-//     /     \
-//    4        12
-//   / \      /  \
-//  2   6   10    14
-// / \ / \  / \   / \
-// 1 3 5 7 9  11 13 15
-
-// bstree.insert(8);
-// bstree.insert(4);
-// bstree.insert(2);
-// bstree.insert(1);
-// bstree.insert(3);
-// bstree.insert(6);
-// bstree.insert(5);
-// bstree.insert(7);
-// bstree.insert(12);
-// bstree.insert(10);
-// bstree.insert(11);
-// bstree.insert(9);
-// bstree.insert(14);
-// bstree.insert(13);
-// bstree.insert(15);
-
-// Second tree, without 2 and 6.
-//        5
-//     /     \
-//    3        8
-//   / \      /  \
-//  1   4   7    9
-
-// bstree.insert(5);
-// bstree.insert(3);
-// bstree.insert(8);
-// bstree.insert(1);
-// bstree.insert(4);
-// bstree.insert(7);
-// bstree.insert(9);
-
-// Test For Univer Lab.
-// bstree.insert(5);
-// bstree.insert(7);
-// bstree.insert(3);
-// bstree.insert(4);
-// System.out.println(bstree.has(3));
-// System.out.println(bstree.has(8));
-// bstree.insert(8);
-// System.out.println(bstree.has(8));
-// // System.out.println(bstree.delete(3));
-// System.out.println(bstree.has(4));
-// System.out.println(bstree.next(7));
-// System.out.println(bstree.prev(5));
-
 
 //                1
 //        /               \
@@ -111,3 +57,20 @@ public class Main {
 //   30      40      50      60      30      40      50      60
 // /    \  /    \  /    \  /    \  /    \  /    \  /    \  /    \
 // 70  80  90  10  11  12  13  14  70  80  90  10  11  12  13  14
+
+
+        // System.out.print("\n       " + head.data + "\r\n" + //
+        // "    /     \\\r\n" + //
+        // "   " + head.left.data + "        " + head.right.data + "\r\n" + //
+        // "  / \\      /  \\\r\n" + //
+        // " " + head.left.left.data + "   " + head.left.right.data + "   " + head.right.left.data + "    " + head.right.right.data + "\r\n" + //
+        //         "/ \\ / \\  / \\   / \\\r\n" + //"");
+        // "" + head.left.left.left.data + " " + head.left.left.right.data + " " + head.left.right.left.data + " " + head.left.right.right.data + " " + head.right.left.left.data + "  " + head.right.left.right.data + " " + head.right.right.left.data + "  " + head.right.right.right.data + "\n\n");
+
+//        8
+//     /     \
+//    4        12
+//   / \      /  \
+//  2   6   10    14
+// / \ / \  / \   / \
+// 0 3 5 7 9  11 13  15
