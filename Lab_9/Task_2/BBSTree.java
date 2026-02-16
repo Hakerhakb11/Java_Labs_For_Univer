@@ -282,14 +282,18 @@ public class BBSTree {
 
     // print tree interactive
     public void printTree() {
+        int height = updateHeight(head);
+        if (height <= 0) {
+            System.out.println("Дерево пусто..");
+            return;
+        }
         int maxEl = max(head);
         int tableRank = sayRank(maxEl); // Table Width ex: for x, for xx, for xxx.
-        int height = updateHeight(head);
         int skips = (int)Math.pow(2, height - 1 + tableRank) - tableRank;
         
-        if (height > 0) { // first elem. Print alone
-            System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data);
-        }
+        // first elem. Print alone
+        System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data);
+        
         int[] arr = BFS(head); // Elements in table
         int numInTable = 1; // variable of number, which way getted from BFS
         int iterations = 1; // variable of Qtyty iteration in every floor
