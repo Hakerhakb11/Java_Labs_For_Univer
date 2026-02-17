@@ -31,15 +31,17 @@ public class Main {
         // System.out.println(bstree.has(12));
         
         bstree.printTree();
+        // System.out.println(bstree.has(12));
         
+        bstree.delete(1);
+        bstree.printTree();
+        bstree.delete(2);
+        bstree.printTree();
+        bstree.delete(3);
+        bstree.printTree();
         bstree.delete(4);
         bstree.printTree();
-        // System.out.println(bstree.has(12));
-        bstree.delete(11);
-        bstree.printTree();
-        bstree.delete(6);
-        bstree.printTree();
-        bstree.delete(10);
+        bstree.delete(5);
         bstree.printTree();
         
         System.out.println("\nEnd lab_9.2");

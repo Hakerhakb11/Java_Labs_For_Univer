@@ -219,31 +219,40 @@ public class BBSTree {
     }
     
 
-    public void delete(int value) { 
+    public void delete(int value) {
+        updateHeight(head);
+        System.out.println("Deliting: " + value);
+        Deque<Node> stack = new ArrayDeque<>();
         Node current = head;
         Node parent = null;
         
         while (current != null) {
             if (current.data < value) {
+                stack.push(current);
                 parent = current;
                 current = current.right;
             } else if (current.data > value) {
+                stack.push(current);
                 parent = current;
                 current = current.left;
             } else {
                 if (current.right != null) {
+                    stack.push(current);
                     parent = current;
                     Node parent2 = current;
                     current = current.right;
                     if (current.left != null) {
                         while(current.left != null) {
+                            stack.push(current);
                             parent2 = current;
                             current = current.left;
                         }
                         parent2.setLeft(null);
+                        stack.push(current);
                         parent.data = current.data;
                     } else {
                         parent2.setRight(null);
+                        stack.push(current);
                         parent2.data = current.data;
                     }
                 } else if (current.left != null) {
@@ -252,6 +261,24 @@ public class BBSTree {
                     } else {
                         parent.setRight(current.left);
                     }
+                    while (!stack.isEmpty()) {
+                        updateHeight(head);
+                        System.out.println("Stack print " + stack.peek().data);
+                        Node node = stack.pop();
+                        node.height = 1 + Math.max(height(node.left), height(node.right));
+                        Node balanced = balance(node);
+
+                        if (!stack.isEmpty()) {
+                            Node grandParent = stack.peek();
+                            if (grandParent.left == node) {
+                                grandParent.left = balanced;
+                            } else {
+                                grandParent.right = balanced;
+                            }
+                        } else {
+                            head = balanced;
+                        }
+                    }
                     return;
                 } else {
                     if (parent.right == current) {
@@ -259,8 +286,27 @@ public class BBSTree {
                     } else {
                         parent.setLeft(null);
                     }
+                    while (!stack.isEmpty()) {
+                        updateHeight(head);
+                        System.out.println("Stack print " + stack.peek().data);
+                        Node node = stack.pop();
+                        node.height = 1 + Math.max(height(node.left), height(node.right));
+                        Node balanced = balance(node);
+
+                        if (!stack.isEmpty()) {
+                            Node grandParent = stack.peek();
+                            if (grandParent.left == node) {
+                                grandParent.left = balanced;
+                            } else {
+                                grandParent.right = balanced;
+                            }
+                        } else {
+                            head = balanced;
+                        }
+                    }
                     return;
                 }
+                
             }
         }
     }
