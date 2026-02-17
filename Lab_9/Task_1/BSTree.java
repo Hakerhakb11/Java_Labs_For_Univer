@@ -155,7 +155,11 @@ public class BSTree {
                         parent2.data = current.data;
                     }
                 } else if (current.left != null) {
-                    parent.setRight(current.left);
+                    if (parent.left == current) {
+                        parent.setLeft(current.left);
+                    } else {
+                        parent.setRight(current.left);
+                    }
                     return;
                 } else {
                     if (parent.right.data == current.data) {

@@ -1,5 +1,7 @@
 package Lab_9.Task_2; // uncomplete
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -28,33 +30,56 @@ public class BBSTree {
         }
     }
 
-    public Node insert(int value) {
+    public int height(Node node) {
+        if (node == null) {
+            return 0;
+        } else {
+            return node.height;
+        }
+    }
+
+    public void insert(int value) {
         if (head == null) {
             head = new Node(value, null, null);    
-            return head;
+            return;
         }
+        Deque<Node> stack = new ArrayDeque<>();
         Node current = head;
         Node parent = null;
         while (current != null) {
+            stack.push(current);
             parent = current;
             if (current.data < value) { 
                 current = current.right;
             } else if (current.data > value) {
                 current = current.left;
             } else {
-                return current;
+                return;
             }
         }
+
         if (parent.data < value) {
             parent.setRight(new Node(value, null, null)); 
         } else {
             parent.setLeft(new Node(value, null, null));
         }
-        // updateHeight(head);
-        // balance(head);   все конецццццццццц
-        // int diffHeight = getDiffHeight(head);
-        // System.out.println("DIFFE HEINT: " + diffHeight);
-        return head;
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+            node.height = 1 + Math.max(height(node.left), height(node.right));
+            Node balanced = balance(node);
+
+            if (!stack.isEmpty()) {
+                Node grandParent = stack.peek();
+                if (grandParent.left == node) {
+                    grandParent.left = balanced;
+                } else {
+                    grandParent.right = balanced;
+                }
+            } else {
+                head = balanced;
+            }
+        }
+        return;
     }
     
     public Node balance(Node node) {
@@ -193,35 +218,105 @@ public class BBSTree {
         return parent.data;
     }
     
-    public void delete(int value) {
+
+    public void delete(int value) { 
         Node current = head;
         Node parent = null;
         
         while (current != null) {
-            parent = current;
             if (current.data < value) {
+                parent = current;
                 current = current.right;
             } else if (current.data > value) {
+                parent = current;
                 current = current.left;
             } else {
                 if (current.right != null) {
+                    parent = current;
+                    Node parent2 = current;
                     current = current.right;
-                    Node parent2 = null;
-                    while (current.left != null) {
-                        parent2 = current;
-                        current = current.left;
+                    if (current.left != null) {
+                        while(current.left != null) {
+                            parent2 = current;
+                            current = current.left;
+                        }
+                        parent2.setLeft(null);
+                        parent.data = current.data;
+                    } else {
+                        parent2.setRight(null);
+                        parent2.data = current.data;
                     }
-                    parent.data = current.data;
-                    parent2.setLeft(null);
-
                 } else if (current.left != null) {
-                    parent.setRight(current.left);
+                    if (parent.left == current) {
+                        parent.setLeft(current.left);
+                    } else {
+                        parent.setRight(current.left);
+                    }
+                    return;
                 } else {
-                    parent.setRight(null);
+                    if (parent.right == current) {
+                        parent.setRight(null);
+                    } else {
+                        parent.setLeft(null);
+                    }
+                    return;
                 }
             }
         }
     }
+
+    // public void delete(int value) {
+    //     Deque<Node> stack = new ArrayDeque<>();
+    //     Node current = head;
+    //     Node parent = null;
+    //     while (current != null) {
+    //         stack.push(current);
+    //         parent = current;
+    //         if (current.data < value) {
+    //             current = current.right;
+    //         } else if (current.data > value) {
+    //             current = current.left;
+    //         } else {
+    //             if (current.right != null) {
+    //                 current = current.right;
+    //                 stack.push(current);
+    //                 Node parent2 = null;
+    //                 while (current.left != null) {
+    //                     parent2 = current;
+    //                     current = current.left;
+    //                     stack.push(current);
+    //                 }
+    //                 parent.data = current.data;
+    //                 parent2.setLeft(null);
+    //                 while (!stack.isEmpty()) {
+    //                     Node node = stack.pop();
+    //                     node.height = 1 + Math.max(height(node.left), height(node.right));
+    //                     Node balanced = balance(node);
+    //                     if (!stack.isEmpty()) {
+    //                         Node grandParent = stack.peek();
+    //                         if (grandParent.left == node) {
+    //                             grandParent.left = balanced;
+    //                         } else {
+    //                             grandParent.right = balanced;
+    //                         }
+    //                     } else {
+    //                         head = balanced;
+    //                     }
+    //                 }
+    //             } else if (current.left != null) {
+    //                 // parent.setRight(current.left);
+    //                 // parent = parent.left;
+    //                 if (parent.left != current) {
+    //                     parent.setRight(current.left);
+    //                 } else {
+    //                     parent.setLeft(current.left);
+    //                 }
+    //             } else {
+    //                 parent.setRight(null);
+    //             }
+    //         }
+    //     }
+    // }
    
     public int max(Node head) {
         Node current = head;
@@ -316,7 +411,40 @@ public class BBSTree {
             iterations = iterations * 2;
         }
     }
+
+    // public void delete(int value) {
+    //     head = deleteRec(head, value);
+    // }
+
+    // private Node deleteRec(Node node, int value) {
+    //     if (node == null) return null;
+
+    //     if (value < node.data) {
+    //         node.left = deleteRec(node.left, value);
+    //     } else if (value > node.data) {
+    //         node.right = deleteRec(node.right, value);
+    //     } else {
+    //         // узел найден
+    //         if (node.left == null) return node.right;
+    //         if (node.right == null) return node.left;
+
+    //         // два потомка
+    //         Node minNode = findMin(node.right);
+    //         node.data = minNode.data;
+    //         node.right = deleteRec(node.right, minNode.data);
+    //     }
+
+    //     // обновляем высоту и балансируем
+    //     node.height = 1 + Math.max(height(node.left), height(node.right));
+    //     return balance(node);
+    // }
+
+    // private Node findMin(Node node) {
+    //     while (node.left != null) node = node.left;
+    //     return node;
+    // }
 }
+
 
 // for remember this
 // //Check node. If this null, func doesn't printed .this

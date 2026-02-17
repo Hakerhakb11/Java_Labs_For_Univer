@@ -5,6 +5,9 @@ public class Main {
         System.out.println("Start lab_9.2");
 
         BBSTree bstree = new BBSTree();
+
+
+
         
         bstree.insert(8);
         bstree.insert(4);
@@ -20,7 +23,7 @@ public class Main {
         bstree.insert(9);
         bstree.insert(14);
         bstree.insert(13);
-        bstree.insert(15);
+        // bstree.insert(15);
         // bstree.insert(16);
         
         // System.out.println(bstree.next(2));
@@ -29,10 +32,15 @@ public class Main {
         
         bstree.printTree();
         
-        // bstree.delete(12);
+        bstree.delete(4);
+        bstree.printTree();
         // System.out.println(bstree.has(12));
-        
-        // bstree.printTree();
+        bstree.delete(11);
+        bstree.printTree();
+        bstree.delete(6);
+        bstree.printTree();
+        bstree.delete(10);
+        bstree.printTree();
         
         System.out.println("\nEnd lab_9.2");
     }
