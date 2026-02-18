@@ -63,22 +63,7 @@ public class BBSTree {
         } else {
             parent.setLeft(new Node(value, null, null));
         }
-        while (!stack.isEmpty()) {
-            Node node = stack.pop();
-            node.height = 1 + Math.max(height(node.left), height(node.right));
-            Node balanced = balance(node);
-
-            if (!stack.isEmpty()) {
-                Node grandParent = stack.peek();
-                if (grandParent.left == node) {
-                    grandParent.left = balanced;
-                } else {
-                    grandParent.right = balanced;
-                }
-            } else {
-                head = balanced;
-            }
-        }
+        balanceWithStack(stack);
         return;
     }
     
@@ -169,6 +154,9 @@ public class BBSTree {
     }
     
     public int next(int value) {
+        if (head.height < 2) {
+            return 0;
+        }
         Node current = head;
         Node parent = null;
         
@@ -194,6 +182,9 @@ public class BBSTree {
     }
     
     public int prev(int value) {
+        if (head.height < 2) {
+            return 0;
+        }
         Node current = head;
         Node parent = null;
         
@@ -218,10 +209,32 @@ public class BBSTree {
         return parent.data;
     }
     
+    public void balanceWithStack(Deque<Node> stack) {
+        while (!stack.isEmpty()) {
+            System.out.println("Stack print " + stack.peek().data);
+            Node node = stack.pop();
+            node.height = 1 + Math.max(height(node.left), height(node.right));
+            Node balanced = balance(node);
+
+            if (!stack.isEmpty()) {
+                Node grandParent = stack.peek();
+                if (grandParent.left == node) {
+                    grandParent.left = balanced;
+                } else {
+                    grandParent.right = balanced;
+                }
+            } else {
+                head = balanced;
+            }
+        }
+    }
 
     public void delete(int value) {
-        updateHeight(head);
         System.out.println("Deliting: " + value);
+        if (head.data == value) {
+            head = null;
+            return;
+        }
         Deque<Node> stack = new ArrayDeque<>();
         Node current = head;
         Node parent = null;
@@ -256,54 +269,28 @@ public class BBSTree {
                         parent2.data = current.data;
                     }
                 } else if (current.left != null) {
+                    if (head.data == value) {
+                        head = head.left;
+                        return;
+                    }
                     if (parent.left == current) {
                         parent.setLeft(current.left);
                     } else {
                         parent.setRight(current.left);
                     }
-                    while (!stack.isEmpty()) {
-                        updateHeight(head);
-                        System.out.println("Stack print " + stack.peek().data);
-                        Node node = stack.pop();
-                        node.height = 1 + Math.max(height(node.left), height(node.right));
-                        Node balanced = balance(node);
-
-                        if (!stack.isEmpty()) {
-                            Node grandParent = stack.peek();
-                            if (grandParent.left == node) {
-                                grandParent.left = balanced;
-                            } else {
-                                grandParent.right = balanced;
-                            }
-                        } else {
-                            head = balanced;
-                        }
-                    }
+                    balanceWithStack(stack);
                     return;
                 } else {
+                    if (head.data == value) {
+                        head = null;
+                        return;
+                    }
                     if (parent.right == current) {
                         parent.setRight(null);
                     } else {
                         parent.setLeft(null);
                     }
-                    while (!stack.isEmpty()) {
-                        updateHeight(head);
-                        System.out.println("Stack print " + stack.peek().data);
-                        Node node = stack.pop();
-                        node.height = 1 + Math.max(height(node.left), height(node.right));
-                        Node balanced = balance(node);
-
-                        if (!stack.isEmpty()) {
-                            Node grandParent = stack.peek();
-                            if (grandParent.left == node) {
-                                grandParent.left = balanced;
-                            } else {
-                                grandParent.right = balanced;
-                            }
-                        } else {
-                            head = balanced;
-                        }
-                    }
+                    balanceWithStack(stack);
                     return;
                 }
                 

@@ -24,10 +24,10 @@ public class Main {
         System.out.println(bstree.next(2));
         System.out.println(bstree.prev(5));
         System.out.println(bstree.has(12));
-
-        bstree.printTree();
         
-        // bstree.delete(6);
+        bstree.printTree();
+
+        // bstree.delete(8);
         // bstree.printTree();
         // bstree.delete(7);
     }

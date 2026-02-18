@@ -6,9 +6,6 @@ public class Main {
 
         BBSTree bstree = new BBSTree();
 
-
-
-        
         bstree.insert(8);
         bstree.insert(4);
         bstree.insert(2);

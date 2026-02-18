@@ -67,6 +67,9 @@ public class BSTree {
     }
     
     public int next(int value) {
+        if (head.height < 2) {
+            return 0;
+        }
         Node current = head;
         Node parent = null;
         
@@ -92,6 +95,9 @@ public class BSTree {
     }
     
     public int prev(int value) {
+        if (head.height < 2) {
+            return 0;
+        }
         Node current = head;
         Node parent = null;
         
@@ -128,6 +134,7 @@ public class BSTree {
     }
 
     public void delete(int value) { 
+        System.out.println("Deliting: " + value);
         Node current = head;
         Node parent = null;
         
@@ -155,6 +162,10 @@ public class BSTree {
                         parent2.data = current.data;
                     }
                 } else if (current.left != null) {
+                    if (head.data == value) {
+                        head = head.left;
+                        return;
+                    }
                     if (parent.left == current) {
                         parent.setLeft(current.left);
                     } else {
@@ -162,7 +173,11 @@ public class BSTree {
                     }
                     return;
                 } else {
-                    if (parent.right.data == current.data) {
+                    if (head.data == value) {
+                        head = null;
+                        return;
+                    }
+                    if (parent.right == current) {
                         parent.setRight(null);
                     } else {
                         parent.setLeft(null);
