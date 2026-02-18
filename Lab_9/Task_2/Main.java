@@ -1,9 +1,7 @@
-package Lab_9.Task_2; // uncomplete
+package Lab_9.Task_2;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Start lab_9.2");
-
         BBSTree bstree = new BBSTree();
 
         bstree.insert(8);
@@ -20,15 +18,14 @@ public class Main {
         bstree.insert(9);
         bstree.insert(14);
         bstree.insert(13);
-        // bstree.insert(15);
-        // bstree.insert(16);
+        bstree.insert(15);
+        bstree.insert(16);
         
         // System.out.println(bstree.next(2));
         // System.out.println(bstree.prev(5));
         // System.out.println(bstree.has(12));
         
         bstree.printTree();
-        // System.out.println(bstree.has(12));
         
         bstree.delete(1);
         bstree.printTree();
@@ -40,44 +37,5 @@ public class Main {
         bstree.printTree();
         bstree.delete(5);
         bstree.printTree();
-        
-        System.out.println("\nEnd lab_9.2");
     }
 }
-
-//                1
-//        /               \
-//        8               8
-//    /       \       /       \
-//    4       1       4       1
-//  /   \   /   \   /   \   /   \
-//  2   6   1   1   2   6   1   1
-// / \ / \ / \ / \ / \ / \ / \ / \
-// 0 3 5 7 9 1 1 3 1 5 0 3 5 7 9 1
-
-//                               90
-//               /                                \
-//               80                              80
-//       /                \              /                \
-//       10              20              10              20
-//   /        \      /        \      /        \      /        \
-//   30      40      50      60      30      40      50      60
-// /    \  /    \  /    \  /    \  /    \  /    \  /    \  /    \
-// 70  80  90  10  11  12  13  14  70  80  90  10  11  12  13  14
-
-
-        // System.out.print("\n       " + head.data + "\r\n" + //
-        // "    /     \\\r\n" + //
-        // "   " + head.left.data + "        " + head.right.data + "\r\n" + //
-        // "  / \\      /  \\\r\n" + //
-        // " " + head.left.left.data + "   " + head.left.right.data + "   " + head.right.left.data + "    " + head.right.right.data + "\r\n" + //
-        //         "/ \\ / \\  / \\   / \\\r\n" + //"");
-        // "" + head.left.left.left.data + " " + head.left.left.right.data + " " + head.left.right.left.data + " " + head.left.right.right.data + " " + head.right.left.left.data + "  " + head.right.left.right.data + " " + head.right.right.left.data + "  " + head.right.right.right.data + "\n\n");
-
-//        8
-//     /     \
-//    4        12
-//   / \      /  \
-//  2   6   10    14
-// / \ / \  / \   / \
-// 0 3 5 7 9  11 13  15

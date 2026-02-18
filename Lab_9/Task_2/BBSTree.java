@@ -1,4 +1,4 @@
-package Lab_9.Task_2; // uncomplete
+package Lab_9.Task_2;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -57,7 +57,6 @@ public class BBSTree {
                 return;
             }
         }
-
         if (parent.data < value) {
             parent.setRight(new Node(value, null, null)); 
         } else {
@@ -211,7 +210,6 @@ public class BBSTree {
     
     public void balanceWithStack(Deque<Node> stack) {
         while (!stack.isEmpty()) {
-            System.out.println("Stack print " + stack.peek().data);
             Node node = stack.pop();
             node.height = 1 + Math.max(height(node.left), height(node.right));
             Node balanced = balance(node);
@@ -230,11 +228,7 @@ public class BBSTree {
     }
 
     public void delete(int value) {
-        System.out.println("Deliting: " + value);
-        if (head.data == value) {
-            head = null;
-            return;
-        }
+        System.out.println("Deleting: " + value);
         Deque<Node> stack = new ArrayDeque<>();
         Node current = head;
         Node parent = null;
@@ -261,11 +255,9 @@ public class BBSTree {
                             current = current.left;
                         }
                         parent2.setLeft(null);
-                        stack.push(current);
                         parent.data = current.data;
                     } else {
                         parent2.setRight(null);
-                        stack.push(current);
                         parent2.data = current.data;
                     }
                 } else if (current.left != null) {
@@ -293,63 +285,9 @@ public class BBSTree {
                     balanceWithStack(stack);
                     return;
                 }
-                
             }
         }
     }
-
-    // public void delete(int value) {
-    //     Deque<Node> stack = new ArrayDeque<>();
-    //     Node current = head;
-    //     Node parent = null;
-    //     while (current != null) {
-    //         stack.push(current);
-    //         parent = current;
-    //         if (current.data < value) {
-    //             current = current.right;
-    //         } else if (current.data > value) {
-    //             current = current.left;
-    //         } else {
-    //             if (current.right != null) {
-    //                 current = current.right;
-    //                 stack.push(current);
-    //                 Node parent2 = null;
-    //                 while (current.left != null) {
-    //                     parent2 = current;
-    //                     current = current.left;
-    //                     stack.push(current);
-    //                 }
-    //                 parent.data = current.data;
-    //                 parent2.setLeft(null);
-    //                 while (!stack.isEmpty()) {
-    //                     Node node = stack.pop();
-    //                     node.height = 1 + Math.max(height(node.left), height(node.right));
-    //                     Node balanced = balance(node);
-    //                     if (!stack.isEmpty()) {
-    //                         Node grandParent = stack.peek();
-    //                         if (grandParent.left == node) {
-    //                             grandParent.left = balanced;
-    //                         } else {
-    //                             grandParent.right = balanced;
-    //                         }
-    //                     } else {
-    //                         head = balanced;
-    //                     }
-    //                 }
-    //             } else if (current.left != null) {
-    //                 // parent.setRight(current.left);
-    //                 // parent = parent.left;
-    //                 if (parent.left != current) {
-    //                     parent.setRight(current.left);
-    //                 } else {
-    //                     parent.setLeft(current.left);
-    //                 }
-    //             } else {
-    //                 parent.setRight(null);
-    //             }
-    //         }
-    //     }
-    // }
    
     public int max(Node head) {
         Node current = head;
@@ -423,7 +361,7 @@ public class BBSTree {
         System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data);
         
         int[] arr = BFS(head); // Elements in table
-        int numInTable = 1; // variable of number, which way getted from BFS
+        int numInTable = 1; // variable of number, which beem getted from BFS
         int iterations = 1; // variable of Qtyty iteration in every floor
         
         for (int i = height; i > 1; i--) {
@@ -444,42 +382,36 @@ public class BBSTree {
             iterations = iterations * 2;
         }
     }
-
-    // public void delete(int value) {
-    //     head = deleteRec(head, value);
-    // }
-
-    // private Node deleteRec(Node node, int value) {
-    //     if (node == null) return null;
-
-    //     if (value < node.data) {
-    //         node.left = deleteRec(node.left, value);
-    //     } else if (value > node.data) {
-    //         node.right = deleteRec(node.right, value);
-    //     } else {
-    //         // узел найден
-    //         if (node.left == null) return node.right;
-    //         if (node.right == null) return node.left;
-
-    //         // два потомка
-    //         Node minNode = findMin(node.right);
-    //         node.data = minNode.data;
-    //         node.right = deleteRec(node.right, minNode.data);
-    //     }
-
-    //     // обновляем высоту и балансируем
-    //     node.height = 1 + Math.max(height(node.left), height(node.right));
-    //     return balance(node);
-    // }
-
-    // private Node findMin(Node node) {
-    //     while (node.left != null) node = node.left;
-    //     return node;
-    // }
 }
+// second variant of delete()
+// public void delete(int value) {
+//     head = deleteRec(head, value);
+// }
+// private Node deleteRec(Node node, int value) {
+//     if (node == null) return null;
+//     if (value < node.data) {
+//         node.left = deleteRec(node.left, value);
+//     } else if (value > node.data) {
+//         node.right = deleteRec(node.right, value);
+//     } else {
+//         // узел найден
+//         if (node.left == null) return node.right;
+//         if (node.right == null) return node.left;
+//         // два потомка
+//         Node minNode = findMin(node.right);
+//         node.data = minNode.data;
+//         node.right = deleteRec(node.right, minNode.data);
+//     }
+//     // обновляем высоту и балансируем
+//     node.height = 1 + Math.max(height(node.left), height(node.right));
+//     return balance(node);
+// }
+// private Node findMin(Node node) {
+//     while (node.left != null) node = node.left;
+//     return node;
+// }
 
-
-// for remember this
+// OLD VERSION
 // //Check node. If this null, func doesn't printed .this
 // private String P(Node node, String path) {
 //     if (node == null) {
