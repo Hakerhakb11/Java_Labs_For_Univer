@@ -361,7 +361,7 @@ public class BBSTree {
         System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data);
         
         int[] arr = BFS(head); // Elements in table
-        int numInTable = 1; // variable of number, which beem getted from BFS
+        int numInTable = 1; // variable of number, which been getted from BFS
         int iterations = 1; // variable of Qtyty iteration in every floor
         
         for (int i = height; i > 1; i--) {
