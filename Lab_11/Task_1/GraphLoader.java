@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
 
+// import Lab_11.Task_1.GraphLoader.Edge;
+
 public class GraphLoader {
     int CANVAS_WIDTH = 1200;
     int CANVAS_HEIGHT = 800;
     
-    class Node {
+    static class Node {
         long id;
         double lon;
         double lat;
@@ -23,7 +25,7 @@ public class GraphLoader {
         }   
     }
     
-    class Edge {
+    static class Edge {
         long u;
         long v;
         
@@ -32,19 +34,18 @@ public class GraphLoader {
         
         double vx;
         double vy;
-        double weight = eucledean_dist(ux, vx, uy, vy);
 
-        long dist; // расстояние между u-v
+        double dist; // расстояние между u-v
 
         Edge(long u, long v) {
             this.u = u;
             this.v = v;
         }
     }
-
-    double eucledean_dist(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y1 - y2, 2));
-    }
+    
+    // double eucledeanDist(double x1, double y1, double x2, double y2) {
+    //     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y1 - y2, 2));
+    // }
 
 
     ArrayList<Node> readNodes(String path) throws Exception {
