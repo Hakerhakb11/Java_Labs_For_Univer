@@ -9,9 +9,6 @@ import Lab_11.Task_1.GraphLoader.Edge;
 import Lab_11.Task_1.GraphLoader.Node;
 
 public class Main {
-    static double eucledeanDist(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y1 - y2, 2));
-    }
     public static void main(String[] args) throws Exception {
         System.out.println("Start Lab_11 \n");
 
@@ -35,7 +32,7 @@ public class Main {
             System.out.println(edge.u + " " + edge.v);
             Node u = nodeMap.get(edge.u);
             Node v = nodeMap.get(edge.v);
-            edge.dist = eucledeanDist(u.lon, u.lat, v.lon, v.lat);
+            edge.dist = loader.eucledeanDist(u.lon, u.lat, v.lon, v.lat);
         }
 
          Dijkstra dijkstra = new Dijkstra(edges);
@@ -45,15 +42,15 @@ public class Main {
 
         dijkstra.computePaths(start);
 
-        double distance = dijkstra.getDistance(end);
-        if (distance == Double.MAX_VALUE) {
-            System.out.println("Вершина " + end + " недостижима из " + start);
+        double dist = dijkstra.getDistance(end);
+        if (dist == Double.MAX_VALUE) {
+            System.out.println("Путь не найден.");
         } else {
-            System.out.println("Кратчайшее расстояние от " + start + " до " + end + " = " + distance);
+            System.out.println("Кратчайшее расстояние = " + dist);
             List<Long> path = dijkstra.getPath(end);
             System.out.print("Путь: ");
-            for (Long nodeId : path) {
-                System.out.print(nodeId + " ");
+            for (Long i : path) {
+                System.out.print(i + " ");
             }
             System.out.println();
         }

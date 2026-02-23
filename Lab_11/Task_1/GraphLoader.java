@@ -4,19 +4,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
 
-// import Lab_11.Task_1.GraphLoader.Edge;
-
 public class GraphLoader {
     int CANVAS_WIDTH = 1200;
     int CANVAS_HEIGHT = 800;
     
-    static class Node {
-        long id;
-        double lon;
-        double lat;
+    public static class Node {
+        public long id;
+        public double lon;
+        public double lat;
     
-        double x;
-        double y;
+        public double x;
+        public double y;
     
         Node(long id, double lon, double lat) {
             this.id = id;
@@ -25,17 +23,17 @@ public class GraphLoader {
         }   
     }
     
-    static class Edge {
-        long u;
-        long v;
+    public static class Edge {
+        public long u;
+        public long v;
         
-        double ux;
-        double uy;
+        public double ux;
+        public double uy;
         
-        double vx;
-        double vy;
+        public double vx;
+        public double vy;
 
-        double dist; // расстояние между u-v
+        public double dist; // расстояние между u-v
 
         Edge(long u, long v) {
             this.u = u;
@@ -43,12 +41,11 @@ public class GraphLoader {
         }
     }
     
-    // double eucledeanDist(double x1, double y1, double x2, double y2) {
-    //     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y1 - y2, 2));
-    // }
+    public double eucledeanDist(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y1 - y2, 2));
+    }
 
-
-    ArrayList<Node> readNodes(String path) throws Exception {
+    public ArrayList<Node> readNodes(String path) throws Exception {
         BufferedReader reader = new BufferedReader(new FileReader(path));
 
         reader.readLine();
@@ -69,7 +66,7 @@ public class GraphLoader {
         return nodes;
     }
 
-    ArrayList<Edge> readEdges(String path) throws Exception {
+    public ArrayList<Edge> readEdges(String path) throws Exception {
         BufferedReader reader = new BufferedReader(new FileReader(path));
 
         reader.readLine();
@@ -88,8 +85,4 @@ public class GraphLoader {
         reader.close();
         return edges;
     }
-
-
-
-
 }

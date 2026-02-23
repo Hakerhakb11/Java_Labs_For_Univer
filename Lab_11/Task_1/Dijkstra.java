@@ -7,14 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-// import java.util.Collections;
 
 import Lab_11.Task_1.GraphLoader.Edge;
 
 public class Dijkstra {
     private Map<Long, List<Edge>> adjacencyList;
-    private Map<Long, Double> distStart;
+    private Map<Long, Double> distBest;
     private Map<Long, Long> prev;
+    private long startPos;
 
     public Dijkstra(List<Edge> edges) {
         adjacencyList = new HashMap<>();
@@ -33,30 +33,34 @@ public class Dijkstra {
                 listRev = new ArrayList<>();
                 adjacencyList.put(e.v, listRev);
             }
-            listRev.add(e);
+            listRev.add(rev);
         }
     }
 
-    public void computePaths(long source) {
-        distStart = new HashMap<>();
+    public void computePaths(long start) {
+        startPos = start;
+        distBest = new HashMap<>();
         prev = new HashMap<>();
-        PriorityQueue<Long> pq = new PriorityQueue<>(Comparator.comparingDouble(v -> distStart.getOrDefault(v, Double.MAX_VALUE)));
-        distStart.put(source, 0.0);
-        pq.add(source);
+        PriorityQueue<Long> pQueue = new PriorityQueue<>(Comparator.comparingDouble(v -> distBest.getOrDefault(v, Double.MAX_VALUE)));
+        distBest.put(start, 0.0);
+        pQueue.add(start);
 
-        while (!pq.isEmpty()) {
-            long u = pq.poll();
-            if (u != source && distStart.get(u) == Double.MAX_VALUE) continue;
+        while (!pQueue.isEmpty()) {
+            long curr = pQueue.poll();
+            if (curr != start && distBest.get(curr) == Double.MAX_VALUE){
+                continue;
+            }
 
-            // for (Edge e : adjacencyList.getOrDefault(u, Collections.emptyList())) {
-            for (Edge e : adjacencyList.get(u)) {
-                if (e != null) {
-                    long v = e.v;
-                    double newDist = distStart.get(u) + e.dist;
-                    if (newDist < distStart.getOrDefault(v, Double.MAX_VALUE)) {
-                        distStart.put(v, newDist);
-                        prev.put(v, u);
-                        pq.add(v);
+
+            // obj - сосед.
+            for (Edge obj : adjacencyList.get(curr)) {
+                if (obj != null) {
+                    long v = obj.v;
+                    double newDist = distBest.get(curr) + obj.dist;
+                    if (newDist < distBest.getOrDefault(v, Double.MAX_VALUE)) {
+                        distBest.put(v, newDist);
+                        prev.put(v, curr);
+                        pQueue.add(v);
                     }
                 }
             }
@@ -64,20 +68,20 @@ public class Dijkstra {
     }
 
     public List<Long> getPath(long target) {
-        if (!prev.containsKey(target) && target != distStart.keySet().stream().findFirst().orElse(-1L)) {
+        if (!prev.containsKey(target) && target != startPos) {
             return null;
         }
         LinkedList<Long> path = new LinkedList<>();
-        long cur = target;
-        while (prev.containsKey(cur)) {
-            path.addFirst(cur);
-            cur = prev.get(cur);
+        long curr = target;
+        while (prev.containsKey(curr)) {
+            path.addFirst(curr);
+            curr = prev.get(curr);
         }
-        path.addFirst(cur);
+        path.addFirst(curr);
         return path;
     }
 
     public double getDistance(long target) {
-        return distStart.getOrDefault(target, Double.MAX_VALUE);
+        return distBest.getOrDefault(target, Double.MAX_VALUE);
     }
 }
