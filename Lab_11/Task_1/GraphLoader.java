@@ -41,9 +41,15 @@ public class GraphLoader {
         }
     }
     
-    public double eucledeanDist(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y1 - y2, 2));
+    public double eucledeanDist(Node u, Node v) {
+        double dx = u.lon - v.lon;
+        double dy = u.lat - v.lat;
+        return Math.sqrt(dx * dx + dy * dy);
     }
+
+    // public double eucledeanDist(double x1, double y1, double x2, double y2) {
+    //     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y1 - y2, 2));
+    // }
 
     public ArrayList<Node> readNodes(String path) throws Exception {
         BufferedReader reader = new BufferedReader(new FileReader(path));

@@ -1,12 +1,6 @@
 package Lab_11.Task_1;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 import Lab_11.Task_1.GraphLoader.Edge;
 
@@ -50,18 +44,15 @@ public class Dijkstra {
             if (curr != start && distBest.get(curr) == Double.MAX_VALUE){
                 continue;
             }
-
-
+            
             // obj - сосед.
-            for (Edge obj : adjacencyList.get(curr)) {
-                if (obj != null) {
-                    long v = obj.v;
-                    double newDist = distBest.get(curr) + obj.dist;
-                    if (newDist < distBest.getOrDefault(v, Double.MAX_VALUE)) {
-                        distBest.put(v, newDist);
-                        prev.put(v, curr);
-                        pQueue.add(v);
-                    }
+            for (Edge obj : adjacencyList.getOrDefault(curr, Collections.emptyList())) {
+                long neighbor = obj.v;
+                double newDist = distBest.get(curr) + obj.dist;
+                if (newDist < distBest.getOrDefault(neighbor, Double.MAX_VALUE)) {
+                    distBest.put(neighbor, newDist);
+                    prev.put(neighbor, curr);
+                    pQueue.add(neighbor);
                 }
             }
         }

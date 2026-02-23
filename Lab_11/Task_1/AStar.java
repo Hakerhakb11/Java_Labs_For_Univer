@@ -6,6 +6,9 @@ import Lab_11.Task_1.GraphLoader.Node;
 
 public class AStar {
     private Map<Long, List<Edge>> adjacencyList;
+    private Map<Long, Node> nodeMap;
+    private Map<Long, Double> distBest;
+    private Map<Long, Double> fScore;
     private Map<Long, Long> prev;
 
     public AStar(List<Edge> edges, List<Node> nodes) {
@@ -27,11 +30,56 @@ public class AStar {
             }
             listRev.add(rev);
         }
+        nodeMap = new HashMap<>();
+        for (Node i : nodes) {
+            nodeMap.put(i.id, i);
+        }
+    }
 
+    public void computePaths(long start, long target) {
+        distBest = new HashMap<>();
+        fScore = new HashMap<>();
+        prev = new HashMap<>();
+
+        PriorityQueue<Long> openSet = new PriorityQueue<>(Comparator.comparingDouble(v -> fScore.getOrDefault(v, Double.MAX_VALUE)));
+
+        distBest.put(start, 0.0);
+        fScore.put(start, eucledeanDist(start, target));
+        openSet.add(start);
+
+        while (!openSet.isEmpty()) {
+            long current = openSet.poll();
+            if (current == target) {
+                return;
+            }
+
+            // obj - сосед.
+            for (Edge obj : adjacencyList.getOrDefault(current, Collections.emptyList())) {
+                long neighbor = obj.v;
+                double newDist = distBest.get(current) + obj.dist;
+                if (newDist < distBest.getOrDefault(neighbor, Double.MAX_VALUE)) {
+                    prev.put(neighbor, current);
+                    distBest.put(neighbor, newDist);
+                    fScore.put(neighbor, newDist + eucledeanDist(neighbor, target));
+                    openSet.add(neighbor);
+                }
+            }
+        }
+    }
+
+    private double eucledeanDist(long a, long b) {
+        Node u = nodeMap.get(a);
+        Node v = nodeMap.get(b);
+        if (u == null || v == null) {
+            return Double.MAX_VALUE;
+        }
+        double dx = u.lon - v.lon;
+        double dy = u.lat - v.lat;
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     public List<Long> getPath(long target) {
-        if (!prev.containsKey(target)) {
+        if (!distBest.containsKey(target)) {
             return null;
         }
         LinkedList<Long> path = new LinkedList<>();
@@ -44,7 +92,7 @@ public class AStar {
         return path;
     }
 
-    // public double getDistance(long target) {
-    //     return gScore.getOrDefault(target, Double.MAX_VALUE);
-    // }
+    public double getDistance(long target) {
+        return distBest.getOrDefault(target, Double.MAX_VALUE);
+    }
 }

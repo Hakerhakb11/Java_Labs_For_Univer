@@ -12,7 +12,7 @@ import Lab_11.Task_1.GraphLoader.Node;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println("Start Lab_11 \n");
+        System.out.println("Start Lab_11.2 \n");
 
         GraphLoader loader = new GraphLoader();
 
@@ -34,7 +34,7 @@ public class Main {
             System.out.println(edge.u + " " + edge.v);
             Node u = nodeMap.get(edge.u);
             Node v = nodeMap.get(edge.v);
-            edge.dist = loader.eucledeanDist(u.lon, u.lat, v.lon, v.lat);
+            edge.dist = loader.eucledeanDist(u, v);
         }
 
         AStar astar = new AStar(edges, nodes);
@@ -55,6 +55,6 @@ public class Main {
             System.out.println();
         }
 
-        System.out.println("End Lab_11 \n");
+        System.out.println("End Lab_11.2 \n");
     }
 }
