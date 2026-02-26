@@ -5,27 +5,27 @@ import java.util.*;
 import Lab_11.Task_1.GraphLoader.Edge;
 
 public class Dijkstra {
-    private Map<Long, List<Edge>> adjacencyList;
+    private Map<Long, List<Edge>> connectionList;
     private Map<Long, Double> distBest;
     private Map<Long, Long> prev;
     private long startPos;
 
     public Dijkstra(List<Edge> edges) {
-        adjacencyList = new HashMap<>();
+        connectionList = new HashMap<>();
         for (Edge e : edges) {
-            List<Edge> list = adjacencyList.get(e.u);
+            List<Edge> list = connectionList.get(e.u);
             if (list == null) {
                 list = new ArrayList<>();
-                adjacencyList.put(e.u, list);
+                connectionList.put(e.u, list);
             }
             list.add(e);
 
             Edge rev = new Edge(e.v, e.u);
             rev.dist = e.dist;
-            List<Edge> listRev = adjacencyList.get(e.v);
+            List<Edge> listRev = connectionList.get(e.v);
             if (listRev == null) {
                 listRev = new ArrayList<>();
-                adjacencyList.put(e.v, listRev);
+                connectionList.put(e.v, listRev);
             }
             listRev.add(rev);
         }
@@ -46,7 +46,7 @@ public class Dijkstra {
             }
             
             // obj - сосед.
-            for (Edge obj : adjacencyList.getOrDefault(curr, Collections.emptyList())) {
+            for (Edge obj : connectionList.getOrDefault(curr, Collections.emptyList())) {
                 long neighbor = obj.v;
                 double newDist = distBest.get(curr) + obj.dist;
                 if (newDist < distBest.getOrDefault(neighbor, Double.MAX_VALUE)) {

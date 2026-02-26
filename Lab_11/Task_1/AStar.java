@@ -5,28 +5,28 @@ import Lab_11.Task_1.GraphLoader.Edge;
 import Lab_11.Task_1.GraphLoader.Node;
 
 public class AStar {
-    private Map<Long, List<Edge>> adjacencyList;
+    private Map<Long, List<Edge>> connectionList;
     private Map<Long, Node> nodeMap;
     private Map<Long, Double> distBest;
     private Map<Long, Double> fScore;
     private Map<Long, Long> prev;
 
     public AStar(List<Edge> edges, List<Node> nodes) {
-        adjacencyList = new HashMap<>();
+        connectionList = new HashMap<>();
         for (Edge e : edges) {
-            List<Edge> list = adjacencyList.get(e.u);
+            List<Edge> list = connectionList.get(e.u);
             if (list == null) {
                 list = new ArrayList<>();
-                adjacencyList.put(e.u, list);
+                connectionList.put(e.u, list);
             }
             list.add(e);
 
             Edge rev = new Edge(e.v, e.u);
             rev.dist = e.dist;
-            List<Edge> listRev = adjacencyList.get(e.v);
+            List<Edge> listRev = connectionList.get(e.v);
             if (listRev == null) {
                 listRev = new ArrayList<>();
-                adjacencyList.put(e.v, listRev);
+                connectionList.put(e.v, listRev);
             }
             listRev.add(rev);
         }
@@ -54,7 +54,7 @@ public class AStar {
             }
 
             // obj - сосед.
-            for (Edge obj : adjacencyList.getOrDefault(current, Collections.emptyList())) {
+            for (Edge obj : connectionList.getOrDefault(current, Collections.emptyList())) {
                 long neighbor = obj.v;
                 double newDist = distBest.get(current) + obj.dist;
                 if (newDist < distBest.getOrDefault(neighbor, Double.MAX_VALUE)) {
