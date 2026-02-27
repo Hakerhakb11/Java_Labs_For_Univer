@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import Lab_11.Task_1.GraphLoader.Edge;
 import Lab_11.Task_1.GraphLoader.Node;
 
@@ -28,12 +27,12 @@ public class Main {
         }
 
         System.out.println("\nNodes:");
-        for (var node : nodes) {
+        for (Node node : nodes) {
             System.out.println(node.id + " " + node.lon + " " + node.lat);
         }
 
         System.out.println("\nEdges:");
-        for (var edge : edges) {
+        for (Edge edge : edges) {
             System.out.println(edge.u + " " + edge.v);
             Node u = nodeMap.get(edge.u);
             Node v = nodeMap.get(edge.v);
@@ -66,3 +65,4 @@ public class Main {
         System.out.println("End Lab_11.1 \n");
     }
 }
+// lib gdx

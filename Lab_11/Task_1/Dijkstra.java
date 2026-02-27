@@ -41,7 +41,7 @@ public class Dijkstra {
 
         while (!pQueue.isEmpty()) {
             long curr = pQueue.poll();
-            if (curr != start && distBest.get(curr) == Double.MAX_VALUE){
+            if (curr != start && distBest.get(curr) == Double.MAX_VALUE) {
                 continue;
             }
             

@@ -256,25 +256,27 @@ public class BSTree {
         int skips = (int)Math.pow(2, height - 1 + tableRank) - tableRank;
         
         // first elem. Print alone
-        System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data);
-        
+        // System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data); // for new java versions
+        System.out.println("--------------------------------\n" + new String(new char[skips / 2]).replace("\0", " ") + head.data);
         int[] arr = BFS(head); // Elements in table
         int numInTable = 1; // variable of number, which been getted from BFS
         int iterations = 1; // variable of Qtyty iteration in every floor
         
         for (int i = height; i > 1; i--) {
             skips = (skips) / 2;
-            int dinamicSkips = skips / 2;
+            int dynamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
-                System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");
-                dinamicSkips = skips;
+                // System.out.print(" ".repeat(dynamicSkips) + "/" + " ".repeat(skips) + "\\"); // for new java versions
+                System.out.print( new String(new char[dynamicSkips]).replace("\0", " ") + "/" +  new String(new char[skips]).replace("\0", " ") + "\\");
+                dynamicSkips = skips;
             }
             System.out.println();
-            dinamicSkips = skips / 2;
+            dynamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
                 int rank = sayRank(arr[numInTable]) + sayRank(arr[numInTable + 1]) - 2;
-                System.out.print(" ".repeat(dinamicSkips) + arr[numInTable++] + " ".repeat(skips - rank) + arr[numInTable++]);
-                dinamicSkips = skips;
+                // System.out.print(" ".repeat(dynamicSkips) + arr[numInTable++] + " ".repeat(skips - rank) + arr[numInTable++]); // for new java versions
+                System.out.print(new String(new char[dynamicSkips]).replace("\0", " ") + arr[numInTable++] + new String(new char[skips - rank]).replace("\0", " ") + arr[numInTable++]);
+                dynamicSkips = skips;
             }
             System.out.println();
             iterations = iterations * 2;

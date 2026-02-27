@@ -7,24 +7,28 @@ import java.util.Queue;
 
 public class BBSTree {
     private Node head = null;
+
     class Node {
         private int height = 1;
         private int data;
         private Node left;
         private Node right;
-        
+
         Node(int data, Node left, Node right) {
             this.data = data;
             this.left = left;
             this.right = right;
             this.height = 1;
         }
+
         public int getData() {
             return this.data;
         }
+
         public void setRight(Node right) {
             this.right = right;
         }
+
         public void setLeft(Node left) {
             this.left = left;
         }
@@ -40,7 +44,7 @@ public class BBSTree {
 
     public void insert(int value) {
         if (head == null) {
-            head = new Node(value, null, null);    
+            head = new Node(value, null, null);
             return;
         }
         Deque<Node> stack = new ArrayDeque<>();
@@ -49,7 +53,7 @@ public class BBSTree {
         while (current != null) {
             stack.push(current);
             parent = current;
-            if (current.data < value) { 
+            if (current.data < value) {
                 current = current.right;
             } else if (current.data > value) {
                 current = current.left;
@@ -58,14 +62,14 @@ public class BBSTree {
             }
         }
         if (parent.data < value) {
-            parent.setRight(new Node(value, null, null)); 
+            parent.setRight(new Node(value, null, null));
         } else {
             parent.setLeft(new Node(value, null, null));
         }
         balanceWithStack(stack);
         return;
     }
-    
+
     public Node balance(Node node) {
         int diffHeight = getDiffHeight(node);
 
@@ -97,7 +101,7 @@ public class BBSTree {
         node.height = 1 + Math.max(leftHeight, rightHeight);
         return node.height;
     }
-    
+
     public int getDiffHeight(Node node) {
         if (node.left != null) {
             if (node.right != null) {
@@ -151,14 +155,14 @@ public class BBSTree {
         }
         return false;
     }
-    
+
     public int next(int value) {
         if (head.height < 2) {
             return 0;
         }
         Node current = head;
         Node parent = null;
-        
+
         while (current != null) {
             if (current.data < value) {
                 current = current.right;
@@ -179,14 +183,14 @@ public class BBSTree {
         }
         return parent.data;
     }
-    
+
     public int prev(int value) {
         if (head.height < 2) {
             return 0;
         }
         Node current = head;
         Node parent = null;
-        
+
         while (current != null) {
             if (current.data < value) {
                 parent = current;
@@ -207,7 +211,7 @@ public class BBSTree {
         }
         return parent.data;
     }
-    
+
     public void balanceWithStack(Deque<Node> stack) {
         while (!stack.isEmpty()) {
             Node node = stack.pop();
@@ -232,7 +236,7 @@ public class BBSTree {
         Deque<Node> stack = new ArrayDeque<>();
         Node current = head;
         Node parent = null;
-        
+
         while (current != null) {
             if (current.data < value) {
                 stack.push(current);
@@ -249,7 +253,7 @@ public class BBSTree {
                     Node parent2 = current;
                     current = current.right;
                     if (current.left != null) {
-                        while(current.left != null) {
+                        while (current.left != null) {
                             stack.push(current);
                             parent2 = current;
                             current = current.left;
@@ -288,7 +292,7 @@ public class BBSTree {
             }
         }
     }
-   
+
     public int max(Node head) {
         Node current = head;
         while (true) {
@@ -315,11 +319,11 @@ public class BBSTree {
     public int[] BFS(Node head) {
         Node temp = new Node(0, null, null); // for don't exists Nodes
         int height = updateHeight(head); // qtyty of floors in the tree
-        int size = (int)Math.pow(2, height); // max qtyty elem in tree
+        int size = (int) Math.pow(2, height); // max qtyty elem in tree
         int number = size;
-        int[] arr = new int[(int)Math.pow(2, height)];
+        int[] arr = new int[(int) Math.pow(2, height)];
         Queue<Node> queue = new LinkedList<>();
-        
+
         int i = 0;
         if (head != null) {
             queue.offer(head);
@@ -355,27 +359,35 @@ public class BBSTree {
         }
         int maxEl = max(head);
         int tableRank = sayRank(maxEl); // Table Width ex: for x, for xx, for xxx.
-        int skips = (int)Math.pow(2, height - 1 + tableRank) - tableRank;
-        
+        int skips = (int) Math.pow(2, height - 1 + tableRank) - tableRank;
+
         // first elem. Print alone
-        System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data);
-        
+        // System.out.println("--------------------------------\n" + " ".repeat((skips)
+        // / 2) + head.data);  // for new java versions
+        System.out.println(
+                "--------------------------------\n" + new String(new char[skips / 2]).replace("\0", " ") + head.data);
+
         int[] arr = BFS(head); // Elements in table
         int numInTable = 1; // variable of number, which been getted from BFS
         int iterations = 1; // variable of Qtyty iteration in every floor
-        
+
         for (int i = height; i > 1; i--) {
             skips = (skips) / 2;
             int dinamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
-                System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");
+                // System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");  // for new java versions
+                System.out.print(new String(new char[dinamicSkips]).replace("\0", " ") + "/"
+                        + new String(new char[skips]).replace("\0", " ") + "\\");
                 dinamicSkips = skips;
             }
             System.out.println();
             dinamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
                 int rank = sayRank(arr[numInTable]) + sayRank(arr[numInTable + 1]) - 2;
-                System.out.print(" ".repeat(dinamicSkips) + arr[numInTable++] + " ".repeat(skips - rank) + arr[numInTable++]);
+                // System.out.print(" ".repeat(dinamicSkips) + arr[numInTable++] + "
+                // ".repeat(skips - rank) + arr[numInTable++]); // for new java versions
+                System.out.print(new String(new char[dinamicSkips]).replace("\0", " ") + arr[numInTable++]
+                        + new String(new char[skips - rank]).replace("\0", " ") + arr[numInTable++]);
                 dinamicSkips = skips;
             }
             System.out.println();
@@ -383,6 +395,7 @@ public class BBSTree {
         }
     }
 }
+
 // second variant of delete()
 // public void delete(int value) {
 //     head = deleteRec(head, value);

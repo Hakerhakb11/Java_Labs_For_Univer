@@ -1,13 +1,14 @@
 package Lab_10.Task_1;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class Graph {
-    ArrayList<ArrayList<Integer>> arrList = new ArrayList<>();
+    private List<List<Integer>> arrList = new ArrayList<>();
 
     Graph(int N) {
         for (int i = 0; i < N; i++) {
-            ArrayList<Integer> list = new ArrayList<>();
+            List<Integer> list = new ArrayList<>();
             list.add(i);
             arrList.add(list);
         }
@@ -43,7 +44,7 @@ public class Graph {
                 }
             }
         }
-        ArrayList<Integer> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(value1);
         list.add(value2);
         arrList.add(list);
