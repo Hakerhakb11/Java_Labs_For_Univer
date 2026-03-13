@@ -4,7 +4,7 @@ import java.util.*;
 
 import io.github.some_example_name.GraphLoader.Edge;
 
-public class Dijkstra {
+public class Dijkstra implements PathSearching {
     private Map<Long, List<Edge>> connectionList;
     private Map<Long, Double> distBest;
     private Map<Long, Long> prev;
@@ -31,11 +31,13 @@ public class Dijkstra {
         }
     }
 
-    public void computePaths(long start) {
+    @Override
+    public void computePaths(long start, long target) {
         startPos = start;
         distBest = new HashMap<>();
         prev = new HashMap<>();
-        PriorityQueue<Long> pQueue = new PriorityQueue<>(Comparator.comparingDouble(v -> distBest.getOrDefault(v, Double.MAX_VALUE)));
+        PriorityQueue<Long> pQueue = new PriorityQueue<>(
+                Comparator.comparingDouble(v -> distBest.getOrDefault(v, Double.MAX_VALUE)));
         distBest.put(start, 0.0);
         pQueue.add(start);
 
@@ -44,7 +46,7 @@ public class Dijkstra {
             if (curr != start && distBest.get(curr) == Double.MAX_VALUE) {
                 continue;
             }
-            
+
             // obj - сосед.
             for (Edge obj : connectionList.getOrDefault(curr, Collections.emptyList())) {
                 long neighbor = obj.v;
@@ -58,6 +60,7 @@ public class Dijkstra {
         }
     }
 
+    @Override
     public List<Long> getPath(long target) {
         if (!prev.containsKey(target) && target != startPos) {
             return null;
@@ -72,6 +75,7 @@ public class Dijkstra {
         return path;
     }
 
+    @Override
     public double getDistance(long target) {
         return distBest.getOrDefault(target, Double.MAX_VALUE);
     }

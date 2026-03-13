@@ -4,7 +4,7 @@ import java.util.*;
 import io.github.some_example_name.GraphLoader.Edge;
 import io.github.some_example_name.GraphLoader.Node;
 
-public class AStar {
+public class AStar implements PathSearching {
     private Map<Long, List<Edge>> connectionList;
     private Map<Long, Node> nodeMap;
     private Map<Long, Double> distBest;
@@ -36,12 +36,14 @@ public class AStar {
         }
     }
 
+    @Override
     public void computePaths(long start, long target) {
         distBest = new HashMap<>();
         fScore = new HashMap<>();
         prev = new HashMap<>();
 
-        PriorityQueue<Long> pQueue = new PriorityQueue<>(Comparator.comparingDouble(v -> fScore.getOrDefault(v, Double.MAX_VALUE)));
+        PriorityQueue<Long> pQueue = new PriorityQueue<>(
+                Comparator.comparingDouble(v -> fScore.getOrDefault(v, Double.MAX_VALUE)));
 
         distBest.put(start, 0.0);
         fScore.put(start, eucledeanDist(start, target));
@@ -78,6 +80,7 @@ public class AStar {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
+    @Override
     public List<Long> getPath(long target) {
         if (!distBest.containsKey(target)) {
             return null;
@@ -92,6 +95,7 @@ public class AStar {
         return path;
     }
 
+    @Override
     public double getDistance(long target) {
         return distBest.getOrDefault(target, Double.MAX_VALUE);
     }
