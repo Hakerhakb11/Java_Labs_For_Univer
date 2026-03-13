@@ -25,8 +25,10 @@ public class Main extends ApplicationAdapter {
     private Map<Long, Node> nodeMap;
     private List<Long> path;
 
-    private double minLon, maxLon, minLat, maxLat;
+    private float minLon, maxLon, minLat, maxLat;
     private float scale, offsetX, offsetY;
+    long start;
+    long end;
 
     private int clicksQtyty = 0; // (0 first click), (1 second click)
 
@@ -50,29 +52,6 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                System.out.println("Клик на экране: (" + screenX + ", " + screenY + ")");
-
-                Vector3 worldCoords = new Vector3(screenX, screenY, 0);
-                camera.unproject(worldCoords);
-                System.out.println("Клик на карте (" + worldCoords.x + ", " + worldCoords.y + ")");
-                long start = 178263732;
-                long end = 1246523904;
-
-                if (clicksQtyty == 0) {
-                    clicksQtyty = 1;
-
-                    startAlgorithm(start, end);
-                } else {
-                    clicksQtyty = 0;
-
-                }
-                return true;
-            }
-        });
 
         shapeRenderer = new ShapeRenderer();
         camera = new OrthographicCamera();
@@ -120,6 +99,44 @@ public class Main extends ApplicationAdapter {
 
         offsetX = 1650;
         offsetY = 1000;
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                System.out.println("Клик на экране: (" + screenX + ", " + screenY + ")");
+
+                Vector3 worldCoords = new Vector3(screenX, screenY, 0);
+                camera.unproject(worldCoords);
+                System.out.println("Клик на карте (" + worldCoords.x + ", " + worldCoords.y + ")");
+
+                float lon = (worldCoords.x - offsetX) / scale + minLon;
+                float lat = (worldCoords.y - offsetY) / scale + minLat;
+
+                System.out.println(lon + " aa " + lat + " sd ");
+
+                long selectedNodeId = 1;
+                for (Node n : nodes) {
+                    if (lon > n.lon - 0.0006 && lon < n.lon + 0.0009) {
+                        if (lat > n.lat - 0.0008 && lat < n.lat + 0.0009) {
+                            System.out.println("\n\n\n\nGOOD\n\n\n\n" + "NUM: " + n.id);
+                            selectedNodeId = n.id;
+                            break;
+                        }
+                    }
+                }
+
+                if (clicksQtyty == 0) {
+                    clicksQtyty = 1;
+                    start = selectedNodeId;
+                } else {
+                    clicksQtyty = 0;
+                    end = selectedNodeId;
+                    startAlgorithm(start, end);
+
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -156,14 +173,14 @@ public class Main extends ApplicationAdapter {
             float x = (float) ((n.lon - minLon) * scale) + offsetX;
             float y = (float) ((n.lat - minLat) * scale) + offsetY;
             shapeRenderer.circle(x, y, 2);
-            if (maxx < x)
-                maxx = x;
-            if (maxy < y)
-                maxy = y;
-            if (minx > x)
-                minx = x;
-            if (miny > y)
-                miny = y;
+            // if (maxx < x)
+            // maxx = x;
+            // if (maxy < y)
+            // maxy = y;
+            // if (minx > x)
+            // minx = x;
+            // if (miny > y)
+            // miny = y;
             // System.out.println(maxx + " |andMAX| " + maxy + " .");
             // System.out.println(minx + " |andMIN| " + miny + " .");
             // 159.47571 |andMIN| 62.316895 .
