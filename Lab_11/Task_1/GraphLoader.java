@@ -47,10 +47,6 @@ public class GraphLoader {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    // public double eucledeanDist(double x1, double y1, double x2, double y2) {
-    //     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y1 - y2, 2));
-    // }
-
     public ArrayList<Node> readNodes(String path) throws Exception {
         BufferedReader reader = new BufferedReader(new FileReader(path));
 

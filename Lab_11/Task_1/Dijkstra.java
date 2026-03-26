@@ -41,9 +41,6 @@ public class Dijkstra {
 
         while (!pQueue.isEmpty()) {
             long curr = pQueue.poll();
-            if (curr != start && distBest.get(curr) == Double.MAX_VALUE) {
-                continue;
-            }
             
             // obj - сосед.
             for (Edge obj : connectionList.getOrDefault(curr, Collections.emptyList())) {

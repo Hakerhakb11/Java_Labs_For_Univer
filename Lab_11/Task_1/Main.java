@@ -9,8 +9,6 @@ import Lab_11.Task_1.GraphLoader.Node;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println("Start Lab_11.1 \n");
-
         GraphLoader loader = new GraphLoader();
 
         // // OMSK DATA
@@ -61,8 +59,5 @@ public class Main {
             }
             System.out.println();
         }
-
-        System.out.println("End Lab_11.1 \n");
     }
 }
-// lib gdx
