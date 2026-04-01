@@ -1,7 +1,7 @@
 package Lab_4.Task_1;
 
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         MinStack<Integer> stack = new MinStackImpl();
 
         stack.push(74);

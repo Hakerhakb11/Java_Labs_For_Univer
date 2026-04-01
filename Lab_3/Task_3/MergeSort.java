@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import For_Sortings.Sorting;
 
-public class MergeSort<T extends Comparable <? super T>> implements Sorting<T> {
+public class MergeSort<T extends Comparable<? super T>> implements Sorting<T> {
     @Override
     public void sort(List<T> arr) {
         merge(arr);
@@ -32,7 +32,7 @@ public class MergeSort<T extends Comparable <? super T>> implements Sorting<T> {
             int k = 0;
 
             while (leftHalf.size() > i && rightHalf.size() > j) {
-                if(leftHalf.get(i).compareTo(rightHalf.get(j)) > 0) {
+                if (leftHalf.get(i).compareTo(rightHalf.get(j)) > 0) {
                     arr.set(k, rightHalf.get(j));
                     j++;
                 } else {

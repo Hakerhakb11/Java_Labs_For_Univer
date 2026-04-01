@@ -7,18 +7,18 @@ public class MinStackImpl implements MinStack<Integer> {
         private final Integer data;
         private final Node back;
         private final Integer min;
-        
-        Node (Integer data, Node back) {
+
+        Node(Integer data, Node back) {
             this.data = data;
             this.back = back;
-            if(this.back == null || this.data < this.back.min) {
+            if (this.back == null || this.data < this.back.min) {
                 this.min = data;
             } else {
                 this.min = this.back.min;
             }
         }
     }
-    
+
     @Override
     public void push(Integer value) {
         head = new Node(value, head);
@@ -37,7 +37,7 @@ public class MinStackImpl implements MinStack<Integer> {
 
     @Override
     public Integer top() {
-	    if (head == null) {
+        if (head == null) {
             return null;
         }
         return head.data;
@@ -45,9 +45,9 @@ public class MinStackImpl implements MinStack<Integer> {
 
     @Override
     public Integer min() {
-	    if (head == null) {
+        if (head == null) {
             return null;
         }
         return head.min;
     }
-} 
+}

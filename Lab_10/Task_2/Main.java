@@ -12,18 +12,13 @@ public class Main {
         graph.insert(4, 1);
 
         graph.typoSort();
-        // graph.insert(8, 1);
-        // graph.insert(1, 0);
-        // graph.insert(0, 2);
-        // graph.insert(1, 4);
-        // graph.insert(3, 6);
-        // graph.insert(3, 7);
-        // graph.insert(7, 9);
-        
-        // graph.printGraph();
+        graph.insert(8, 1);
+        graph.insert(1, 0);
+        graph.insert(0, 2);
+        graph.insert(1, 4);
+        graph.insert(3, 6);
+        graph.insert(3, 7);
+        graph.insert(7, 9);
 
-        // graph.insert(3, 4);
-
-        // graph.printGraph();
     }
 }

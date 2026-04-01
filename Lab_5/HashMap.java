@@ -1,7 +1,7 @@
 package Lab_5;
 
 public interface HashMap<K, V> {
-    
+
     /**
      * Сохраняет ключ key и значение value в таблицу.
      * Если ключ key уже существует, то перезаписать значение на новое value.

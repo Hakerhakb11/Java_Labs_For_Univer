@@ -12,23 +12,23 @@ public class Main {
     static String bestPath = "";
     static List<List<Integer>> matrix = new ArrayList<List<Integer>>();
 
-        public static void main(String[] args) throws Exception {
-            String routeToDir = "Lab_7/Task_1/";
-            List<String> stringOut = Files.readAllLines(Paths.get(routeToDir + "roguelike-input.csv"));
-            line = stringOut.size();
-            cols = stringOut.get(0).split(";").length;
-            
-            for (int i = 0; i < stringOut.size(); i++) {
-                String[] splitedOut = stringOut.get(i).split(";");
-                List<Integer> row = new ArrayList<>();
-                
-            for(int j = 0; j < cols; j++) {
-                row.add(Integer.parseInt(splitedOut[j]));        
+    public static void main(String[] args) throws Exception {
+        String routeToDir = "Lab_7/Task_1/";
+        List<String> stringOut = Files.readAllLines(Paths.get(routeToDir + "roguelike-input.csv"));
+        line = stringOut.size();
+        cols = stringOut.get(0).split(";").length;
+
+        for (int i = 0; i < stringOut.size(); i++) {
+            String[] splitedOut = stringOut.get(i).split(";");
+            List<Integer> row = new ArrayList<>();
+
+            for (int j = 0; j < cols; j++) {
+                row.add(Integer.parseInt(splitedOut[j]));
             }
             System.out.println(row);
             matrix.add(row);
         }
-        
+
         for (List<Integer> list : matrix) {
             for (int obj : list) {
                 System.out.print(obj + " ");
@@ -43,7 +43,6 @@ public class Main {
         Files.write(Paths.get(routeToDir + "roguelike-output.txt"), outPut.getBytes());
         System.out.println(outPut);
     }
-
 
     public static void findBestWay(int i, int j, int money, String path) {
         int currentPosition = matrix.get(i).get(j);

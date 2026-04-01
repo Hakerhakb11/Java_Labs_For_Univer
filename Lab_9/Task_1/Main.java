@@ -26,9 +26,5 @@ public class Main {
         System.out.println(bstree.has(12));
         
         bstree.printTree();
-
-        // bstree.delete(8);
-        // bstree.printTree();
-        // bstree.delete(7);
     }
 }

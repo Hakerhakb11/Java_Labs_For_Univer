@@ -8,6 +8,7 @@ public class Data<V> {
         this.key = key;
         this.value = value;
     }
+
     public String getKey() {
         return key;
     }

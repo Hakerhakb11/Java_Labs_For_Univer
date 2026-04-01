@@ -363,7 +363,7 @@ public class BBSTree {
 
         // first elem. Print alone
         // System.out.println("--------------------------------\n" + " ".repeat((skips)
-        // / 2) + head.data);  // for new java versions
+        // / 2) + head.data); // for new java versions
         System.out.println(
                 "--------------------------------\n" + new String(new char[skips / 2]).replace("\0", " ") + head.data);
 
@@ -375,7 +375,8 @@ public class BBSTree {
             skips = (skips) / 2;
             int dinamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
-                // System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");  // for new java versions
+                // System.out.print(" ".repeat(dinamicSkips) + "/" + " ".repeat(skips) + "\\");
+                // // for new java versions
                 System.out.print(new String(new char[dinamicSkips]).replace("\0", " ") + "/"
                         + new String(new char[skips]).replace("\0", " ") + "\\");
                 dinamicSkips = skips;

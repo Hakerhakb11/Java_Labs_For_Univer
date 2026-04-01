@@ -18,7 +18,7 @@ public class Main {
         // TEST DATA
         ArrayList<Node> nodes = loader.readNodes("Lab_11/simple/nodes.csv");
         ArrayList<Edge> edges = loader.readEdges("Lab_11/simple/edges.csv");
-        
+
         Map<Long, Node> nodeMap = new HashMap<>();
         for (Node node : nodes) {
             nodeMap.put(node.id, node);
@@ -36,14 +36,13 @@ public class Main {
             Node v = nodeMap.get(edge.v);
             edge.dist = loader.eucledeanDist(u, v);
         }
-        
-         Dijkstra dijkstra = new Dijkstra(edges);
+
+        Dijkstra dijkstra = new Dijkstra(edges);
 
         long start = 1;
         long end = 5;
         // long start = 410580150; // Откуда ехать
-        // long end = 1262271488;  // Куда ехать
-
+        // long end = 1262271488; // Куда ехать
 
         dijkstra.computePaths(start);
 

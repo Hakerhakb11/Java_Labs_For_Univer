@@ -1,9 +1,9 @@
 package Lab_5;
 
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         HashMap<String, String> map = new HashMapImpl<>();
-        
+
         map.put("Igor", "Value");
         map.put("Andrey", "Programmer");
         map.put("Heroes 3", "Best strategy game");

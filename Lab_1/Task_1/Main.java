@@ -7,7 +7,7 @@ public class Main {
         String text = "{[()]}";
         System.out.println("Input: str = " + text);
         Deque<Object> stack = new ArrayDeque<>();
-        
+
         List<Character> OpenBracket = List.of('(', '[', '{');
         List<Character> CloseBracket = List.of(')', ']', '}');
 
@@ -16,11 +16,10 @@ public class Main {
         map.put('}', '{');
         map.put(')', '(');
 
-        for(Character Bracket : text.toCharArray()) {
+        for (Character Bracket : text.toCharArray()) {
             if (OpenBracket.contains(Bracket)) {
                 stack.push(Bracket);
-            }
-            else if (CloseBracket.contains(Bracket)) {
+            } else if (CloseBracket.contains(Bracket)) {
                 if (map.get(Bracket) == stack.peek()) {
                     stack.pop();
                 } else {

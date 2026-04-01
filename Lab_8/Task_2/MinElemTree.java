@@ -25,12 +25,12 @@ public class MinElemTree {
         left += size;
         right += size;
         int result = Integer.MAX_VALUE;
-        while(left <= right) {
+        while (left <= right) {
             if ((left % 2) != 0) {
                 result = Math.min(result, tree[left++]);
             }
             if ((right % 2) == 0) {
-                result = Math.min(result, tree[right--]);            
+                result = Math.min(result, tree[right--]);
             }
             left /= 2;
             right /= 2;
@@ -39,15 +39,16 @@ public class MinElemTree {
     }
 
     public void printTree() {
-        // print tree interactive || Inputable arr.length must be <= 8 
+        // print tree interactive || Inputable arr.length must be <= 8
         if (tree.length <= 16) {
             System.out.print("\n       " + tree[1] + "\r\n" + //
-            "    /     \\\r\n" + //
-            "   " + tree[2] + "       " + tree[3] + "\r\n" + //
-            "  / \\     / \\\r\n" + //
-            " " + tree[4] + "   " + tree[5] + "   " + tree[6] + "   " + tree[7] + "\r\n" + //
-                    "/ \\ / \\ / \\ / \\\r\n" + //"");
-            "" + tree[8] + " " + tree[9] + " " + tree[10] + " " + tree[11] + " " + tree[12] + " " + tree[13] + " " + tree[14] + " " + tree[15] + "\n\n");
+                    "    /     \\\r\n" + //
+                    "   " + tree[2] + "       " + tree[3] + "\r\n" + //
+                    "  / \\     / \\\r\n" + //
+                    " " + tree[4] + "   " + tree[5] + "   " + tree[6] + "   " + tree[7] + "\r\n" + //
+                    "/ \\ / \\ / \\ / \\\r\n" + // "");
+                    "" + tree[8] + " " + tree[9] + " " + tree[10] + " " + tree[11] + " " + tree[12] + " " + tree[13]
+                    + " " + tree[14] + " " + tree[15] + "\n\n");
         } else {
             System.out.println("Интерактивный вывод доступен только если arr.length <= 8");
         }

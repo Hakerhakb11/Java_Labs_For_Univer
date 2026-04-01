@@ -10,9 +10,9 @@ public class Main {
         String routeToDir = "Lab_7/Task_2/";
 
         List<String> stringOut = Files.readAllLines(Paths.get(routeToDir + "lis-input.txt"));
-        
+
         String[] splitedOut = stringOut.get(1).split(" ");
-        
+
         List<Integer> arr = new ArrayList<>();
         for (int i = 0; i < splitedOut.length; i++) {
             arr.add(Integer.parseInt(splitedOut[i]));
@@ -24,8 +24,9 @@ public class Main {
 
         List<Integer> bestArr = new ArrayList<>();
         List<Integer> tempArr = new ArrayList<>();
-        
-        // This algorithm, skip number that already has been passed. And take another < number
+
+        // This algorithm, skip number that already has been passed. And take another <
+        // number
         for (int i = 0; i < arr.size(); i++) {
             int skips = 0;
             int exitCode = 1;
@@ -51,7 +52,7 @@ public class Main {
                 tempArr.clear();
             }
         }
-        
+
         System.err.println(bestArr.size());
         for (int i : bestArr) {
             System.out.print(i + " ");

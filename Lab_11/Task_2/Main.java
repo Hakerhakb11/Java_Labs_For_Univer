@@ -18,7 +18,7 @@ public class Main {
 
         ArrayList<Node> nodes = loader.readNodes("Lab_11/simple/nodes.csv");
         ArrayList<Edge> edges = loader.readEdges("Lab_11/simple/edges.csv");
-        
+
         Map<Long, Node> nodeMap = new HashMap<>();
         for (Node node : nodes) {
             nodeMap.put(node.id, node);
@@ -38,12 +38,12 @@ public class Main {
         }
 
         AStar astar = new AStar(edges, nodes);
-        
+
         long start = 1;
         long end = 9;
 
         astar.computePaths(start, end);
-        
+
         double dist = astar.getDistance(end);
         if (dist == Double.MAX_VALUE) {
             System.out.println("Путь не найден.");
@@ -51,7 +51,8 @@ public class Main {
             System.out.println("Кратчайшее расстояние = " + dist);
             List<Long> path = astar.getPath(end);
             System.out.print("Путь: ");
-            for (long i : path) System.out.print(i + " ");
+            for (long i : path)
+                System.out.print(i + " ");
             System.out.println();
         }
 

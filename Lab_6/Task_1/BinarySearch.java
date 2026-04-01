@@ -21,7 +21,7 @@ public class BinarySearch {
                         right = mid;
                     } else {
                         left = mid + 1;
-                    } 
+                    }
                 }
                 int rightValue = left;
                 int leftValue = left - 1;

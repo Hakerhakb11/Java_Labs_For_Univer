@@ -35,13 +35,14 @@ public class Dijkstra {
         startPos = start;
         distBest = new HashMap<>();
         prev = new HashMap<>();
-        PriorityQueue<Long> pQueue = new PriorityQueue<>(Comparator.comparingDouble(v -> distBest.getOrDefault(v, Double.MAX_VALUE)));
+        PriorityQueue<Long> pQueue = new PriorityQueue<>(
+                Comparator.comparingDouble(v -> distBest.getOrDefault(v, Double.MAX_VALUE)));
         distBest.put(start, 0.0);
         pQueue.add(start);
 
         while (!pQueue.isEmpty()) {
             long curr = pQueue.poll();
-            
+
             // obj - сосед.
             for (Edge obj : connectionList.getOrDefault(curr, Collections.emptyList())) {
                 long neighbor = obj.v;

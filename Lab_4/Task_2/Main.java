@@ -1,7 +1,7 @@
 package Lab_4.Task_2;
 
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         PriorityQueue<Integer> heap = new PriorityQueueImpl();
 
         heap.enqueue(13);
@@ -15,20 +15,7 @@ public class Main {
 
         heap.increment(2, 1000);
         heap.toString();
-        // heap.increment(6, 1000);
         heap.increment(5, -4);
         heap.toString();
-
-        // heap.dequeueMax();
-        // heap.toString();
-        // heap.dequeueMax();
-        // heap.dequeueMax();
-        // heap.dequeueMax();
-        // heap.dequeueMax();
-        // heap.dequeueMax();
-        // heap.dequeueMax();
-        // heap.dequeueMax();
-        // heap.dequeueMax();
-        // heap.toString();
     }
 }

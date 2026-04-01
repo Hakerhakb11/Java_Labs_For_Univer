@@ -7,9 +7,8 @@ import For_Sortings.Sorting;
 import For_Sortings.RadixSort;
 
 public class Main {
-
     public static void main(String[] args) {
-        
+
         BigInteger num1 = new BigInteger("19446744073709551657");
         BigInteger num2 = new BigInteger("18446744073709551616");
         BigInteger num3 = new BigInteger("18446744073709551629");

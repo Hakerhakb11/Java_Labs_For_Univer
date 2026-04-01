@@ -14,7 +14,7 @@ public class Main {
         BufferedReader reader = new BufferedReader(new FileReader(routeToDir + "lis-input.txt"));
         String line;
         List<String> stringOut = new ArrayList<>();
-        while((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
             stringOut.add(line);
         }
         System.err.println(stringOut);

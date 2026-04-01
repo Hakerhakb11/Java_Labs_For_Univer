@@ -42,8 +42,8 @@ public class Dijkstra implements PathSearching {
         pQueue.add(start);
 
         while (!pQueue.isEmpty()) {
-        long curr = pQueue.poll();
-            
+            long curr = pQueue.poll();
+
             // obj - ребро из curr.
             for (Edge obj : connectionList.getOrDefault(curr, Collections.emptyList())) {
                 long neighbor = obj.v;

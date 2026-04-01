@@ -41,7 +41,8 @@ public class AStar {
         fScore = new HashMap<>();
         prev = new HashMap<>();
 
-        PriorityQueue<Long> pQueue = new PriorityQueue<>(Comparator.comparingDouble(v -> fScore.getOrDefault(v, Double.MAX_VALUE)));
+        PriorityQueue<Long> pQueue = new PriorityQueue<>(
+                Comparator.comparingDouble(v -> fScore.getOrDefault(v, Double.MAX_VALUE)));
 
         distBest.put(start, 0.0);
         fScore.put(start, eucledeanDist(start, target));

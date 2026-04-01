@@ -1,28 +1,32 @@
 package Lab_9.Task_1;
 
 import java.util.Queue;
-import java.util.LinkedList; 
+import java.util.LinkedList;
 
 public class BSTree {
     private Node head = null;
+
     class Node {
         private int height = 1;
         private int data;
         private Node left;
         private Node right;
-        
+
         Node(int data, Node left, Node right) {
             this.data = data;
             this.left = left;
             this.right = right;
             this.height = 1;
         }
+
         public int getData() {
             return this.data;
         }
+
         public void setRight(Node right) {
             this.right = right;
         }
+
         public void setLeft(Node left) {
             this.left = left;
         }
@@ -33,7 +37,7 @@ public class BSTree {
         Node parent = null;
         while (current != null) {
             parent = current;
-            if (current.data < value) { 
+            if (current.data < value) {
                 current = current.right;
             } else if (current.data > value) {
                 current = current.left;
@@ -42,11 +46,11 @@ public class BSTree {
             }
         }
         if (head == null) {
-            head = new Node(value, null, null);    
+            head = new Node(value, null, null);
             return;
         }
         if (parent.data < value) {
-            parent.setRight(new Node(value, null, null)); 
+            parent.setRight(new Node(value, null, null));
         } else {
             parent.setLeft(new Node(value, null, null));
         }
@@ -65,14 +69,14 @@ public class BSTree {
         }
         return false;
     }
-    
+
     public int next(int value) {
         if (head.height < 2) {
             return 0;
         }
         Node current = head;
         Node parent = null;
-        
+
         while (current != null) {
             if (current.data < value) {
                 current = current.right;
@@ -93,14 +97,14 @@ public class BSTree {
         }
         return parent.data;
     }
-    
+
     public int prev(int value) {
         if (head.height < 2) {
             return 0;
         }
         Node current = head;
         Node parent = null;
-        
+
         while (current != null) {
             if (current.data < value) {
                 parent = current;
@@ -121,7 +125,7 @@ public class BSTree {
         }
         return parent.data;
     }
-    
+
     public int max(Node head) {
         Node current = head;
         while (true) {
@@ -133,11 +137,11 @@ public class BSTree {
         }
     }
 
-    public void delete(int value) { 
+    public void delete(int value) {
         System.out.println("Deliting: " + value);
         Node current = head;
         Node parent = null;
-        
+
         while (current != null) {
             if (current.data < value) {
                 parent = current;
@@ -151,7 +155,7 @@ public class BSTree {
                     Node parent2 = current;
                     current = current.right;
                     if (current.left != null) {
-                        while(current.left != null) {
+                        while (current.left != null) {
                             parent2 = current;
                             current = current.left;
                         }
@@ -209,15 +213,15 @@ public class BSTree {
         }
         return rank;
     }
-    
+
     public int[] BFS(Node head) {
         Node temp = new Node(0, null, null); // for don't exists Nodes
         int height = updateHeight(head); // qtyty of floors in the tree
-        int size = (int)Math.pow(2, height); // max qtyty elem in tree
+        int size = (int) Math.pow(2, height); // max qtyty elem in tree
         int number = size;
-        int[] arr = new int[(int)Math.pow(2, height)];
+        int[] arr = new int[(int) Math.pow(2, height)];
         Queue<Node> queue = new LinkedList<>();
-        
+
         int i = 0;
         if (head != null) {
             queue.offer(head);
@@ -243,7 +247,7 @@ public class BSTree {
         }
         return arr;
     }
-    
+
     // print tree interactive
     public void printTree() {
         int height = updateHeight(head);
@@ -253,29 +257,35 @@ public class BSTree {
         }
         int maxEl = max(head);
         int tableRank = sayRank(maxEl); // Table Width ex: for x, for xx, for xxx.
-        int skips = (int)Math.pow(2, height - 1 + tableRank) - tableRank;
-        
+        int skips = (int) Math.pow(2, height - 1 + tableRank) - tableRank;
+
         // first elem. Print alone
-        // System.out.println("--------------------------------\n" + " ".repeat((skips) / 2) + head.data); // for new java versions
-        System.out.println("--------------------------------\n" + new String(new char[skips / 2]).replace("\0", " ") + head.data);
+        // System.out.println("--------------------------------\n" + " ".repeat((skips)
+        // / 2) + head.data); // for new java versions
+        System.out.println(
+                "--------------------------------\n" + new String(new char[skips / 2]).replace("\0", " ") + head.data);
         int[] arr = BFS(head); // Elements in table
         int numInTable = 1; // variable of number, which been getted from BFS
         int iterations = 1; // variable of Qtyty iteration in every floor
-        
+
         for (int i = height; i > 1; i--) {
             skips = (skips) / 2;
             int dynamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
-                // System.out.print(" ".repeat(dynamicSkips) + "/" + " ".repeat(skips) + "\\"); // for new java versions
-                System.out.print( new String(new char[dynamicSkips]).replace("\0", " ") + "/" +  new String(new char[skips]).replace("\0", " ") + "\\");
+                // System.out.print(" ".repeat(dynamicSkips) + "/" + " ".repeat(skips) + "\\");
+                // // for new java versions
+                System.out.print(new String(new char[dynamicSkips]).replace("\0", " ") + "/"
+                        + new String(new char[skips]).replace("\0", " ") + "\\");
                 dynamicSkips = skips;
             }
             System.out.println();
             dynamicSkips = skips / 2;
             for (int j = iterations; j > 0; j--) {
                 int rank = sayRank(arr[numInTable]) + sayRank(arr[numInTable + 1]) - 2;
-                // System.out.print(" ".repeat(dynamicSkips) + arr[numInTable++] + " ".repeat(skips - rank) + arr[numInTable++]); // for new java versions
-                System.out.print(new String(new char[dynamicSkips]).replace("\0", " ") + arr[numInTable++] + new String(new char[skips - rank]).replace("\0", " ") + arr[numInTable++]);
+                // System.out.print(" ".repeat(dynamicSkips) + arr[numInTable++] + "
+                // ".repeat(skips - rank) + arr[numInTable++]); // for new java versions
+                System.out.print(new String(new char[dynamicSkips]).replace("\0", " ") + arr[numInTable++]
+                        + new String(new char[skips - rank]).replace("\0", " ") + arr[numInTable++]);
                 dynamicSkips = skips;
             }
             System.out.println();

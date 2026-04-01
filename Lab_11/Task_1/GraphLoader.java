@@ -7,29 +7,29 @@ import java.util.*;
 public class GraphLoader {
     int CANVAS_WIDTH = 1200;
     int CANVAS_HEIGHT = 800;
-    
+
     public static class Node {
         public long id;
         public double lon;
         public double lat;
-    
+
         public double x;
         public double y;
-    
+
         Node(long id, double lon, double lat) {
             this.id = id;
             this.lon = lon;
             this.lat = lat;
-        }   
+        }
     }
-    
+
     public static class Edge {
         public long u;
         public long v;
-        
+
         public double ux;
         public double uy;
-        
+
         public double vx;
         public double vy;
 
@@ -40,7 +40,7 @@ public class GraphLoader {
             this.v = v;
         }
     }
-    
+
     public double eucledeanDist(Node u, Node v) {
         double dx = u.lon - v.lon;
         double dy = u.lat - v.lat;
@@ -53,7 +53,7 @@ public class GraphLoader {
         reader.readLine();
 
         ArrayList<Node> nodes = new ArrayList<>();
-        
+
         String line;
         while ((line = reader.readLine()) != null) {
             String[] splited = line.split(",");
@@ -74,7 +74,7 @@ public class GraphLoader {
         reader.readLine();
 
         ArrayList<Edge> edges = new ArrayList<>();
-        
+
         String line;
         while ((line = reader.readLine()) != null) {
             String[] splited = line.split(",");

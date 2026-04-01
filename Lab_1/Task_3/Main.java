@@ -2,8 +2,8 @@ package Lab_1.Task_3;
 
 public class Main {
     public static void main(String[] args) {
-        int arr[] = {2, 6, 3, 8, 4, 5, 1};
-        
+        int arr[] = { 2, 6, 3, 8, 4, 5, 1 };
+
         merge(arr);
         int i = 0;
         boolean t = false;
@@ -14,13 +14,13 @@ public class Main {
                     break;
                 }
                 i++;
-            }
-            catch(ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 break;
             }
         }
         System.out.println("Array have twise number: " + t);
     }
+
     public static void merge(int arr[]) {
         if (arr.length > 1) {
             int mid = arr.length / 2;
