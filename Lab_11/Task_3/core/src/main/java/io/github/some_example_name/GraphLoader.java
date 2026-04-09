@@ -5,38 +5,6 @@ import java.io.FileReader;
 import java.util.*;
 
 public class GraphLoader {
-    public static class Node {
-        public long id;
-        public float lon;
-        public float lat;
-
-        public double x;
-        public double y;
-
-        Node(long id, float lon, float lat) {
-            this.id = id;
-            this.lon = lon;
-            this.lat = lat;
-        }
-    }
-
-    public static class Edge {
-        public long u;
-        public long v;
-
-        public double ux;
-        public double uy;
-
-        public double vx;
-        public double vy;
-
-        public double dist; // расстояние между u-v
-
-        Edge(long u, long v) {
-            this.u = u;
-            this.v = v;
-        }
-    }
 
     public double eucledeanDist(Node u, Node v) {
         double dx = u.lon - v.lon;

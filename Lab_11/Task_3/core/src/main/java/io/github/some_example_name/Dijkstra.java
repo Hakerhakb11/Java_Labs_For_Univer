@@ -2,8 +2,6 @@ package io.github.some_example_name;
 
 import java.util.*;
 
-import io.github.some_example_name.GraphLoader.Edge;
-
 public class Dijkstra implements PathSearching {
     private Map<Long, List<Edge>> connectionList;
     private Map<Long, Double> distBest;

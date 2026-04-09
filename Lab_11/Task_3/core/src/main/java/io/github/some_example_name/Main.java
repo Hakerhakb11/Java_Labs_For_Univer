@@ -15,9 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.github.some_example_name.GraphLoader.Edge;
-import io.github.some_example_name.GraphLoader.Node;
-
 public class Main extends ApplicationAdapter {
     private ShapeRenderer shapeRenderer;
     private OrthographicCamera camera;
