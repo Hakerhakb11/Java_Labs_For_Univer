@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
@@ -27,7 +29,16 @@ public class Main extends ApplicationAdapter {
     private float scale, offsetX, offsetY;
     private long start, end;
 
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private String currentAlgorithmName = "Algorithm A*";
+    private String currentControlLevel = "Difficulty: Eazy";
+    
     private int clicksQtyty = 0; // (0 first click), (1 second click)
+    private int selectedAlgorithm = 0; // (0 A*), (1 Dijkstra)
+    private int selectedControlMode = 0; // (0 Eazy for Junior), (1 Hard for SSS Senior+)
+    private final int[] SECRET_COMBINATION = {Input.Keys.Q, Input.Keys.W, Input.Keys.E, Input.Keys.R};
+    private int combinationCount = 0;
 
     public void startAlgorithm(PathSearching algorithm, long start, long end) {
         algorithm.computePaths(start, end);
@@ -47,6 +58,11 @@ public class Main extends ApplicationAdapter {
         shapeRenderer = new ShapeRenderer();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
+
+        batch = new SpriteBatch();
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.getData().setScale(3.0f);
 
         GraphLoader loader = new GraphLoader();
         try {
@@ -107,20 +123,22 @@ public class Main extends ApplicationAdapter {
                 camera.unproject(worldCoords);
                 System.out.println("Клик (" + worldCoords.x + ", " + worldCoords.y + ")");
 
-                float lon = (worldCoords.x - offsetX) / scale + minLon;
-                float lat = (worldCoords.y - offsetY) / scale + minLat;
-                System.out.println(lon + " | " + lat + " |");
-
-                long selectedNodeId = 1;
+                long selectedNodeId = -1;
                 boolean hit = false;
+                float maxClickRadiusInPixels = 30f;
+                float minDistanceSq = maxClickRadiusInPixels * maxClickRadiusInPixels;
+
                 for (Node n : nodes) {
-                    if (lon > n.lon - 0.0005 && lon < n.lon + 0.0005) {
-                        if (lat > n.lat - 0.0005 && lat < n.lat + 0.0005) {
-                            // System.out.println("NUM: " + n.id + "\n\n-------HIT---------\n\n");
-                            hit = true;
-                            selectedNodeId = n.id;
-                            break;
-                        }
+                    float nodeX = (float) ((n.lon - minLon) * scale) + offsetX;
+                    float nodeY = (float) ((n.lat - minLat) * scale) + offsetY;
+                    float dx = worldCoords.x - nodeX;
+                    float dy = worldCoords.y - nodeY;
+                    float distSq = dx * dx + dy * dy;
+
+                    if (distSq < minDistanceSq) {
+                        minDistanceSq = distSq;
+                        selectedNodeId = n.id;
+                        hit = true;
                     }
                 }
 
@@ -133,19 +151,64 @@ public class Main extends ApplicationAdapter {
                     if (hit) {
                         clicksQtyty = 0;
                         end = selectedNodeId;
+
                         // --------------- SELECT ALGORITHM -----------------------
-                        long startTime = System.currentTimeMillis();
-                        startAlgorithm(new AStar(edges, nodes), start, end);
-                        long endTime = System.currentTimeMillis();
-                        System.out.println("Прошло " + (endTime - startTime) + "");
 
-                        //
-
-                        startTime = System.currentTimeMillis();
-                        startAlgorithm(new Dijkstra(edges), start, end);
-                        endTime = System.currentTimeMillis();
-                        System.out.println("Прошло " + (endTime - startTime) + "");
+                        if (selectedAlgorithm == 0) {
+                            System.out.println("Алгоритм A*");
+                            long startTime = System.currentTimeMillis();
+                            startAlgorithm(new AStar(edges, nodes), start, end);
+                            long endTime = System.currentTimeMillis();
+                            System.out.println("Прошло " + (endTime - startTime) + "");
+                        } else {
+                            System.out.println("Алгоритм Дейкстры");
+                            long startTime = System.currentTimeMillis();
+                            startAlgorithm(new Dijkstra(edges), start, end);
+                            long endTime = System.currentTimeMillis();
+                            System.out.println("Прошло " + (endTime - startTime) + "");
+                        }
                     }
+                }
+                return true;
+            }
+
+            @Override
+            public boolean keyDown(int keycode) {
+                if (keycode == Input.Keys.B) {
+                    if (selectedAlgorithm == 0) {
+                        selectedAlgorithm = 1;
+                        currentAlgorithmName = "Algorithm Dijkstra";
+                        System.out.println("Выбран Алгоритм Дейкстры");
+                        return true;
+                    } else {
+                        selectedAlgorithm = 0;
+                        currentAlgorithmName = "Algorithm A*";
+                        System.out.println("Выбран Алгоритм A*");
+                        return true;
+                    }
+                }
+
+                if (keycode == SECRET_COMBINATION[combinationCount]) {
+                    combinationCount++;
+                    if (combinationCount == 4) {
+                        if (selectedControlMode == 0) {
+                            combinationCount = 0;
+                            selectedControlMode = 1;
+                            currentControlLevel = "Difficulty: Hard";
+                            return true;
+                        } else {
+                            combinationCount = 0;
+                            selectedControlMode = 0;
+                            currentControlLevel = "Difficulty: Eazy";
+                            return true;
+                        }
+                    }
+                    return true;
+                } else if (keycode == SECRET_COMBINATION[0]) {
+                    combinationCount = 1;
+                    return true;
+                } else {
+                    combinationCount = 0;
                 }
                 return false;
             }
@@ -156,11 +219,17 @@ public class Main extends ApplicationAdapter {
                     int margin;
                     if (startScreenX != screenX) {
                         margin = startScreenX - screenX;
-                        offsetX += margin;
+                        if (selectedControlMode == 0) {
+                            startScreenX = screenX;
+                        }
+                        offsetX -= margin;
                     }
                     if (startScreenY != screenY) {
                         margin = startScreenY - screenY;
-                        offsetY -= margin;
+                        if (selectedControlMode == 0) {
+                            startScreenY = screenY;
+                        }
+                        offsetY += margin;
                     }
                     return true;
                 }
@@ -175,12 +244,24 @@ public class Main extends ApplicationAdapter {
 
             @Override
             public boolean scrolled(float amountX, float amountY) {
+                Vector3 mouseCoords = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+                camera.unproject(mouseCoords);
+                float mouseX = mouseCoords.x;
+                float mouseY = mouseCoords.y;
+
+                float oldScale = scale;
                 float zoomFactor = 1.1f;
+
                 if (amountY < 0) {
                     scale *= zoomFactor;
                 } else {
                     scale /= zoomFactor;
                 }
+
+                float scaleRatio = scale / oldScale;
+                offsetX = mouseX - (mouseX - offsetX) * scaleRatio;
+                offsetY = mouseY - (mouseY - offsetY) * scaleRatio;
+
                 return true;
             }
         });
@@ -231,12 +312,18 @@ public class Main extends ApplicationAdapter {
                 float vy = (float) ((v.lat - minLat) * scale) + offsetY;
                 shapeRenderer.line(ux, uy, vx, vy);
             }
-            shapeRenderer.end();
         }
+        shapeRenderer.end();
+        batch.begin();
+        font.draw(batch, currentAlgorithmName, 20, Gdx.graphics.getHeight() - 20);
+        font.draw(batch, currentControlLevel, 20, Gdx.graphics.getHeight() - 70);
+        batch.end();
     }
 
     @Override
     public void dispose() {
         shapeRenderer.dispose();
+        batch.dispose();
+        font.dispose();
     }
 }

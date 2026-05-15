@@ -61,6 +61,7 @@ public class AStar implements PathSearching {
                     prev.put(neighbor, current);
                     distBest.put(neighbor, newDist);
                     fScore.put(neighbor, newDist + eucledeanDist(neighbor, target));
+                    pQueue.remove(neighbor);
                     pQueue.add(neighbor);
                 }
             }
