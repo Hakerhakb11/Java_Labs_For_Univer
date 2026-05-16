@@ -16,3 +16,4 @@ public class Main { // This is a Main class, that have in every program, if it E
     System.out.println("End lab 12"); // this is a Input_output part of programm
     } // this is a Closing Parenthesis os public static void main Function. That function usually have in every programm in Java
 } // This is a Endest Closing Parenthesis. It is Necessary to been that Parenthesis here. Becose Java is not a Python Language, it's not so eazy.
+// empty place. This place doesn't effect to code Anyway don't worry
