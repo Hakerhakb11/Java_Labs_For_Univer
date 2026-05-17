@@ -2,6 +2,8 @@ import java.util.List;
 
 import app.Calculator;
 import app.Tokenizer;
+import operators.Minus;
+import operators.Plus;
 import tokens.Token;
 
 public class Main {
@@ -12,11 +14,16 @@ public class Main {
 
     String input = "4 1 + 5";
     
-    Calculator calculator = new Calculator();
+    Calculator calc = new Calculator();
+    Plus plusOp = new Plus();
+    Minus minusOp = new Minus();
+    
+    calc.register("+", plusOp);
+    calc.register("-", minusOp);
     Tokenizer tokenizer = new Tokenizer();
     List<Token> tokens = tokenizer.tokenize(input);
 
-    int result = calculator.calc(tokens);
+    int result = calc.eval(tokens);
 
 
     System.out.println("result: " + result);
