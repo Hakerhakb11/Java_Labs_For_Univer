@@ -2,18 +2,16 @@ package operators;
 
 import java.util.Stack;
 
-public class Sum implements Operator {
-    private String plus = "sum";
+public class Sum implements Operand {
 
     @Override
     public void apply(Stack<Float> stack) {
-        // Float result = (float) 0;
-        Float val2 = stack.pop();
-        Float val1 = stack.pop();
-        stack.add(val1 + val2);
-    }
+        float result = 0;
+        while (!stack.isEmpty()) {
+            result += stack.peek();
+            stack.pop();
+        }
 
-    public String getPlus() {
-        return plus;
+        stack.add(result);
     }
 }

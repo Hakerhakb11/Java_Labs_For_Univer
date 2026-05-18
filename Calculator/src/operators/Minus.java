@@ -2,17 +2,13 @@ package operators;
 
 import java.util.Stack;
 
-public class Minus implements Operator {
-    private String plus = "-";
+public class Minus implements Operand {
 
     @Override
     public void apply(Stack<Float> stack) {
         Float val2 = stack.pop();
         Float val1 = stack.pop();
-        stack.add(val1 - val2);
-    }
 
-    public String getPlus() {
-        return plus;
+        stack.add(val1 - val2);
     }
 }

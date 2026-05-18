@@ -2,6 +2,6 @@ package operators;
 
 import java.util.Stack;
 
-public interface Operator {
+public interface Operand {
     void apply(Stack<Float> stack);
 }
