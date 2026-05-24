@@ -3,7 +3,11 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
-import tokens.*;
+import tokens.BracketToken;
+import tokens.CommaToken;
+import tokens.NumberToken;
+import tokens.OperandToken;
+import tokens.Token;
 
 public class Tokenizer {
 
@@ -19,7 +23,8 @@ public class Tokenizer {
                 continue;
             }
 
-            if (Character.isDigit(ch) || (ch == '-' && Character.isDigit(string.charAt(i + 1)))) {
+            if (Character.isDigit(ch)
+                    || (ch == '-' && i + 1 < string.length() && Character.isDigit(string.charAt(i + 1)))) {
                 StringBuilder numberBuild = new StringBuilder();
                 boolean havePoint = false;
                 numberBuild.append(ch);
@@ -52,22 +57,23 @@ public class Tokenizer {
                 tokens.add(bracketToken);
                 i++;
 
+            } else if (ch == ',') {
+                tokens.add(new CommaToken());
+                i++;
+
             } else {
                 StringBuilder stringBuild = new StringBuilder();
-                stringBuild.append(ch);
-                i++;
+
                 while (i < string.length()) {
                     ch = string.charAt(i);
-                    if (ch == ' ') {
-                        i++;
+                    if (ch == ' ' || ch == '(' || ch == ')' || ch == ',' || Character.isDigit(ch)) {
                         break;
-                    } else {
-                        stringBuild.append(ch);
-                        i++;
                     }
+                    stringBuild.append(ch);
+                    i++;
                 }
                 String stringOperand = stringBuild.toString();
-                if (Calculator.registered.containsKey(stringOperand)) {
+                if (!stringOperand.isEmpty() && Calculator.registered.containsKey(stringOperand)) {
                     OperandToken opToken = new OperandToken(stringOperand);
                     tokens.add(opToken);
                 }

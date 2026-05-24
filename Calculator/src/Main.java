@@ -3,60 +3,87 @@ import java.util.List;
 import app.Calculator;
 import app.ShuntingYard;
 import app.Tokenizer;
+import operators.Divide;
+import operators.Minus;
+import operators.Multiplicate;
+import operators.Plus;
+import operators.Sum;
 import tokens.Token;
-
-import operators.*;
-import operators.Module;
 
 public class Main {
     public static void main(String[] args) {
-    System.out.println("Start ----------------------");
-    
-    Calculator calc = new Calculator();
-    Plus plusOp = new Plus();
-    Minus minusOp = new Minus();
-    Multiplicate multiplicateOp = new Multiplicate();
-    Devide devideOp = new Devide();
-    Sum sumOp = new Sum();
-    Module moduleOp = new Module();
-    
-    calc.register("+", plusOp, 1);
-    calc.register("-", minusOp, 1);
-    calc.register("*", multiplicateOp, 2);
-    calc.register("/", devideOp, 2);
-    calc.register("sum", sumOp, 1);
-    calc.register("%", moduleOp, 2);
-    
-    String input1 = "4 1 + 5 *";
-    String input2 = "6 8 + 3 %";
-    String input3 = "1 2 3 4 5 6 sum";
-    String input4 = "(1 + 4) / 5 + 9 % 2";
-    System.out.println(calc.getStack());
+        System.out.println("Start ----------------------");
 
-    Tokenizer tokenizer = new Tokenizer();
-    List<Token> tokens1 = tokenizer.tokenize(input1);
-    List<Token> tokens2 = tokenizer.tokenize(input2);
-    List<Token> tokens3 = tokenizer.tokenize(input3);
-    List<Token> tokens4 = tokenizer.tokenize(input4);
-    ShuntingYard shuntingYard = new ShuntingYard();
-    List<Token> tokens44 = shuntingYard.sort(tokens4, calc);
+        Calculator calc = new Calculator();
+        calc.register("+", () -> new Plus());
+        calc.register("-", () -> new Minus());
+        calc.register("*", () -> new Multiplicate());
+        calc.register("/", () -> new Divide());
+        calc.register("sum", () -> new Sum());
+        calc.register("%", () -> new Module());
 
+        Tokenizer tokenizer = new Tokenizer();
+        ShuntingYard shuntingYard = new ShuntingYard();
 
-    float result1 = calc.eval(tokens1);
-    float result2 = calc.eval(tokens2);
-    float result3 = calc.eval(tokens3);
-    float result4 = calc.eval(tokens44);
+        String[] testArray = {
+                "sum()",
+                "sum(42)",
+                "-2.5 + sum(5.5, -1.5) * -2",
+                "sum(10, sum(20, sum(30, 40)), 50)"
+        };
 
-    boolean check1 = (result1 == (4 + 1) * 5);
-    boolean check2 = (result2 == (6 + 8) % 3);
-    boolean check3 = (result3 == 1 + 2 + 3 + 4 + 5 + 6);
-    boolean check4 = (result4 == (1 + 4) / 5 + 9 % 2);
+        float[] expectedResults = {
+                0.0f,
+                42.0f,
+                -2.5f + (5.5f + -1.5f) * -2f,
+                10f + (20f + (30f + 40f)) + 50f
+        };
 
-    System.out.println("result 1: " + result1 + " " + check1);
-    System.out.println("result 2: " + result2 + " " + check2);
-    System.out.println("result 3: " + result3 + " " + check3);    
-    System.out.println("result 4: " + result4 + " " + check4);
+        for (int i = 0; i < testArray.length; i++) {
+            String expr = testArray[i];
+            int testNum = i + 1;
 
-    System.out.println("End =======================");
+            List<Token> rawTokens = tokenizer.tokenize(expr);
+            // printTokens("Тест " + testNum + " [Сырые] -> " + expr, rawTokens);
+
+            List<Token> sortedTokens = shuntingYard.sort(rawTokens, calc);
+            // printTokens("Тест " + testNum + " [После Сортировки]", sortedTokens);
+
+            float result = calc.eval(sortedTokens);
+            boolean isCorrect = (result == expectedResults[i]);
+
+            System.out.println("Результат " + testNum + ": " + result + " | " + isCorrect);
+        }
+
+        System.out.println("End =======================");
+    }
+
+    public static void printTokens(String label, List<Token> tokens) {
+        System.out.println("\n=== Токены [" + label + "] ===");
+        if (tokens == null || tokens.isEmpty()) {
+            System.out.println("  Список токенов пуст.");
+            return;
+        }
+
+        for (int i = 0; i < tokens.size(); i++) {
+            Token token = tokens.get(i);
+            String typeName = token.getClass().getSimpleName();
+            String info = "";
+
+            if (token instanceof tokens.NumberToken num) {
+                info = "Значение: " + num.getNumber();
+            } else if (token instanceof tokens.OperandToken op) {
+                info = "Оператор: '" + op.getOperand() + "', Арность: " + op.getArity();
+            } else if (token instanceof tokens.BracketToken bracket) {
+                info = bracket.isOpen() ? "Открывающая скобка '('" : "Закрывающая скобка ')'";
+            } else if (token instanceof tokens.CommaToken) {
+                info = "Запятая ','";
+            } else {
+                info = token.toString();
+            }
+
+            System.out.printf("  [%d] %-15s -> %s\n", i + 1, typeName, info);
+        }
+        System.out.println("=================================");
     }
 }
