@@ -6,6 +6,7 @@ import app.Tokenizer;
 import operators.Divide;
 import operators.Minus;
 import operators.Multiplicate;
+import operators.Module;
 import operators.Plus;
 import operators.Sum;
 import tokens.Token;

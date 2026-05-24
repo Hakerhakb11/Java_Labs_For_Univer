@@ -23,8 +23,7 @@ public class Tokenizer {
                 continue;
             }
 
-            if (Character.isDigit(ch)
-                    || (ch == '-' && i + 1 < string.length() && Character.isDigit(string.charAt(i + 1)))) {
+            if (Character.isDigit(ch) || (ch == '-' && i + 1 < string.length() && Character.isDigit(string.charAt(i + 1)))) {
                 StringBuilder numberBuild = new StringBuilder();
                 boolean havePoint = false;
                 numberBuild.append(ch);
